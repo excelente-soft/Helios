@@ -2,33 +2,33 @@
 . "$(dirname "$0")/_/husky.sh"
 
 
-echo '👷 Testing and building project before committing... 👷'
-npm run husky:check-lint ||
+echo '👷👷👷 Testing and building project before committing... 👷👷👷'
+yarn husky:check-lint ||
 (
-        echo '😤 ESLint Check Failed! 😤 
+        echo '😤😤 ESLint Check Failed! 😤😤 
                 ESLint Check Failed. Make the required changes listed above, add changes and try to commit again.'
         false; 
 )
 
-npm run husky:check-format ||
+yarn husky:check-format ||
 (
-    echo '🤢 Styling Check Failed! 🤢
+    echo '🤢🤢 Styling Check Failed! 🤢🤢
             Prettier Check Failed. Run npm run format, add changes and try commit again.';
     false;
 )
 
-npm run husky:check-types ||
+yarn husky:check-types ||
 (
-    echo '❌ Failed Type check! ❌
+    echo '❌❌ Failed Type check! ❌❌
             Incorrect Types. Make the changes required above.'
     false;
 )
 
-echo '🤔... Alright... Code looks good... Trying to build now. 🤔'
+echo '🤔🤔🤔 Code looks good... Trying to build now. 🤔🤔🤔'
 
-npm run build ||
+yarn build ||
 (
-    echo '👷 Build Failed! 👷
+    echo '👷👷 Build Failed! 👷👷
             Next build failed: View the errors above to see why. 
     '
     false;
