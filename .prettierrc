@@ -3,5 +3,6 @@
   "printWidth": 120,
   "semi": false,
   "singleQuote": true,
-  "useTabs": false
+  "useTabs": false,
+  "endOfLine": "crlf"
 }
