@@ -1,0 +1,10 @@
+.pageContainer {
+  position: relative;
+  padding: 0 100px;
+}
+
+@media screen and (max-width: 790px) {
+  .pageContainer {
+    padding: 0 20px;
+  }
+}

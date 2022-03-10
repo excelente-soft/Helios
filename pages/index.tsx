@@ -1,8 +1,8 @@
 import type { NextPage } from 'next'
-import styles from '../styles/Home.module.scss'
+import { Layout } from '../components/Layout/Layout'
 
 const Home: NextPage = () => {
-  return <div className={styles.container}>project setup - deploy</div>
+  return <Layout></Layout>
 }
 
 export default Home
