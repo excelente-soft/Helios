@@ -1,4 +1,4 @@
-import { Logo } from 'components/Logo/Logo'
+import { Logo } from '../Logo/Logo'
 
 import S from './Header.module.scss'
 import CS from '@/globalStyles/common.module.scss'
