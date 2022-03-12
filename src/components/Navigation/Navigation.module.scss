@@ -1,0 +1,21 @@
+@import '@/globalStyles/variables.module.scss';
+
+.routesList {
+  display: flex;
+  gap: 0.875rem;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+.routeLink {
+  display: block;
+  color: $secondary-color;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: color 0.15s ease-in-out;
+
+  &:hover {
+    color: $primary-color;
+  }
+}

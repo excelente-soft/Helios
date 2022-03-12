@@ -3,21 +3,23 @@
 .logoContainer {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 0.625rem;
 }
+
+@import '@/globalStyles/variables.module.scss';
 
 .logoImage {
   display: block;
-  height: 35px;
-  width: 35px;
+  height: 2.188rem;
+  width: 2.188rem;
   background-image: url('../../../public/images/logo.svg');
   background-repeat: no-repeat;
   background-position: center center;
-  background-size: cover;
+  background-size: contain;
 }
 
 .siteName {
   margin: 0;
   font-size: 1.65rem;
-  color: rgb(17, 17, 17);
+  color: $secondary-color;
 }

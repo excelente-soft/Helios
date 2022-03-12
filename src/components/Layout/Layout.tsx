@@ -1,8 +1,16 @@
+import Head from 'next/head'
 import { Header } from '../Header/Header'
 
-export const Layout: React.FC = ({ children }) => {
+interface ILayoutProps {
+  title: string
+}
+
+export const Layout: React.FC<ILayoutProps> = ({ children, title }) => {
   return (
     <>
+      <Head>
+        <title>{title}</title>
+      </Head>
       <Header />
       {children}
     </>
