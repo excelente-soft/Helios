@@ -1,5 +1,6 @@
 import S from './Entry.module.scss'
 import CS from '@/globalStyles/common.module.scss'
+import Link from 'next/link'
 
 interface IEntryProps {
   type?: 'signup' | 'login'
@@ -10,8 +11,16 @@ export const Entry: React.VFC<IEntryProps> = ({ type }) => {
   const showLoginControl = !type || type === 'login'
   return (
     <>
-      {showSignUpControl && <button className={`${S.entryControl} ${CS.btnPrimary}`}>Sign up</button>}
-      {showLoginControl && <button className={`${S.entryControl} ${CS.btnSecondary}`}>Log in</button>}
+      {showSignUpControl && (
+        <Link href="/">
+          <a className={`${S.entryControl} ${CS.btnPrimary}`}>Sign up</a>
+        </Link>
+      )}
+      {showLoginControl && (
+        <Link href="/">
+          <a className={`${S.entryControl} ${CS.btnSecondary}`}>Log in</a>
+        </Link>
+      )}
     </>
   )
 }

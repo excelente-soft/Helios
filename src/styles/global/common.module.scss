@@ -1,7 +1,9 @@
 @import '@/globalStyles/variables.module.scss';
 
 @mixin btn {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-weight: 700;
   outline: none;
   cursor: pointer;
@@ -31,11 +33,11 @@
   color: #fff;
 
   &:hover {
-    background-color: #5131f3;
+    background-color: rgb(81, 49, 243);
   }
 
   &:active {
-    background-color: #380ee0;
+    background-color: rgb(56, 14, 224);
   }
 }
 
@@ -48,10 +50,10 @@
   color: $primary-color;
 
   &:hover {
-    background-color: #ededed;
+    background-color: rgb(0 0 0 / 7%);
   }
 
   &:active {
-    background-color: #f0f0f0;
+    background-color: rgb(0 0 0 / 3%);
   }
 }
