@@ -1,23 +1,23 @@
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+
 import S from './Entry.module.scss'
 import CS from '@/globalStyles/common.module.scss'
-import Link from 'next/link'
 
-interface IEntryProps {
-  type?: 'signup' | 'login'
-}
-
-export const Entry: React.VFC<IEntryProps> = ({ type }) => {
-  const showSignUpControl = !type || type === 'signup'
-  const showLoginControl = !type || type === 'login'
+export const Entry = () => {
+  const router = useRouter()
+  const { pathname } = router
+  const showSignUpControl = pathname !== '/signup'
+  const showLoginControl = pathname !== '/login'
   return (
     <>
       {showSignUpControl && (
-        <Link href="/">
+        <Link href="/signup">
           <a className={`${S.entryControl} ${CS.btnPrimary}`}>Sign up</a>
         </Link>
       )}
       {showLoginControl && (
-        <Link href="/">
+        <Link href="/login">
           <a className={`${S.entryControl} ${CS.btnSecondary}`}>Log in</a>
         </Link>
       )}

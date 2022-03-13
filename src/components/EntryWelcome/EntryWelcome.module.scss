@@ -1,0 +1,58 @@
+@import '@/globalStyles/variables.module.scss';
+
+.welcome {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1.5rem;
+  background-image: url('../../../public/images/dot.svg');
+  background-repeat: repeat;
+  background-size: 14px;
+}
+
+.title {
+  font-size: 3rem;
+  color: $secondary-color;
+  word-break: break-word;
+  background-color: $neutral-color;
+  margin: 0 0 1rem;
+  padding: 1rem;
+}
+
+.subtitle {
+  font-size: 1.5rem;
+  color: $secondary-color;
+  word-break: break-word;
+  background-color: $neutral-color;
+  margin: 0 0 3rem;
+  padding: 0.625rem;
+}
+
+.peopleList {
+  display: flex;
+  justify-content: space-around;
+  gap: 0.5rem;
+  width: 100%;
+  margin: 0;
+  padding: 0 1rem;
+}
+
+.people:nth-child(even) {
+  transform: translateY(5rem);
+  border-radius: 100%;
+}
+
+.people {
+  display: block;
+  border: 1px solid $secondary-color;
+  user-select: none;
+  padding: 1.625rem;
+  background-color: rgba(255, 255, 255, 0.85);
+}
+
+@media screen and (max-width: 790px) {
+  .welcome {
+    display: none;
+  }
+}

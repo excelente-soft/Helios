@@ -7,7 +7,7 @@ export const Navigation = () => {
     <nav>
       <ul className={S.routesList}>
         <li>
-          <Link href="/">
+          <Link href="/404">
             <a className={S.routeLink}>Home</a>
           </Link>
         </li>
