@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { Layout } from 'src/components/Layout/Layout'
 
 import S from '../styles/Custom404.module.scss'
-import CS from '@/globalStyles/common.module.scss'
+import CS from '@common.module.scss'
 
 const Custom404 = () => {
   return (

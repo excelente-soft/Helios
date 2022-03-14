@@ -1,0 +1,31 @@
+@mixin keyboardOutline {
+  &:focus-visible {
+    outline-offset: 1px;
+    outline: 2px dotted $primary-color;
+  }
+}
+
+@mixin btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  outline: none;
+  cursor: pointer;
+  margin: 0;
+  padding: 0 0.625rem;
+  transition: all 0.15s ease-in-out;
+  border-radius: 5px;
+}
+
+@mixin tablet() {
+  @media (max-width: 790px) {
+    @content;
+  }
+}
+
+@mixin mobile() {
+  @media (max-width: 490px) {
+    @content;
+  }
+}

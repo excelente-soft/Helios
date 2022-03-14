@@ -1,3 +1,6 @@
+@import '@variables';
+@import '@mixins';
+
 .container {
   height: calc(100vh - 5rem);
   margin-top: 5rem;
@@ -5,8 +8,44 @@
   grid-template-columns: 1.15fr 1fr;
 }
 
-@media screen and (max-width: 790px) {
+@include tablet() {
   .container {
     grid-template-columns: 1fr;
   }
+}
+
+.centered {
+  align-items: center;
+  width: 100%;
+  display: flex;
+}
+
+.content {
+  width: 100%;
+  margin: 0 3rem;
+}
+
+.login {
+  margin: 0 0 1.625rem;
+  color: $secondary-color;
+  font-size: 2rem;
+  text-align: center;
+}
+
+.formLink {
+  display: block;
+  margin-bottom: 1.5rem;
+}
+
+.formField {
+  margin-bottom: 1.5rem;
+}
+
+.submit {
+  width: 6.875rem;
+  height: 2.188rem;
+}
+
+.notMember {
+  margin: 1.5rem 0 0;
 }

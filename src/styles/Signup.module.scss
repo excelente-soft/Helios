@@ -1,3 +1,6 @@
+@import '@variables';
+@import '@mixins';
+
 .container {
   height: calc(100vh - 5rem);
   margin-top: 5rem;
@@ -5,7 +8,7 @@
   grid-template-columns: 1.15fr 1fr;
 }
 
-@media screen and (max-width: 790px) {
+@include tablet() {
   .container {
     grid-template-columns: 1fr;
   }

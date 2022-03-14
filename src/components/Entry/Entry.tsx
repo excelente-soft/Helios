@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 import S from './Entry.module.scss'
-import CS from '@/globalStyles/common.module.scss'
+import CS from '@common.module.scss'
 
 export const Entry = () => {
   const router = useRouter()

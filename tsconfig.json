@@ -2,8 +2,10 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
+      "@variables": ["src/styles/global/variables.scss"],
+      "@mixins": ["src/styles/global/mixins.scss"],
+      "@common.module.scss": ["src/styles/global/common.module.scss"],
       "@/utils/*": ["src/utils/*"],
-      "@/globalStyles/*": ["src/styles/global/*"],
       "@/images/*": ["public/images/*"]
     },
     "target": "es5",

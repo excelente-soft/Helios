@@ -1,12 +1,11 @@
-@import '@/globalStyles/variables.module.scss';
+@import '@variables';
+@import '@mixins';
 
 .logoContainer {
   display: flex;
   align-items: center;
   gap: 0.625rem;
 }
-
-@import '@/globalStyles/variables.module.scss';
 
 .logoImage {
   display: block;
@@ -22,4 +21,10 @@
   margin: 0;
   font-size: 1.65rem;
   color: $secondary-color;
+}
+
+@include mobile {
+  .siteName {
+    display: none;
+  }
 }
