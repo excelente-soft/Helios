@@ -13,3 +13,18 @@
     grid-template-columns: 1fr;
   }
 }
+
+.profile {
+  display: flex;
+  gap: 1rem;
+}
+
+.submit {
+  width: 6.875rem;
+  height: 2.188rem;
+}
+
+.member {
+  color: $secondary-color;
+  margin: 1.5rem 0 0;
+}

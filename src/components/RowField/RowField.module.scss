@@ -1,0 +1,16 @@
+@import '@variables';
+
+.fieldRow {
+  margin-bottom: 1.5rem;
+  position: relative;
+  width: 100%;
+}
+
+.errorField {
+  display: block;
+  position: absolute;
+  left: 0;
+  bottom: auto;
+  font-size: 0.875rem;
+  color: $error-color;
+}

@@ -1,9 +1,11 @@
-$primary-color: #3a10e5;
-$secondary-color: #10162f;
-$neutral-color: #fbede3;
+$primary-color: rgb(58, 16, 229);
+$secondary-color: rgb(20, 27, 58);
+$neutral-color: rgb(251, 237, 227);
+$error-color: rgb(195, 25, 9);
 
 :export {
   primaryColor: $primary-color;
   secondaryColor: $secondary-color;
   neutralColor: $neutral-color;
+  errorColor: $error-color;
 }

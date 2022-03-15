@@ -1,0 +1,20 @@
+@import '@mixins';
+@import '@variables';
+
+.centered {
+  align-items: center;
+  width: 100%;
+  display: flex;
+}
+
+.content {
+  width: 100%;
+  margin: 0 3rem;
+}
+
+.entryTitle {
+  margin: 0 0 1.625rem;
+  color: $secondary-color;
+  font-size: 2rem;
+  text-align: center;
+}

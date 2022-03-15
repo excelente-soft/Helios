@@ -14,38 +14,16 @@
   }
 }
 
-.centered {
-  align-items: center;
-  width: 100%;
-  display: flex;
-}
-
-.content {
-  width: 100%;
-  margin: 0 3rem;
-}
-
-.login {
-  margin: 0 0 1.625rem;
-  color: $secondary-color;
-  font-size: 2rem;
-  text-align: center;
-}
-
-.formLink {
-  display: block;
-  margin-bottom: 1.5rem;
-}
-
-.formField {
-  margin-bottom: 1.5rem;
-}
-
 .submit {
   width: 6.875rem;
   height: 2.188rem;
 }
 
+.forgot {
+  margin-bottom: 1.5rem;
+}
+
 .notMember {
+  color: $secondary-color;
   margin: 1.5rem 0 0;
 }
