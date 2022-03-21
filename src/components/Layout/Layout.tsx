@@ -1,5 +1,6 @@
 import Head from 'next/head'
-import { Header } from '../Header/Header'
+
+import { Header } from '@components/Header/Header'
 
 interface ILayoutProps {
   title: string

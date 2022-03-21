@@ -4,5 +4,8 @@
   "semi": false,
   "singleQuote": true,
   "useTabs": false,
-  "endOfLine": "crlf"
+  "endOfLine": "crlf",
+  "importOrder": ["^[a-zA-Z]|(@redux)", "^@(compo|uti|int|hook|stor)", "^(@common.module.scss)|(.)$"],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true
 }

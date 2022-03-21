@@ -1,10 +1,12 @@
-import { EntryControl } from 'src/components/EntryControl/EntryControl'
-import { EntryWelcome } from 'src/components/EntryWelcome/EntryWelcome'
-import { Layout } from 'src/components/Layout/Layout'
-import Link from 'next/link'
 import { Form, Formik } from 'formik'
-import { SigniupSchema } from '@/utils/YupSchemas'
-import { RowField } from 'src/components/RowField/RowField'
+import Link from 'next/link'
+
+import { EntryControl } from '@components/EntryControl/EntryControl'
+import { EntryWelcome } from '@components/EntryWelcome/EntryWelcome'
+import { Layout } from '@components/Layout/Layout'
+import { RowField } from '@components/RowField/RowField'
+import { IUserSignup } from '@interfaces/IUser'
+import { SigniupSchema } from '@utils/yupSchemas'
 
 import S from '../styles/Signup.module.scss'
 import CS from '@common.module.scss'
@@ -19,7 +21,7 @@ const Signup = () => {
     passwordConfirm: '',
   }
 
-  const signupSubmit = (values: typeof initialValues) => {
+  const signupSubmit = (values: IUserSignup) => {
     alert(JSON.stringify(values, null, 2))
   }
 

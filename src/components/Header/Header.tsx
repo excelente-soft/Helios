@@ -1,6 +1,6 @@
-import { Logo } from '../Logo/Logo'
-import { Navigation } from '../Navigation/Navigation'
-import { Entry } from '../Entry/Entry'
+import { Entry } from '@components/Entry/Entry'
+import { Logo } from '@components/Logo/Logo'
+import { Navigation } from '@components/Navigation/Navigation'
 
 import S from './Header.module.scss'
 import CS from '@common.module.scss'

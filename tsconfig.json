@@ -5,8 +5,12 @@
       "@variables": ["src/styles/global/variables.scss"],
       "@mixins": ["src/styles/global/mixins.scss"],
       "@common.module.scss": ["src/styles/global/common.module.scss"],
-      "@/utils/*": ["src/utils/*"],
-      "@/images/*": ["public/images/*"]
+      "@utils/*": ["src/utils/*"],
+      "@images/*": ["public/images/*"],
+      "@components/*": ["src/components/*"],
+      "@store/*": ["src/store/*"],
+      "@interfaces/*": ["src/interfaces/*"],
+      "@hooks/*": ["src/hooks/*"]
     },
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],

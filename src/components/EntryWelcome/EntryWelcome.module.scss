@@ -45,7 +45,9 @@
 }
 
 .people {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border: 1px solid $secondary-color;
   user-select: none;
   padding: 1.625rem;

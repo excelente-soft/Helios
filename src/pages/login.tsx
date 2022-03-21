@@ -1,22 +1,40 @@
-import Link from 'next/link'
-import { EntryWelcome } from 'src/components/EntryWelcome/EntryWelcome'
-import { Layout } from 'src/components/Layout/Layout'
-import { EntryControl } from 'src/components/EntryControl/EntryControl'
 import { Form, Formik } from 'formik'
-import { LoginSchema } from '@/utils/YupSchemas'
-import { RowField } from 'src/components/RowField/RowField'
+import Link from 'next/link'
+import { useState } from 'react'
+
+import { EntryControl } from '@components/EntryControl/EntryControl'
+import { EntryWelcome } from '@components/EntryWelcome/EntryWelcome'
+import { Layout } from '@components/Layout/Layout'
+import { RowField } from '@components/RowField/RowField'
+import { useAppDispatch } from '@hooks/app'
+import { useAuth } from '@hooks/useAuth'
+import { useUser } from '@hooks/useUser'
+import { IUserCredentials } from '@interfaces/IUser'
+import { setUser } from '@store/user/userSlice'
+import { LoginSchema } from '@utils/yupSchemas'
 
 import S from '../styles/Login.module.scss'
 import CS from '@common.module.scss'
 
 const Login = () => {
-  const initialValues = {
+  const dispatch = useAppDispatch()
+  const { login } = useAuth()
+  const { saveToStorage } = useUser()
+  const [errorFromServer, setErrorFromServer] = useState('')
+
+  const initialValues: IUserCredentials = {
     login: '',
     password: '',
   }
 
-  const loginSubmit = (values: typeof initialValues) => {
-    alert(JSON.stringify(values, null, 2))
+  const loginSubmit = async (formData: IUserCredentials) => {
+    const requestResult = await login(formData)
+    if (requestResult.data) {
+      dispatch(setUser(requestResult.data))
+      saveToStorage(requestResult.data)
+    } else if (requestResult.message) {
+      setErrorFromServer(requestResult.message)
+    }
   }
 
   return (
@@ -29,8 +47,8 @@ const Login = () => {
               <Form>
                 <RowField
                   id="field[login]"
-                  label="Email or username"
-                  placeholder="Enter your email or username"
+                  label="Email or nickname"
+                  placeholder="Enter your email or nickname"
                   name="login"
                   error={errors.login}
                   touched={touched.login}
@@ -44,6 +62,7 @@ const Login = () => {
                   touched={touched.password}
                   type="password"
                 />
+                {errorFromServer && <span className={S.serverError}>{errorFromServer}</span>}
                 <div className={S.forgot}>
                   <Link href="/404">
                     <a className={CS.link}>I forgot my password</a>

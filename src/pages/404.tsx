@@ -1,5 +1,6 @@
 import Link from 'next/link'
-import { Layout } from 'src/components/Layout/Layout'
+
+import { Layout } from '@components/Layout/Layout'
 
 import S from '../styles/Custom404.module.scss'
 import CS from '@common.module.scss'
