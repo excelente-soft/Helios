@@ -1,19 +1,19 @@
 import Head from 'next/head'
 
 import { Header } from '@components/Header/Header'
+import { SITE_NAME } from '@constants'
+import { ILayoutProps } from '@interfaces/ILayout'
 
-interface ILayoutProps {
-  title: string
-}
+import S from './Layout.module.scss'
 
 export const Layout: React.FC<ILayoutProps> = ({ children, title }) => {
   return (
     <>
       <Head>
-        <title>{title}</title>
+        <title>{`${SITE_NAME} | ${title}`}</title>
       </Head>
       <Header />
-      {children}
+      <div className={S.withoutMargin}>{children}</div>
     </>
   )
 }

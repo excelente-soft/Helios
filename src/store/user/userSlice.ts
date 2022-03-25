@@ -1,16 +1,16 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
-import { IUserLogin } from '@interfaces/IUser'
+import { IUser } from '@interfaces/IUser'
 
-export type UserState = IUserLogin | null
+export type UserState = IUser | null
 
-const initialState: IUserLogin | null = null as UserState
+const initialState: IUser | null = null as UserState
 
 export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    setUser: (state, action: PayloadAction<IUserLogin>) => {
+    setUser: (_, action: PayloadAction<IUser | null>) => {
       return action.payload
     },
   },

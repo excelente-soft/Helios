@@ -1,5 +1,6 @@
 import Link from 'next/link'
-import { SITE_NAME } from 'src/constants'
+
+import { SITE_NAME } from '@constants'
 
 import S from './Logo.module.scss'
 

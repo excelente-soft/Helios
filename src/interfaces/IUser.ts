@@ -1,3 +1,5 @@
+import { IRole } from '@interfaces/IRole'
+
 export interface IUserCredentials {
   login: string
   password: string
@@ -17,7 +19,9 @@ export interface IUser {
   secondName: string
   nickname: string
   email: string
+  avatar: string
   token: string
+  role: IRole
 }
 
 export interface IUserLogin {

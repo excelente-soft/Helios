@@ -1,10 +1,13 @@
 import { Form, Formik } from 'formik'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { useState } from 'react'
 
 import { EntryControl } from '@components/EntryControl/EntryControl'
 import { EntryWelcome } from '@components/EntryWelcome/EntryWelcome'
-import { Layout } from '@components/Layout/Layout'
+import { PublicLayout } from '@components/PublicLayout/PublicLayout'
 import { RowField } from '@components/RowField/RowField'
+import { useAuth } from '@hooks/useAuth'
 import { IUserSignup } from '@interfaces/IUser'
 import { SigniupSchema } from '@utils/yupSchemas'
 
@@ -12,6 +15,10 @@ import S from '../styles/Signup.module.scss'
 import CS from '@common.module.scss'
 
 const Signup = () => {
+  const { signup } = useAuth()
+  const router = useRouter()
+  const [errorFromServer, setErrorFromServer] = useState('')
+
   const initialValues = {
     name: '',
     secondName: '',
@@ -21,12 +28,17 @@ const Signup = () => {
     passwordConfirm: '',
   }
 
-  const signupSubmit = (values: IUserSignup) => {
-    alert(JSON.stringify(values, null, 2))
+  const signupSubmit = async (formData: IUserSignup) => {
+    const signupResult = await signup(formData)
+    if (!signupResult.message) {
+      router.push('/')
+    } else {
+      setErrorFromServer(signupResult.message)
+    }
   }
 
   return (
-    <Layout title="Helios | Sign up">
+    <PublicLayout title="Sign up">
       <div className={S.container}>
         <EntryWelcome title="Join to our community!" subtitle="Level up your programming skills with us" />
         <EntryControl title="Sign up for FREE!">
@@ -83,6 +95,7 @@ const Signup = () => {
                   error={errors.passwordConfirm}
                   touched={touched.passwordConfirm}
                 />
+                {errorFromServer && <span className={S.serverError}>{errorFromServer}</span>}
                 <button type="submit" className={`${CS.btnPrimary} ${S.submit}`}>
                   Sign up
                 </button>
@@ -97,7 +110,7 @@ const Signup = () => {
           </Formik>
         </EntryControl>
       </div>
-    </Layout>
+    </PublicLayout>
   )
 }
 

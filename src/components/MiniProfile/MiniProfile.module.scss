@@ -1,0 +1,103 @@
+@import '@mixins';
+@import '@variables';
+
+.miniProfileContainer {
+  position: relative;
+}
+
+.openMenuBtn {
+  @include btn;
+
+  border: none;
+  background-color: transparent;
+  gap: 0.625rem;
+  padding: 0 0.5rem;
+}
+
+.avatar {
+  border-radius: 100%;
+}
+
+.burger {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: column;
+  height: 2.188rem;
+  padding: 0.25rem 0;
+}
+
+.dot {
+  display: block;
+  width: 0.25rem;
+  height: 0.25rem;
+  border-radius: 50%;
+  background-color: $secondary-color;
+}
+
+.menu {
+  position: absolute;
+  margin: 0;
+  top: 2.5rem;
+  right: 1rem;
+  padding: 1.125rem 1.625rem;
+  background-color: #fff;
+  border: 1px solid $secondary-color;
+}
+
+.profile {
+  display: flex;
+  gap: 1.125rem;
+  margin-bottom: 0.938rem;
+}
+
+.fullname {
+  color: $secondary-color;
+  white-space: nowrap;
+  font-weight: 500;
+  margin: 0;
+  font-size: 1rem;
+}
+
+.nickname {
+  color: $secondary-color;
+  font-size: 0.875rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.roleName {
+  color: transparent;
+  font-size: 0.75rem;
+  font-weight: 400;
+  margin: 0;
+}
+
+.link {
+  display: block;
+  padding: 0.75rem 0.313rem;
+  color: $secondary-color;
+  font-size: 1.05rem;
+  font-weight: 400;
+
+  &:hover {
+    color: $primary-color;
+  }
+}
+
+.logout {
+  display: block;
+  padding: 0.75rem 0.313rem;
+  color: #141b3a;
+  font-size: 1.05rem;
+  font-weight: 400;
+  width: 100%;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  text-align: left;
+
+  &:hover {
+    color: $primary-color;
+  }
+}

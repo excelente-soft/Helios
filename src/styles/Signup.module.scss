@@ -2,8 +2,7 @@
 @import '@mixins';
 
 .container {
-  height: calc(100vh - 5rem);
-  margin-top: 5rem;
+  height: 100%;
   display: grid;
   grid-template-columns: 1.15fr 1fr;
 }
@@ -27,4 +26,11 @@
 .member {
   color: $secondary-color;
   margin: 1.5rem 0 0;
+}
+
+.serverError {
+  display: block;
+  font-size: 1rem;
+  color: $error-color;
+  margin-bottom: 1.5rem;
 }

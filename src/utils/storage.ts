@@ -16,3 +16,13 @@ export const saveItemToStorage = <T>(key: string, value: T) => {
     return false
   }
 }
+
+export const removeItemFromStorage = (key: string) => {
+  try {
+    window.localStorage.removeItem(key)
+    return true
+  } catch (error) {
+    console.log(`Cannot remove an item from local storage`)
+    return false
+  }
+}

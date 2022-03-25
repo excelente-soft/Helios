@@ -1,25 +1,23 @@
 import { Form, Formik } from 'formik'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { useState } from 'react'
 
 import { EntryControl } from '@components/EntryControl/EntryControl'
 import { EntryWelcome } from '@components/EntryWelcome/EntryWelcome'
-import { Layout } from '@components/Layout/Layout'
+import { PublicLayout } from '@components/PublicLayout/PublicLayout'
 import { RowField } from '@components/RowField/RowField'
-import { useAppDispatch } from '@hooks/app'
+import { SITE_NAME } from '@constants'
 import { useAuth } from '@hooks/useAuth'
-import { useUser } from '@hooks/useUser'
 import { IUserCredentials } from '@interfaces/IUser'
-import { setUser } from '@store/user/userSlice'
 import { LoginSchema } from '@utils/yupSchemas'
 
 import S from '../styles/Login.module.scss'
 import CS from '@common.module.scss'
 
 const Login = () => {
-  const dispatch = useAppDispatch()
   const { login } = useAuth()
-  const { saveToStorage } = useUser()
+  const router = useRouter()
   const [errorFromServer, setErrorFromServer] = useState('')
 
   const initialValues: IUserCredentials = {
@@ -28,20 +26,19 @@ const Login = () => {
   }
 
   const loginSubmit = async (formData: IUserCredentials) => {
-    const requestResult = await login(formData)
-    if (requestResult.data) {
-      dispatch(setUser(requestResult.data))
-      saveToStorage(requestResult.data)
-    } else if (requestResult.message) {
-      setErrorFromServer(requestResult.message)
+    const loginResult = await login(formData)
+    if (!loginResult.message) {
+      router.push('/')
+    } else {
+      setErrorFromServer(loginResult.message)
     }
   }
 
   return (
-    <Layout title="Helios | Login">
+    <PublicLayout title="Login">
       <div className={S.container}>
         <EntryWelcome title="Welcome back!" subtitle="We were waiting for you❤️" />
-        <EntryControl title="Log in to Helios">
+        <EntryControl title={`Log in to ${SITE_NAME}`}>
           <Formik initialValues={initialValues} validationSchema={LoginSchema} onSubmit={loginSubmit}>
             {({ errors, touched }) => (
               <Form>
@@ -82,7 +79,7 @@ const Login = () => {
           </Formik>
         </EntryControl>
       </div>
-    </Layout>
+    </PublicLayout>
   )
 }
 

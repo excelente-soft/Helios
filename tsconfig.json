@@ -5,6 +5,7 @@
       "@variables": ["src/styles/global/variables.scss"],
       "@mixins": ["src/styles/global/mixins.scss"],
       "@common.module.scss": ["src/styles/global/common.module.scss"],
+      "@constants": ["src/constants.ts"],
       "@utils/*": ["src/utils/*"],
       "@images/*": ["public/images/*"],
       "@components/*": ["src/components/*"],

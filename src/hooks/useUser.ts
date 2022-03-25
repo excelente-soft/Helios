@@ -1,27 +1,68 @@
-import { useState } from 'react'
-
 import { useAppDispatch, useAppSelector } from '@hooks/app'
-import { IUserLogin } from '@interfaces/IUser'
+import { IUser, IUserLogin } from '@interfaces/IUser'
 import { setUser } from '@store/user/userSlice'
-import { getItemFromStorage, saveItemToStorage } from '@utils/storage'
+import { HeliosAPI } from '@utils/api'
+import { getItemFromStorage, removeItemFromStorage, saveItemToStorage } from '@utils/storage'
 
 export const useUser = () => {
   const user = useAppSelector(({ user }) => user)
   const dispatch = useAppDispatch()
-  const [loading, setLoading] = useState(true)
 
-  const restoreFromStorage = () => {
-    console.log('User data was restored from storage')
-    const userFromStorage = getItemFromStorage<IUserLogin>('user')
-    if (userFromStorage) {
-      dispatch(setUser(userFromStorage))
+  const refresh = async (refreshToken: string) => {
+    const response = await HeliosAPI.postRequest<IUserLogin, { refreshToken: string }>('/refresh', {
+      refreshToken,
+    })
+    if (response.data) {
+      saveToStorage(response.data.user)
+      saveRefreshTokenToStorage(response.data.refreshToken)
+      dispatch(setUser(response.data.user))
     }
-    setLoading(false)
+    return response
   }
 
-  const saveToStorage = (userData: IUserLogin) => {
-    saveItemToStorage<IUserLogin>('user', userData)
+  const restoreFromStorage = async () => {
+    const userFromStorage = getItemFromStorage<IUser>('user')
+    if (userFromStorage) {
+      const validatedUser = await validate(userFromStorage)
+      if (validatedUser) {
+        dispatch(setUser(userFromStorage))
+      }
+    }
+
+    console.log('~ User data was restored from storage ~')
   }
 
-  return { user, loading, restoreFromStorage, saveToStorage }
+  const validate = async (probUser?: IUser | null) => {
+    const userToValidate = probUser ? probUser : user
+    if (userToValidate) {
+      const responseFromServer = await HeliosAPI.postRequest<boolean, object>('/validate', {}, userToValidate.token)
+      console.log(responseFromServer.data)
+      if (!responseFromServer.data) {
+        const refreshToken = getItemFromStorage<string>('refreshToken') || ''
+        const refreshResponseFromServer = await refresh(refreshToken)
+        if (!refreshResponseFromServer.data) {
+          clear()
+        }
+      }
+      return userToValidate
+    }
+
+    return null
+  }
+
+  const saveToStorage = (userData: IUser) => {
+    saveItemToStorage<IUser>('user', userData)
+  }
+
+  const clear = () => {
+    dispatch(setUser(null))
+    removeItemFromStorage('user')
+    removeItemFromStorage('refreshToken')
+  }
+
+  const saveRefreshTokenToStorage = (refreshToken: string) => {
+    saveItemToStorage<string>('refreshToken', refreshToken)
+  }
+
+  return { user, restoreFromStorage, validate, saveRefreshTokenToStorage, saveToStorage, clear }
 }

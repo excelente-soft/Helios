@@ -7,7 +7,7 @@ import CS from '@common.module.scss'
 
 const Custom404 = () => {
   return (
-    <Layout title="404 | This page could not be found.">
+    <Layout title="This page could not be found.">
       <div className={S.errorContainer}>
         <h2 className={S.status}>404</h2>
         <p className={S.description}>This page could not be found.</p>
