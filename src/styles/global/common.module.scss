@@ -99,3 +99,18 @@
     border-bottom: 1px solid $primary-color;
   }
 }
+
+.pageTitle {
+  color: $secondary-color;
+  font-weight: 700;
+  font-size: 2.125rem;
+  margin: 0;
+  padding: 2rem 0;
+}
+
+.subtitle {
+  font-size: 1.5rem;
+  color: $secondary-color;
+  font-weight: 500;
+  margin: 0 0 1.25rem;
+}

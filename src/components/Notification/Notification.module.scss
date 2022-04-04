@@ -1,0 +1,15 @@
+@import '@variables';
+
+.operationError {
+  display: block;
+  color: $error-color;
+  font-size: 1rem;
+  margin: 1rem 0;
+}
+
+.operationSuccess {
+  display: block;
+  color: $success-color;
+  font-size: 1rem;
+  margin: 1rem 0;
+}

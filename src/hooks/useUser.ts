@@ -1,27 +1,30 @@
+import { STORAGE_REFRESH_TOKEN, STORAGE_USER } from '@constants'
 import { useAppDispatch, useAppSelector } from '@hooks/app'
+import { useClear } from '@hooks/useClear'
 import { IUser, IUserLogin } from '@interfaces/IUser'
 import { setUser } from '@store/user/userSlice'
 import { HeliosAPI } from '@utils/api'
-import { getItemFromStorage, removeItemFromStorage, saveItemToStorage } from '@utils/storage'
+import { getItemFromStorage, saveItemToStorage } from '@utils/storage'
 
 export const useUser = () => {
   const user = useAppSelector(({ user }) => user)
   const dispatch = useAppDispatch()
+  const { clearUser } = useClear()
 
   const refresh = async (refreshToken: string) => {
     const response = await HeliosAPI.postRequest<IUserLogin, { refreshToken: string }>('/refresh', {
       refreshToken,
     })
     if (response.data) {
-      saveToStorage(response.data.user)
-      saveRefreshTokenToStorage(response.data.refreshToken)
+      saveItemToStorage<IUser>(STORAGE_USER, response.data.user)
+      saveItemToStorage<string>(STORAGE_REFRESH_TOKEN, response.data.refreshToken)
       dispatch(setUser(response.data.user))
     }
     return response
   }
 
   const restoreFromStorage = async () => {
-    const userFromStorage = getItemFromStorage<IUser>('user')
+    const userFromStorage = getItemFromStorage<IUser>(STORAGE_USER)
     if (userFromStorage) {
       const validatedUser = await validate(userFromStorage)
       if (validatedUser) {
@@ -36,12 +39,11 @@ export const useUser = () => {
     const userToValidate = probUser ? probUser : user
     if (userToValidate) {
       const responseFromServer = await HeliosAPI.postRequest<boolean, object>('/validate', {}, userToValidate.token)
-      console.log(responseFromServer.data)
       if (!responseFromServer.data) {
-        const refreshToken = getItemFromStorage<string>('refreshToken') || ''
+        const refreshToken = getItemFromStorage<string>(STORAGE_REFRESH_TOKEN) || ''
         const refreshResponseFromServer = await refresh(refreshToken)
         if (!refreshResponseFromServer.data) {
-          clear()
+          clearUser()
         }
       }
       return userToValidate
@@ -50,19 +52,5 @@ export const useUser = () => {
     return null
   }
 
-  const saveToStorage = (userData: IUser) => {
-    saveItemToStorage<IUser>('user', userData)
-  }
-
-  const clear = () => {
-    dispatch(setUser(null))
-    removeItemFromStorage('user')
-    removeItemFromStorage('refreshToken')
-  }
-
-  const saveRefreshTokenToStorage = (refreshToken: string) => {
-    saveItemToStorage<string>('refreshToken', refreshToken)
-  }
-
-  return { user, restoreFromStorage, validate, saveRefreshTokenToStorage, saveToStorage, clear }
+  return { user, restoreFromStorage, validate }
 }

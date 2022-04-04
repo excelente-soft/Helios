@@ -27,6 +27,13 @@ export const ProtectedLayout: React.FC<IProtectedLayoutProps> = ({ children, tit
     }
 
     validateUser()
+  }, [])
+
+  useEffect(() => {
+    if (!user) {
+      console.log('TRIGGER EXIT')
+      router.push('/')
+    }
   }, [user])
 
   return (

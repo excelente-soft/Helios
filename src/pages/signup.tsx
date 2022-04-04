@@ -5,6 +5,7 @@ import { useState } from 'react'
 
 import { EntryControl } from '@components/EntryControl/EntryControl'
 import { EntryWelcome } from '@components/EntryWelcome/EntryWelcome'
+import { Notification } from '@components/Notification/Notification'
 import { PublicLayout } from '@components/PublicLayout/PublicLayout'
 import { RowField } from '@components/RowField/RowField'
 import { useAuth } from '@hooks/useAuth'
@@ -17,7 +18,7 @@ import CS from '@common.module.scss'
 const Signup = () => {
   const { signup } = useAuth()
   const router = useRouter()
-  const [errorFromServer, setErrorFromServer] = useState('')
+  const [answerFromServer, setAnswerFromServer] = useState({ message: '', isError: false })
 
   const initialValues = {
     name: '',
@@ -33,7 +34,7 @@ const Signup = () => {
     if (!signupResult.message) {
       router.push('/')
     } else {
-      setErrorFromServer(signupResult.message)
+      setAnswerFromServer({ message: signupResult.message, isError: true })
     }
   }
 
@@ -95,7 +96,7 @@ const Signup = () => {
                   error={errors.passwordConfirm}
                   touched={touched.passwordConfirm}
                 />
-                {errorFromServer && <span className={S.serverError}>{errorFromServer}</span>}
+                {answerFromServer.message && <Notification answerFromServer={answerFromServer} />}
                 <button type="submit" className={`${CS.btnPrimary} ${S.submit}`}>
                   Sign up
                 </button>

@@ -1,0 +1,54 @@
+@import '@mixins';
+@import '@variables';
+
+.customForm {
+  display: flex;
+  gap: 2rem;
+}
+
+.hiddenFileInput {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  z-index: -99999;
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.uploadBtn {
+  width: 100%;
+  height: 3rem;
+}
+
+.bigAvatar {
+  border-radius: 100%;
+}
+
+.advanced {
+  margin: 0;
+  color: $secondary-color;
+}
+
+@include mobile {
+  .customForm {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.deletePicture {
+  display: inline;
+  background-color: transparent;
+  color: $primary-color;
+  font-weight: 500;
+  font-size: 1rem;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  border: none;
+}

@@ -7,12 +7,12 @@ export const Navigation = () => {
     <nav>
       <ul className={S.routesList}>
         <li>
-          <Link href="/404">
+          <Link href="/">
             <a className={S.routeLink}>Home</a>
           </Link>
         </li>
         <li>
-          <Link href="/test">
+          <Link href="/catalog">
             <a className={S.routeLink}>Catalog</a>
           </Link>
         </li>

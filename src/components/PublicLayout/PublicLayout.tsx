@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 
@@ -13,7 +14,7 @@ export const PublicLayout: React.FC<ILayoutProps> = ({ children, title }) => {
     if (user) {
       router.push('/')
     }
-  }, [user, router])
+  }, [user])
 
   return <>{!user && <Layout title={title}>{children}</Layout>}</>
 }
