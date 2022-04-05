@@ -1,0 +1,18 @@
+.colorRow {
+  margin-bottom: 1.5rem;
+  position: relative;
+  width: 100%;
+}
+
+.colorPicker {
+  height: 5rem;
+  cursor: pointer;
+}
+
+.colorPicker::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+.colorPicker::-webkit-color-swatch {
+  border: none;
+}

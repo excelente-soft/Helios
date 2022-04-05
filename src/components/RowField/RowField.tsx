@@ -10,7 +10,7 @@ interface IRowFieldProps {
   label: string
   error: string | undefined
   touched: boolean | undefined
-  type?: 'password' | 'text' | 'email'
+  type?: 'password' | 'text' | 'email' | 'color'
 }
 
 export const RowField: React.VFC<IRowFieldProps> = ({ id, placeholder, name, label, error, touched, type }) => {

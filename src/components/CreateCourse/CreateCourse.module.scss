@@ -1,0 +1,75 @@
+@import '@variables';
+@import '@mixins';
+
+.description {
+  display: flex;
+  gap: 1rem;
+}
+
+.imageContainer {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.controls {
+  display: flex;
+  gap: 1rem;
+}
+
+.image {
+  position: relative;
+  width: 100%;
+  max-width: 512px;
+  height: 256px;
+  background-color: $neutral-color;
+  border: 1px solid $secondary-color;
+}
+
+.imageControls {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  justify-content: center;
+}
+
+.uploadImage {
+  width: 100%;
+  height: 3rem;
+}
+
+.hiddenFileInput {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  z-index: -99999;
+}
+
+.advanced {
+  margin: 0;
+  color: $secondary-color;
+}
+
+.deleteImage {
+  display: inline;
+  background-color: transparent;
+  color: $primary-color;
+  font-weight: 500;
+  font-size: 1rem;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  border: none;
+}
+
+@include mobile {
+  .imageContainer {
+    flex-direction: column;
+    align-items: center;
+  }
+  .imageControls {
+    gap: 1rem;
+    flex-direction: row;
+  }
+}

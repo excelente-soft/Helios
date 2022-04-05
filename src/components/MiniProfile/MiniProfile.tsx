@@ -2,10 +2,10 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useRef } from 'react'
 
+import { useClear } from '@hooks/useClear'
 import { useOutside } from '@hooks/useOutline'
 import { IUser } from '@interfaces/IUser'
 
-import { useClear } from '../../hooks/useClear'
 import S from './MiniProfile.module.scss'
 
 interface IMiniProfileProps {
@@ -84,6 +84,20 @@ export const MiniProfile: React.VFC<IMiniProfileProps> = ({ user }) => {
               <a className={S.link}>Settings</a>
             </Link>
           </li>
+          {user.role.accessLevel >= 1 && (
+            <>
+              <li>
+                <Link href={`/new-course`}>
+                  <a className={S.link}>Create course</a>
+                </Link>
+              </li>
+              <li>
+                <Link href={`/new-role`}>
+                  <a className={S.link}>Create role</a>
+                </Link>
+              </li>
+            </>
+          )}
           <li>
             <button onClick={logoutHandler} className={S.logout}>
               Logout

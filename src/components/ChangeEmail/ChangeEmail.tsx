@@ -5,6 +5,7 @@ import { Block } from '@components/Block/Block'
 import { Notification } from '@components/Notification/Notification'
 import { RowField } from '@components/RowField/RowField'
 import { useClear } from '@hooks/useClear'
+import { INotification } from '@interfaces/INotification'
 import { IUser } from '@interfaces/IUser'
 import { HeliosAPI } from '@utils/api'
 import { ChangeEmailSchema } from '@utils/yupSchemas'
@@ -17,7 +18,7 @@ interface IChangeEmailProps {
 }
 
 export const ChangeEmail: React.VFC<IChangeEmailProps> = ({ user }) => {
-  const [answerFromServer, setAnswerFromServer] = useState({ message: '', isError: false })
+  const [answerFromServer, setAnswerFromServer] = useState<INotification>({ message: '', isError: false })
   const { clearUser } = useClear()
 
   const initialValues = {
@@ -66,7 +67,7 @@ export const ChangeEmail: React.VFC<IChangeEmailProps> = ({ user }) => {
               <span className={S.warning}>Warning: Changing your email will result in a logout.</span> You can then log
               in again with a new mail.
             </p>
-            <button type="submit" className={`${CS.btnPrimary} ${S.submit}`}>
+            <button type="submit" className={`${CS.btnPrimary} ${CS.btnBasicSize}`}>
               Update email
             </button>
           </Form>

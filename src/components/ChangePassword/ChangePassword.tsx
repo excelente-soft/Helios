@@ -5,6 +5,7 @@ import { Block } from '@components/Block/Block'
 import { Notification } from '@components/Notification/Notification'
 import { RowField } from '@components/RowField/RowField'
 import { useClear } from '@hooks/useClear'
+import { INotification } from '@interfaces/INotification'
 import { HeliosAPI } from '@utils/api'
 import { ChangePasswordSchema } from '@utils/yupSchemas'
 
@@ -16,7 +17,7 @@ interface IChangePasswordProps {
 }
 
 export const ChangePassword: React.VFC<IChangePasswordProps> = ({ token }) => {
-  const [answerFromServer, setAnswerFromServer] = useState({ message: '', isError: false })
+  const [answerFromServer, setAnswerFromServer] = useState<INotification>({ message: '', isError: false })
   const { clearUser } = useClear()
 
   const initialValues = {
@@ -73,7 +74,7 @@ export const ChangePassword: React.VFC<IChangePasswordProps> = ({ token }) => {
               <span className={S.warning}>Warning: Changing your password will sign you out.</span> You can then sign
               back in with your new password.
             </p>
-            <button type="submit" className={`${CS.btnPrimary} ${S.submit}`}>
+            <button type="submit" className={`${CS.btnPrimary} ${CS.btnBasicSize}`}>
               Update password
             </button>
           </Form>

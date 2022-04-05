@@ -4,6 +4,7 @@ import { Block } from '@components/Block/Block'
 import { Notification } from '@components/Notification/Notification'
 import { STORAGE_USER } from '@constants'
 import { useAppDispatch } from '@hooks/app'
+import { INotification } from '@interfaces/INotification'
 import { IUser, UserTypeEnum } from '@interfaces/IUser'
 import { setType } from '@store/user/userSlice'
 import { HeliosAPI } from '@utils/api'
@@ -17,7 +18,7 @@ interface IChangeProfileTypeProps {
 }
 
 export const ChangeProfileType: React.VFC<IChangeProfileTypeProps> = ({ user }) => {
-  const [answerFromServer, setAnswerFromServer] = useState({ message: '', isError: false })
+  const [answerFromServer, setAnswerFromServer] = useState<INotification>({ message: '', isError: false })
   const dispatch = useAppDispatch()
 
   const changeProfileTypeHandler = async () => {

@@ -6,6 +6,7 @@ import { Notification } from '@components/Notification/Notification'
 import { RowField } from '@components/RowField/RowField'
 import { STORAGE_USER } from '@constants'
 import { useAppDispatch } from '@hooks/app'
+import { INotification } from '@interfaces/INotification'
 import { IUser, IUserProfile } from '@interfaces/IUser'
 import { setProfile } from '@store/user/userSlice'
 import { HeliosAPI } from '@utils/api'
@@ -20,7 +21,7 @@ interface IChangeProfileProps {
 }
 
 export const ChangeProfile: React.VFC<IChangeProfileProps> = ({ user }) => {
-  const [answerFromServer, setAnswerFromServer] = useState({ message: '', isError: false })
+  const [answerFromServer, setAnswerFromServer] = useState<INotification>({ message: '', isError: false })
   const dispatch = useAppDispatch()
 
   const initialValues: IUserProfile = {
@@ -77,7 +78,7 @@ export const ChangeProfile: React.VFC<IChangeProfileProps> = ({ user }) => {
               touched={touched.nickname}
             />
             {answerFromServer.message && <Notification answerFromServer={answerFromServer} />}
-            <button type="submit" className={`${CS.btnPrimary} ${S.submit}`}>
+            <button type="submit" className={`${CS.btnPrimary} ${CS.btnBasicSize}`}>
               Update profile
             </button>
           </Form>

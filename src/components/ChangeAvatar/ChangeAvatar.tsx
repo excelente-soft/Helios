@@ -5,6 +5,7 @@ import { Block } from '@components/Block/Block'
 import { Notification } from '@components/Notification/Notification'
 import { STORAGE_USER } from '@constants'
 import { useAppDispatch } from '@hooks/app'
+import { INotification } from '@interfaces/INotification'
 import { IUser } from '@interfaces/IUser'
 import { setAvatar } from '@store/user/userSlice'
 import { HeliosAPI } from '@utils/api'
@@ -19,7 +20,10 @@ interface IChangeAvatarProps {
 }
 
 export const ChangeAvatar: React.VFC<IChangeAvatarProps> = ({ user }) => {
-  const [uploadAvatarNotification, setUploadAvatarNotification] = useState({ message: '', isError: false })
+  const [uploadAvatarNotification, setUploadAvatarNotification] = useState<INotification>({
+    message: '',
+    isError: false,
+  })
   const fileInputRef = useRef<HTMLInputElement>(null)
   const dispatch = useAppDispatch()
 
