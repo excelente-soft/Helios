@@ -7,8 +7,8 @@ import { RowField } from '@components/RowField/RowField'
 import { useClear } from '@hooks/useClear'
 import { INotification } from '@interfaces/INotification'
 import { IUser } from '@interfaces/IUser'
-import { HeliosAPI } from '@utils/api'
-import { ChangeEmailSchema } from '@utils/yupSchemas'
+import { RequestUtility } from '@utils/request'
+import { YupSchemas } from '@utils/yupSchemas'
 
 import S from './ChangeEmail.module.scss'
 import CS from '@common.module.scss'
@@ -28,11 +28,10 @@ export const ChangeEmail: React.VFC<IChangeEmailProps> = ({ user }) => {
   }
 
   const emailSubmit = async ({ email, passwordConfirm }: typeof initialValues) => {
-    const changeEmailResult = await HeliosAPI.putRequest<{ email: string }, { email: string; password: string }>(
-      '/changeEmail',
-      { email, password: passwordConfirm },
-      user.token
-    )
+    const changeEmailResult = await RequestUtility.requestToServer<
+      { email: string },
+      { email: string; password: string }
+    >('PUT', '/changeEmail', { email, password: passwordConfirm }, user.token)
     if (changeEmailResult.data) {
       clearUser()
     } else if (changeEmailResult.message) {
@@ -43,7 +42,7 @@ export const ChangeEmail: React.VFC<IChangeEmailProps> = ({ user }) => {
   return (
     <Block>
       <h3 className={CS.subtitle}>Change email</h3>
-      <Formik initialValues={initialValues} validationSchema={ChangeEmailSchema} onSubmit={emailSubmit}>
+      <Formik initialValues={initialValues} validationSchema={YupSchemas.ChangeEmailSchema} onSubmit={emailSubmit}>
         {({ errors, touched }) => (
           <Form>
             <RowField

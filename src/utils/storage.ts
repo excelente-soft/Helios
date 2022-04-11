@@ -1,4 +1,4 @@
-export const getItemFromStorage = <T>(key: string, defaultValue: T | null = null) => {
+const getItemFromStorage = <T>(key: string, defaultValue: T | null = null) => {
   try {
     const item = window.localStorage.getItem(key) || ''
     return item ? (JSON.parse(item) as T) : defaultValue
@@ -7,7 +7,7 @@ export const getItemFromStorage = <T>(key: string, defaultValue: T | null = null
   }
 }
 
-export const saveItemToStorage = <T>(key: string, value: T) => {
+const saveItemToStorage = <T>(key: string, value: T) => {
   try {
     window.localStorage.setItem(key, JSON.stringify(value))
     return true
@@ -17,7 +17,7 @@ export const saveItemToStorage = <T>(key: string, value: T) => {
   }
 }
 
-export const removeItemFromStorage = (key: string) => {
+const removeItemFromStorage = (key: string) => {
   try {
     window.localStorage.removeItem(key)
     return true
@@ -25,4 +25,10 @@ export const removeItemFromStorage = (key: string) => {
     console.log(`Cannot remove an item from local storage`)
     return false
   }
+}
+
+export const StorageUtility = {
+  getItemFromStorage,
+  saveItemToStorage,
+  removeItemFromStorage,
 }

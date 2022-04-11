@@ -1,0 +1,43 @@
+@import '@variables';
+
+.searchContainer {
+  background-color: #fff;
+  border-top: 1px solid $secondary-color;
+  border-bottom: 1px solid $secondary-color;
+  padding: 2rem 0;
+}
+
+.searchPanel {
+  display: flex;
+  gap: 1rem;
+  position: relative;
+  z-index: 799;
+}
+
+.filter {
+  width: 9.875rem;
+  border: 2px solid $primary-color !important;
+  gap: 0.75rem;
+}
+
+.totalContainer {
+  padding: 0.875rem;
+  background-color: #ffd300;
+}
+
+.total {
+  user-select: none;
+  pointer-events: none;
+  margin: 0;
+  white-space: nowrap;
+  color: $secondary-color;
+  font-weight: 500;
+}
+
+.dropdownIcon {
+  display: block;
+  background: url('../../../public/images/dropdown.svg') no-repeat;
+  background-position: bottom -2px right;
+  width: 0.75rem;
+  height: 0.75rem;
+}

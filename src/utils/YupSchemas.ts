@@ -6,7 +6,7 @@ const passwordRegExp = /^[A-Za-z0-9_!#$%@^&*(-)+=><"';:}\/?\\{\[\],]+$/
 const notSpaceRegExp = /^[^\s]+$/
 const notSpecialSymbol = /^[^!#$%^&*(-)+=><"';:}\/?\\{\[\],]+$/
 
-export const LoginSchema = object({
+const LoginSchema = object({
   login: string()
     .matches(notSpaceRegExp, 'Login must not contain spaces.')
     .matches(notSpecialSymbol, 'Login must not contain special symbols.')
@@ -22,7 +22,7 @@ export const LoginSchema = object({
     .required('Required field'),
 })
 
-export const SigniupSchema = object({
+const SigniupSchema = object({
   name: string()
     .matches(notSpecialSymbol, 'Name must not contain special symbols.')
     .min(2, 'Name must include at least 2 characters.')
@@ -55,7 +55,7 @@ export const SigniupSchema = object({
     .required('Required field'),
 })
 
-export const ChangeProfileSchema = object({
+const ChangeProfileSchema = object({
   name: string()
     .matches(notSpecialSymbol, 'Name must not contain special symbols.')
     .min(2, 'Name must include at least 2 characters.')
@@ -74,7 +74,7 @@ export const ChangeProfileSchema = object({
     .required('Required field'),
 })
 
-export const ChangeEmailSchema = object({
+const ChangeEmailSchema = object({
   email: string()
     .min(3, 'Email must include at least 3 characters.')
     .max(64, 'Email must not contain more than 24 characters.')
@@ -89,7 +89,7 @@ export const ChangeEmailSchema = object({
     .required('Required field'),
 })
 
-export const ChangePasswordSchema = object({
+const ChangePasswordSchema = object({
   currentPassword: string()
     .matches(notSpaceRegExp, 'Password must not contain spaces.')
     .matches(passwordRegExp, 'Please enter a valid password.')
@@ -108,14 +108,15 @@ export const ChangePasswordSchema = object({
     .required('Required field'),
 })
 
-export const CreateCourseSchema = object({
+const CreateCourseSchema = object({
   name: string()
     .min(6, 'Name must include at least 6 characters.')
     .max(64, 'Name must not contain more than 64 characters.')
     .required('Required field'),
   shortDescription: string()
     .min(6, 'Short description must include at least 6 characters.')
-    .max(32, 'Short description must not contain more than 32 characters.'),
+    .max(64, 'Short description must not contain more than 64 characters.')
+    .required('Required field'),
   description: string()
     .min(16, 'Description must include at least 16 characters.')
     .max(1024, 'Description must not contain more than 1024 characters.')
@@ -125,3 +126,26 @@ export const CreateCourseSchema = object({
     .max(100000, 'Price must be less than 100000.')
     .required('Required field'),
 })
+
+const CreateRoleSchema = object({
+  accessLevel: number()
+    .min(0, 'Access level must be greater than 0.')
+    .max(ref('hiddenAccessLevel'), 'Access level must be less than current access level.')
+    .required('Required field'),
+  hiddenAccessLevel: number(),
+  color: string().max(16, 'Color must not contain less than 16 characters.').required(),
+  roleName: string()
+    .min(2, 'Role name must include at least 2 characters.')
+    .max(24, 'Role name must not contain more than 24 characters.')
+    .required('Required field'),
+})
+
+export const YupSchemas = {
+  LoginSchema,
+  SigniupSchema,
+  ChangeProfileSchema,
+  ChangeEmailSchema,
+  ChangePasswordSchema,
+  CreateCourseSchema,
+  CreateRoleSchema,
+}

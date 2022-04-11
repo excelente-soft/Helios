@@ -5,8 +5,11 @@ import { Block } from '@components/Block/Block'
 import { Notification } from '@components/Notification/Notification'
 import { RowField } from '@components/RowField/RowField'
 import { INotification } from '@interfaces/INotification'
+import { IRole } from '@interfaces/IRole'
 import { IUser } from '@interfaces/IUser'
+import { YupSchemas } from '@utils/yupSchemas'
 
+import { RequestUtility } from '../../utils/request'
 import S from './CreateRole.module.scss'
 import CS from '@common.module.scss'
 
@@ -18,19 +21,28 @@ export const CreateRole: React.VFC<ICreateRoleProps> = ({ user }) => {
   const [answerFromServer, setAnswerFromServer] = useState<INotification>({ message: '', isError: false })
   const initialValues = {
     accessLevel: 0,
-    hiddenAccessLevel: user.role.accessLevel,
+    hiddenAccessLevel: user.role.accessLevel - 1,
     color: '#fbede3',
     roleName: '',
   }
 
-  const createRoleSubmit = (formData: typeof initialValues) => {
-    console.log(formData)
-    setAnswerFromServer({ message: 'answer from server', isError: true })
+  const createRoleSubmit = async (formData: typeof initialValues) => {
+    const changeRoleResult = await RequestUtility.requestToServer<IRole, IRole>(
+      'POST',
+      '/createRole',
+      formData,
+      user.token
+    )
+    if (changeRoleResult.data) {
+      setAnswerFromServer({ message: 'Role created successfully', isError: false })
+    } else if (changeRoleResult.message) {
+      setAnswerFromServer({ message: changeRoleResult.message, isError: true })
+    }
   }
 
   return (
     <Block noMargin>
-      <Formik initialValues={initialValues} onSubmit={createRoleSubmit}>
+      <Formik initialValues={initialValues} validationSchema={YupSchemas.CreateRoleSchema} onSubmit={createRoleSubmit}>
         {({ errors, touched }) => (
           <Form>
             <RowField

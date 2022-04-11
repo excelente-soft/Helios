@@ -31,7 +31,6 @@ export const ProtectedLayout: React.FC<IProtectedLayoutProps> = ({ children, tit
 
   useEffect(() => {
     if (!user) {
-      console.log('TRIGGER EXIT')
       router.push('/')
     }
   }, [user])

@@ -1,9 +1,7 @@
-import type { NextPage } from 'next'
-
 import { FigmaFrame } from '@components/Figma/FigmaFrame'
 import { Layout } from '@components/Layout/Layout'
 
-const Home: NextPage = () => {
+const Home = () => {
   return (
     <Layout title="Home">
       <FigmaFrame

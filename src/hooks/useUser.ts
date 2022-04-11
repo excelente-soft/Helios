@@ -3,8 +3,8 @@ import { useAppDispatch, useAppSelector } from '@hooks/app'
 import { useClear } from '@hooks/useClear'
 import { IUser, IUserLogin } from '@interfaces/IUser'
 import { setUser } from '@store/user/userSlice'
-import { HeliosAPI } from '@utils/api'
-import { getItemFromStorage, saveItemToStorage } from '@utils/storage'
+import { RequestUtility } from '@utils/request'
+import { StorageUtility } from '@utils/storage'
 
 export const useUser = () => {
   const user = useAppSelector(({ user }) => user)
@@ -12,19 +12,23 @@ export const useUser = () => {
   const { clearUser } = useClear()
 
   const refresh = async (refreshToken: string) => {
-    const response = await HeliosAPI.postRequest<IUserLogin, { refreshToken: string }>('/refresh', {
-      refreshToken,
-    })
-    if (response.data) {
-      saveItemToStorage<IUser>(STORAGE_USER, response.data.user)
-      saveItemToStorage<string>(STORAGE_REFRESH_TOKEN, response.data.refreshToken)
-      dispatch(setUser(response.data.user))
+    const responseFromServer = await RequestUtility.requestToServer<IUserLogin, { refreshToken: string }>(
+      'POST',
+      '/refresh',
+      {
+        refreshToken,
+      }
+    )
+    if (responseFromServer.data) {
+      StorageUtility.saveItemToStorage<IUser>(STORAGE_USER, responseFromServer.data.user)
+      StorageUtility.saveItemToStorage<string>(STORAGE_REFRESH_TOKEN, responseFromServer.data.refreshToken)
+      dispatch(setUser(responseFromServer.data.user))
     }
-    return response
+    return responseFromServer
   }
 
   const restoreFromStorage = async () => {
-    const userFromStorage = getItemFromStorage<IUser>(STORAGE_USER)
+    const userFromStorage = StorageUtility.getItemFromStorage<IUser>(STORAGE_USER)
     if (userFromStorage) {
       const validatedUser = await validate(userFromStorage)
       if (validatedUser) {
@@ -38,9 +42,14 @@ export const useUser = () => {
   const validate = async (probUser?: IUser | null) => {
     const userToValidate = probUser ? probUser : user
     if (userToValidate) {
-      const responseFromServer = await HeliosAPI.postRequest<boolean, object>('/validate', {}, userToValidate.token)
+      const responseFromServer = await RequestUtility.requestToServer<boolean, object>(
+        'POST',
+        '/validate',
+        {},
+        userToValidate.token
+      )
       if (!responseFromServer.data) {
-        const refreshToken = getItemFromStorage<string>(STORAGE_REFRESH_TOKEN) || ''
+        const refreshToken = StorageUtility.getItemFromStorage<string>(STORAGE_REFRESH_TOKEN) || ''
         const refreshResponseFromServer = await refresh(refreshToken)
         if (!refreshResponseFromServer.data) {
           clearUser()

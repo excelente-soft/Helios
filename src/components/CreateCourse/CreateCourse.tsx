@@ -5,13 +5,21 @@ import { useRef, useState } from 'react'
 import { Block } from '@components/Block/Block'
 import { Notification } from '@components/Notification/Notification'
 import { RowField } from '@components/RowField/RowField'
+import { ICourse } from '@interfaces/ICourse'
 import { INotification } from '@interfaces/INotification'
-import { readFile } from '@utils/upload'
+import { IUser } from '@interfaces/IUser'
+import { ReaderUtility } from '@utils/reader'
+import { RequestUtility } from '@utils/request'
 
+import { YupSchemas } from '../../utils/yupSchemas'
 import S from './CreateCourse.module.scss'
 import CS from '@common.module.scss'
 
-export const CreateCourse = () => {
+interface ICreateCourseProps {
+  user: IUser
+}
+
+export const CreateCourse: React.VFC<ICreateCourseProps> = ({ user }) => {
   const [answerFromServer, setAnswerFromServer] = useState<INotification>({ message: '', isError: false })
   const [courseImage, setCourseImagge] = useState('')
   const fileInputRef = useRef<HTMLInputElement>(null)
@@ -19,13 +27,21 @@ export const CreateCourse = () => {
     name: '',
     shortDescription: '',
     description: '',
-    image: '',
-    price: '',
+    price: 0,
   }
 
-  const createCourseSubmit = (formData: typeof initialValues) => {
-    console.log(formData)
-    setAnswerFromServer({ message: 'Not correct avatar', isError: true })
+  const createCourseSubmit = async (formData: typeof initialValues) => {
+    const createCourseResult = await RequestUtility.requestToServer<ICourse, Omit<ICourse, 'author'>>(
+      'POST',
+      '/createCourse',
+      { ...formData, image: courseImage || 'empty' },
+      user.token
+    )
+    if (createCourseResult.data) {
+      setAnswerFromServer({ message: 'Course created successfully', isError: false })
+    } else if (createCourseResult.message) {
+      setAnswerFromServer({ message: createCourseResult.message, isError: true })
+    }
   }
 
   const uploadCourseImageHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -33,7 +49,7 @@ export const CreateCourse = () => {
     if (!file) {
       return
     }
-    readFile(file[0], uploadCourseImageSetter)
+    ReaderUtility.readFile(file[0], uploadCourseImageSetter)
     e.target.value = ''
   }
 
@@ -54,7 +70,11 @@ export const CreateCourse = () => {
 
   return (
     <Block noMargin>
-      <Formik initialValues={initialValues} onSubmit={createCourseSubmit}>
+      <Formik
+        initialValues={initialValues}
+        validationSchema={YupSchemas.CreateCourseSchema}
+        onSubmit={createCourseSubmit}
+      >
         {({ errors, touched }) => (
           <Form>
             <RowField

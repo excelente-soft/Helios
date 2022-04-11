@@ -9,9 +9,9 @@ import { useAppDispatch } from '@hooks/app'
 import { INotification } from '@interfaces/INotification'
 import { IUser, IUserProfile } from '@interfaces/IUser'
 import { setProfile } from '@store/user/userSlice'
-import { HeliosAPI } from '@utils/api'
-import { saveItemToStorage } from '@utils/storage'
-import { ChangeProfileSchema } from '@utils/yupSchemas'
+import { RequestUtility } from '@utils/request'
+import { StorageUtility } from '@utils/storage'
+import { YupSchemas } from '@utils/yupSchemas'
 
 import S from './ChangeProfile.module.scss'
 import CS from '@common.module.scss'
@@ -31,13 +31,14 @@ export const ChangeProfile: React.VFC<IChangeProfileProps> = ({ user }) => {
   }
 
   const profileSubmit = async (formData: IUserProfile) => {
-    const changeProfileResult = await HeliosAPI.putRequest<IUserProfile, IUserProfile>(
+    const changeProfileResult = await RequestUtility.requestToServer<IUserProfile, IUserProfile>(
+      'PUT',
       '/changeProfile',
       formData,
       user.token
     )
     if (changeProfileResult.data) {
-      saveItemToStorage<IUser>(STORAGE_USER, { ...user, ...changeProfileResult.data })
+      StorageUtility.saveItemToStorage<IUser>(STORAGE_USER, { ...user, ...changeProfileResult.data })
       dispatch(setProfile(changeProfileResult.data))
       setAnswerFromServer({ message: 'Profile changed successfully', isError: false })
     } else if (changeProfileResult.message) {
@@ -48,7 +49,7 @@ export const ChangeProfile: React.VFC<IChangeProfileProps> = ({ user }) => {
   return (
     <Block noMargin>
       <h3 className={CS.subtitle}>Change profile</h3>
-      <Formik initialValues={initialValues} validationSchema={ChangeProfileSchema} onSubmit={profileSubmit}>
+      <Formik initialValues={initialValues} validationSchema={YupSchemas.ChangeProfileSchema} onSubmit={profileSubmit}>
         {({ errors, touched }) => (
           <Form>
             <div className={S.fullname}>

@@ -1,6 +1,6 @@
 import { IMAGE_MAX_SIZE } from '@constants'
 
-export const readFile = (file: File, onLoad: (result: { message?: string; data?: string }) => void) => {
+const readFile = (file: File, onLoad: (result: { message?: string; data?: string }) => void) => {
   if (!file) {
     return
   } else if (!file.type) {
@@ -20,4 +20,8 @@ export const readFile = (file: File, onLoad: (result: { message?: string; data?:
       onLoad({ message: 'Error reading file' })
     }
   })
+}
+
+export const ReaderUtility = {
+  readFile,
 }

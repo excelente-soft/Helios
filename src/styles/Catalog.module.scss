@@ -1,0 +1,21 @@
+@import '@mixins';
+
+.catalog {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 2rem;
+  padding-top: 1.75rem;
+  padding-bottom: 1.75rem;
+}
+
+@include tablet {
+  .catalog {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@include mobile {
+  .catalog {
+    grid-template-columns: 1fr;
+  }
+}

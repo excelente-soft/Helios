@@ -6,8 +6,8 @@ import { Notification } from '@components/Notification/Notification'
 import { RowField } from '@components/RowField/RowField'
 import { useClear } from '@hooks/useClear'
 import { INotification } from '@interfaces/INotification'
-import { HeliosAPI } from '@utils/api'
-import { ChangePasswordSchema } from '@utils/yupSchemas'
+import { RequestUtility } from '@utils/request'
+import { YupSchemas } from '@utils/yupSchemas'
 
 import S from './ChangePassword.module.scss'
 import CS from '@common.module.scss'
@@ -27,10 +27,11 @@ export const ChangePassword: React.VFC<IChangePasswordProps> = ({ token }) => {
   }
 
   const changePasswordSubmit = async ({ currentPassword, password }: typeof initialValues) => {
-    const changePasswordResult = await HeliosAPI.putRequest<
+    const changePasswordResult = await RequestUtility.requestToServer<
       { password: boolean },
       { currentPassword: string; newPassword: string }
-    >('/changePassword', { currentPassword, newPassword: password }, token)
+    >('PUT', '/changePassword', { currentPassword, newPassword: password }, token)
+
     if (changePasswordResult.data) {
       clearUser()
     } else if (changePasswordResult.message) {
@@ -41,7 +42,11 @@ export const ChangePassword: React.VFC<IChangePasswordProps> = ({ token }) => {
   return (
     <Block>
       <h3 className={CS.subtitle}>Change password</h3>
-      <Formik initialValues={initialValues} validationSchema={ChangePasswordSchema} onSubmit={changePasswordSubmit}>
+      <Formik
+        initialValues={initialValues}
+        validationSchema={YupSchemas.ChangePasswordSchema}
+        onSubmit={changePasswordSubmit}
+      >
         {({ errors, touched }) => (
           <Form>
             <RowField

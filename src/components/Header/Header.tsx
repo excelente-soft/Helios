@@ -15,7 +15,7 @@ export const Header = () => {
       <div className={`${S.container} ${CS.pageContainer}`}>
         <div className={S.leftContent}>
           <Logo />
-          <Navigation />
+          <Navigation user={user} />
         </div>
         <div className={S.rightContent}>
           {user && <MiniProfile user={user} />}

@@ -2,30 +2,38 @@ import { STORAGE_REFRESH_TOKEN, STORAGE_USER } from '@constants'
 import { useAppDispatch } from '@hooks/app'
 import { IUser, IUserCredentials, IUserLogin, IUserSignup } from '@interfaces/IUser'
 import { setUser } from '@store/user/userSlice'
-import { HeliosAPI } from '@utils/api'
-import { saveItemToStorage } from '@utils/storage'
+import { RequestUtility } from '@utils/request'
+import { StorageUtility } from '@utils/storage'
 
 export const useAuth = () => {
   const dispatch = useAppDispatch()
 
   const login = async (credentials: IUserCredentials) => {
-    const response = await HeliosAPI.postRequest<IUserLogin, IUserCredentials>('/login', credentials)
-    if (response.data) {
-      saveItemToStorage<IUser>(STORAGE_USER, response.data.user)
-      saveItemToStorage<string>(STORAGE_REFRESH_TOKEN, response.data.refreshToken)
-      dispatch(setUser(response.data.user))
+    const responseFromServer = await RequestUtility.requestToServer<IUserLogin, IUserCredentials>(
+      'POST',
+      '/login',
+      credentials
+    )
+    if (responseFromServer.data) {
+      StorageUtility.saveItemToStorage<IUser>(STORAGE_USER, responseFromServer.data.user)
+      StorageUtility.saveItemToStorage<string>(STORAGE_REFRESH_TOKEN, responseFromServer.data.refreshToken)
+      dispatch(setUser(responseFromServer.data.user))
     }
-    return response
+    return responseFromServer
   }
 
   const signup = async (userData: IUserSignup) => {
-    const response = await HeliosAPI.postRequest<IUserLogin, IUserSignup>('/signup', userData)
-    if (response.data) {
-      saveItemToStorage<IUser>(STORAGE_USER, response.data.user)
-      saveItemToStorage<string>(STORAGE_REFRESH_TOKEN, response.data.refreshToken)
-      dispatch(setUser(response.data.user))
+    const responseFromServer = await RequestUtility.requestToServer<IUserLogin, IUserSignup>(
+      'POST',
+      '/signup',
+      userData
+    )
+    if (responseFromServer.data) {
+      StorageUtility.saveItemToStorage<IUser>(STORAGE_USER, responseFromServer.data.user)
+      StorageUtility.saveItemToStorage<string>(STORAGE_REFRESH_TOKEN, responseFromServer.data.refreshToken)
+      dispatch(setUser(responseFromServer.data.user))
     }
-    return response
+    return responseFromServer
   }
 
   return { login, signup }

@@ -2,6 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useRef } from 'react'
 
+import { PRIVATE_ROUTES, PROTECTED_ROUTES } from '@constants'
 import { useClear } from '@hooks/useClear'
 import { useOutside } from '@hooks/useOutline'
 import { IUser } from '@interfaces/IUser'
@@ -74,30 +75,21 @@ export const MiniProfile: React.VFC<IMiniProfileProps> = ({ user }) => {
               <a className={S.link}>Profile</a>
             </Link>
           </li>
-          <li>
-            <Link href="/courses">
-              <a className={S.link}>My courses</a>
-            </Link>
-          </li>
-          <li>
-            <Link href="/settings">
-              <a className={S.link}>Settings</a>
-            </Link>
-          </li>
-          {user.role.accessLevel >= 1 && (
-            <>
-              <li>
-                <Link href={`/new-course`}>
-                  <a className={S.link}>Create course</a>
+          {PROTECTED_ROUTES.map(({ name, path }) => (
+            <li key={name}>
+              <Link href={path}>
+                <a className={S.link}>{name}</a>
+              </Link>
+            </li>
+          ))}
+          {user.role.accessLevel > 0 &&
+            PRIVATE_ROUTES.map(({ name, path }) => (
+              <li key={name}>
+                <Link href={path}>
+                  <a className={S.link}>{name}</a>
                 </Link>
               </li>
-              <li>
-                <Link href={`/new-role`}>
-                  <a className={S.link}>Create role</a>
-                </Link>
-              </li>
-            </>
-          )}
+            ))}
           <li>
             <button onClick={logoutHandler} className={S.logout}>
               Logout
@@ -107,4 +99,10 @@ export const MiniProfile: React.VFC<IMiniProfileProps> = ({ user }) => {
       )}
     </div>
   )
+}
+{
+  /* <>
+
+
+</> */
 }

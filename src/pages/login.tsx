@@ -11,7 +11,7 @@ import { RowField } from '@components/RowField/RowField'
 import { SITE_NAME } from '@constants'
 import { useAuth } from '@hooks/useAuth'
 import { IUserCredentials } from '@interfaces/IUser'
-import { LoginSchema } from '@utils/yupSchemas'
+import { YupSchemas } from '@utils/yupSchemas'
 
 import S from '../styles/Login.module.scss'
 import CS from '@common.module.scss'
@@ -40,7 +40,7 @@ const Login = () => {
       <div className={S.container}>
         <EntryWelcome title="Welcome back!" subtitle="We were waiting for you❤️" />
         <EntryControl title={`Log in to ${SITE_NAME}`}>
-          <Formik initialValues={initialValues} validationSchema={LoginSchema} onSubmit={loginSubmit}>
+          <Formik initialValues={initialValues} validationSchema={YupSchemas.LoginSchema} onSubmit={loginSubmit}>
             {({ errors, touched }) => (
               <Form>
                 <RowField

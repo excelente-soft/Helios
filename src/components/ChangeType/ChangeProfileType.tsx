@@ -7,8 +7,8 @@ import { useAppDispatch } from '@hooks/app'
 import { INotification } from '@interfaces/INotification'
 import { IUser, UserTypeEnum } from '@interfaces/IUser'
 import { setType } from '@store/user/userSlice'
-import { HeliosAPI } from '@utils/api'
-import { saveItemToStorage } from '@utils/storage'
+import { RequestUtility } from '@utils/request'
+import { StorageUtility } from '@utils/storage'
 
 import S from './ChangeProfileType.module.scss'
 import CS from '@common.module.scss'
@@ -22,13 +22,17 @@ export const ChangeProfileType: React.VFC<IChangeProfileTypeProps> = ({ user }) 
   const dispatch = useAppDispatch()
 
   const changeProfileTypeHandler = async () => {
-    const changeProfileTypeResult = await HeliosAPI.putRequest<{ type: UserTypeEnum }, { type: UserTypeEnum }>(
+    const changeProfileTypeResult = await RequestUtility.requestToServer<
+      { type: UserTypeEnum },
+      { type: UserTypeEnum }
+    >(
+      'PUT',
       '/changeType',
       { type: user.type === UserTypeEnum.public ? UserTypeEnum.private : UserTypeEnum.public },
       user.token
     )
     if (changeProfileTypeResult.data) {
-      saveItemToStorage<IUser>(STORAGE_USER, { ...user, ...changeProfileTypeResult.data })
+      StorageUtility.saveItemToStorage<IUser>(STORAGE_USER, { ...user, ...changeProfileTypeResult.data })
       dispatch(setType(changeProfileTypeResult.data.type))
     } else if (changeProfileTypeResult.message) {
       setAnswerFromServer({ message: changeProfileTypeResult.message, isError: true })

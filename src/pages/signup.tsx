@@ -10,7 +10,7 @@ import { PublicLayout } from '@components/PublicLayout/PublicLayout'
 import { RowField } from '@components/RowField/RowField'
 import { useAuth } from '@hooks/useAuth'
 import { IUserSignup } from '@interfaces/IUser'
-import { SigniupSchema } from '@utils/yupSchemas'
+import { YupSchemas } from '@utils/yupSchemas'
 
 import S from '../styles/Signup.module.scss'
 import CS from '@common.module.scss'
@@ -43,7 +43,7 @@ const Signup = () => {
       <div className={S.container}>
         <EntryWelcome title="Join to our community!" subtitle="Level up your programming skills with us" />
         <EntryControl title="Sign up for FREE!">
-          <Formik initialValues={initialValues} validationSchema={SigniupSchema} onSubmit={signupSubmit}>
+          <Formik initialValues={initialValues} validationSchema={YupSchemas.SigniupSchema} onSubmit={signupSubmit}>
             {({ errors, touched }) => (
               <Form>
                 <div className={S.profile}>

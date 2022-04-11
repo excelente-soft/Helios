@@ -8,9 +8,9 @@ import { useAppDispatch } from '@hooks/app'
 import { INotification } from '@interfaces/INotification'
 import { IUser } from '@interfaces/IUser'
 import { setAvatar } from '@store/user/userSlice'
-import { HeliosAPI } from '@utils/api'
-import { saveItemToStorage } from '@utils/storage'
-import { readFile } from '@utils/upload'
+import { ReaderUtility } from '@utils/reader'
+import { RequestUtility } from '@utils/request'
+import { StorageUtility } from '@utils/storage'
 
 import S from './ChangeAvatar.module.scss'
 import CS from '@common.module.scss'
@@ -32,22 +32,22 @@ export const ChangeAvatar: React.VFC<IChangeAvatarProps> = ({ user }) => {
     if (!file) {
       return
     }
-    readFile(file[0], uploadAvatarSubmit)
+    ReaderUtility.readFile(file[0], uploadAvatarSubmit)
     e.target.value = ''
   }
 
   const uploadAvatarSubmit = async (file: { message?: string; data?: string }) => {
     if (file.data) {
-      const changeAvatarResult = await HeliosAPI.putRequest<{ avatar: string }, { avatar: string }>(
+      const changeAvatarResult = await RequestUtility.requestToServer<{ avatar: string }, { avatar: string }>(
+        'PUT',
         '/changeAvatar',
         { avatar: file.data },
         user.token
       )
-
       if (changeAvatarResult.data) {
-        saveItemToStorage<IUser>(STORAGE_USER, { ...user, ...changeAvatarResult.data })
+        StorageUtility.saveItemToStorage<IUser>(STORAGE_USER, { ...user, ...changeAvatarResult.data })
         dispatch(setAvatar(changeAvatarResult.data.avatar))
-        setUploadAvatarNotification({ message: 'Аватар успешно изменен', isError: false })
+        setUploadAvatarNotification({ message: 'Avatar successfully changed', isError: false })
       } else if (changeAvatarResult.message) {
         setUploadAvatarNotification({ message: changeAvatarResult.message, isError: true })
       }
