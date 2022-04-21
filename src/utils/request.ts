@@ -2,12 +2,12 @@ import { API } from 'src/constants'
 
 import { IResponse } from '@interfaces/IResponse'
 
-const requestToServer = async <T, B>(
+const requestToServer = async <R, B>(
   method: 'GET' | 'POST' | 'PUT',
   url: string,
   body: B,
   token?: string
-): Promise<IResponse<T>> => {
+): Promise<IResponse<R>> => {
   try {
     const tokenConfig = token && { authorization: `Bearer ${token}` }
     const bodyConfig = body && { body: JSON.stringify(body) }

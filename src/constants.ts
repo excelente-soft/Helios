@@ -14,6 +14,7 @@ export const PROTECTED_ROUTES: IRoute[] = [
   { name: 'Settings', path: '/settings' },
 ]
 export const PRIVATE_ROUTES: IRoute[] = [
-  { name: 'Create course', path: '/new-course' },
-  { name: 'Create role', path: '/new-role' },
+  { name: 'Сourse management', path: '/course-management' },
+  { name: 'Other features', path: '/other' },
 ]
+export const MENTOR_ROUTES: IRoute[] = [{ name: 'Mentor dashboard', path: '/mentor' }]

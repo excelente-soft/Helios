@@ -2,7 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useRef } from 'react'
 
-import { PRIVATE_ROUTES, PROTECTED_ROUTES } from '@constants'
+import { MENTOR_ROUTES, PRIVATE_ROUTES, PROTECTED_ROUTES } from '@constants'
 import { useClear } from '@hooks/useClear'
 import { useOutside } from '@hooks/useOutline'
 import { IUser } from '@interfaces/IUser'
@@ -83,6 +83,14 @@ export const MiniProfile: React.VFC<IMiniProfileProps> = ({ user }) => {
             </li>
           ))}
           {user.role.accessLevel > 0 &&
+            MENTOR_ROUTES.map(({ name, path }) => (
+              <li key={name}>
+                <Link href={path}>
+                  <a className={S.link}>{name}</a>
+                </Link>
+              </li>
+            ))}
+          {user.role.accessLevel > 1 &&
             PRIVATE_ROUTES.map(({ name, path }) => (
               <li key={name}>
                 <Link href={path}>
@@ -99,10 +107,4 @@ export const MiniProfile: React.VFC<IMiniProfileProps> = ({ user }) => {
       )}
     </div>
   )
-}
-{
-  /* <>
-
-
-</> */
 }

@@ -30,7 +30,7 @@ export const ChangePassword: React.VFC<IChangePasswordProps> = ({ token }) => {
     const changePasswordResult = await RequestUtility.requestToServer<
       { password: boolean },
       { currentPassword: string; newPassword: string }
-    >('PUT', '/changePassword', { currentPassword, newPassword: password }, token)
+    >('PUT', '/change-password', { currentPassword, newPassword: password }, token)
 
     if (changePasswordResult.data) {
       clearUser()

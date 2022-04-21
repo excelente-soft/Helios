@@ -1,6 +1,6 @@
 import Head from 'next/head'
 
-import { Header } from '@components/Header/Header'
+import { MemoizedHeader } from '@components/Header/Header'
 import { SITE_NAME } from '@constants'
 import { ILayoutProps } from '@interfaces/ILayout'
 
@@ -12,7 +12,7 @@ export const Layout: React.FC<ILayoutProps> = ({ children, title }) => {
       <Head>
         <title>{`${SITE_NAME} | ${title}`}</title>
       </Head>
-      <Header />
+      <MemoizedHeader />
       <div className={S.withoutMargin}>{children}</div>
     </>
   )

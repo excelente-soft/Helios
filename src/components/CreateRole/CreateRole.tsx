@@ -29,7 +29,7 @@ export const CreateRole: React.VFC<ICreateRoleProps> = ({ user }) => {
   const createRoleSubmit = async (formData: typeof initialValues) => {
     const changeRoleResult = await RequestUtility.requestToServer<IRole, IRole>(
       'POST',
-      '/createRole',
+      '/create-role',
       formData,
       user.token
     )
@@ -41,7 +41,8 @@ export const CreateRole: React.VFC<ICreateRoleProps> = ({ user }) => {
   }
 
   return (
-    <Block noMargin>
+    <Block>
+      <h3 className={CS.subtitle}>Create role</h3>
       <Formik initialValues={initialValues} validationSchema={YupSchemas.CreateRoleSchema} onSubmit={createRoleSubmit}>
         {({ errors, touched }) => (
           <Form>

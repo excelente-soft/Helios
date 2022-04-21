@@ -32,7 +32,7 @@ export const PrivateLayout: React.FC<IPrivateLayoutProps> = ({ children, accessL
 
   useEffect(() => {
     if (!user) {
-      router.push('/')
+      router.push('/login')
     }
   }, [user])
 

@@ -31,7 +31,7 @@ export const ProtectedLayout: React.FC<IProtectedLayoutProps> = ({ children, tit
 
   useEffect(() => {
     if (!user) {
-      router.push('/')
+      router.push('/login')
     }
   }, [user])
 

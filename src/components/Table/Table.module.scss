@@ -1,6 +1,6 @@
 @import '@mixins';
 
-.catalog {
+.table {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 2rem;
@@ -8,14 +8,18 @@
   padding-bottom: 1.75rem;
 }
 
+.noPadding {
+  padding: 0 !important;
+}
+
 @include tablet {
-  .catalog {
+  .table {
     grid-template-columns: 1fr 1fr;
   }
 }
 
 @include mobile {
-  .catalog {
+  .table {
     grid-template-columns: 1fr;
   }
 }

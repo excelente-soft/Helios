@@ -3,7 +3,7 @@
 .errorContainer {
   display: grid;
   place-content: center;
-  height: 100%;
+  height: calc(100vh - 5rem);
   text-align: center;
 }
 

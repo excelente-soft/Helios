@@ -27,7 +27,7 @@ export const ChangeProfileType: React.VFC<IChangeProfileTypeProps> = ({ user }) 
       { type: UserTypeEnum }
     >(
       'PUT',
-      '/changeType',
+      '/change-type',
       { type: user.type === UserTypeEnum.public ? UserTypeEnum.private : UserTypeEnum.public },
       user.token
     )

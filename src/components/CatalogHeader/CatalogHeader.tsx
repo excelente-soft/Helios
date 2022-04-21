@@ -13,18 +13,17 @@ const CatalogHeader: React.VFC<ICatalogHeaderProps> = ({ courses }) => {
   const coursesImages = () => {
     const coursesWithImages = courses.filter((course) => course.image)
     if (coursesWithImages.length === 0) return null
-    const fiveRandomCoursesWithImages = new Array(5)
+    const sevenRandomCoursesWithImages = new Array(7)
       .fill('')
       .map(() => coursesWithImages[Math.floor(Math.random() * coursesWithImages.length)])
-    return fiveRandomCoursesWithImages
+    return sevenRandomCoursesWithImages
   }
-  const fiveRandomCoursesWithImages = coursesImages()
-  console.log(courses)
+  const sevenRandomCoursesWithImages = coursesImages()
   return (
     <div className={S.header}>
       <div className={S.images}>
-        {fiveRandomCoursesWithImages &&
-          fiveRandomCoursesWithImages.map((course, index) => (
+        {sevenRandomCoursesWithImages &&
+          sevenRandomCoursesWithImages.map((course, index) => (
             <div key={index} className={S.courseImageWrapper}>
               <Image
                 className={S.courseImage}

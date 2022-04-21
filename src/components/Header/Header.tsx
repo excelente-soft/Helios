@@ -1,13 +1,15 @@
+import { memo } from 'react'
+
 import { Entry } from '@components/Entry/Entry'
 import { Logo } from '@components/Logo/Logo'
 import { MiniProfile } from '@components/MiniProfile/MiniProfile'
-import { Navigation } from '@components/Navigation/Navigation'
+import { MemoizedNavigation } from '@components/Navigation/Navigation'
 import { useUser } from '@hooks/useUser'
 
 import S from './Header.module.scss'
 import CS from '@common.module.scss'
 
-export const Header = () => {
+const Header = () => {
   const { user } = useUser()
 
   return (
@@ -15,7 +17,7 @@ export const Header = () => {
       <div className={`${S.container} ${CS.pageContainer}`}>
         <div className={S.leftContent}>
           <Logo />
-          <Navigation user={user} />
+          <MemoizedNavigation user={user} />
         </div>
         <div className={S.rightContent}>
           {user && <MiniProfile user={user} />}
@@ -25,3 +27,5 @@ export const Header = () => {
     </header>
   )
 }
+
+export const MemoizedHeader = memo(Header)

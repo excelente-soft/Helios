@@ -33,7 +33,7 @@ export const ChangeProfile: React.VFC<IChangeProfileProps> = ({ user }) => {
   const profileSubmit = async (formData: IUserProfile) => {
     const changeProfileResult = await RequestUtility.requestToServer<IUserProfile, IUserProfile>(
       'PUT',
-      '/changeProfile',
+      '/change-profile',
       formData,
       user.token
     )

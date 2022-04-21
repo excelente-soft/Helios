@@ -2,7 +2,7 @@
 @import '@mixins';
 
 .container {
-  height: 100%;
+  height: calc(100vh - 5rem);
   display: grid;
   grid-template-columns: 1.15fr 1fr;
 }

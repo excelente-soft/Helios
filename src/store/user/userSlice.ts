@@ -2,7 +2,7 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
 import { IUser, IUserProfile, UserTypeEnum } from '@interfaces/IUser'
 
-export type UserState = IUser | null
+type UserState = IUser | null
 
 const initialState: IUser | null = null as UserState
 

@@ -1,17 +1,19 @@
-import { Form, Formik } from 'formik'
+import { Form, Formik, FormikProps } from 'formik'
 import Image from 'next/image'
 import { useRef, useState } from 'react'
 
 import { Block } from '@components/Block/Block'
+import { CourseCard } from '@components/CourseCard/CourseCard'
 import { Notification } from '@components/Notification/Notification'
 import { RowField } from '@components/RowField/RowField'
+import { Table } from '@components/Table/Table'
 import { ICourse } from '@interfaces/ICourse'
 import { INotification } from '@interfaces/INotification'
 import { IUser } from '@interfaces/IUser'
 import { ReaderUtility } from '@utils/reader'
 import { RequestUtility } from '@utils/request'
+import { YupSchemas } from '@utils/yupSchemas'
 
-import { YupSchemas } from '../../utils/yupSchemas'
 import S from './CreateCourse.module.scss'
 import CS from '@common.module.scss'
 
@@ -22,6 +24,8 @@ interface ICreateCourseProps {
 export const CreateCourse: React.VFC<ICreateCourseProps> = ({ user }) => {
   const [answerFromServer, setAnswerFromServer] = useState<INotification>({ message: '', isError: false })
   const [courseImage, setCourseImagge] = useState('')
+  const [coursePreview, setCoursePreview] = useState<ICourse | null>(null)
+  const formikRef = useRef<FormikProps<typeof initialValues>>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
   const initialValues = {
     name: '',
@@ -30,13 +34,24 @@ export const CreateCourse: React.VFC<ICreateCourseProps> = ({ user }) => {
     price: 0,
   }
 
+  const coursePreviewHandler = () => {
+    if (formikRef.current && formikRef.current.isValid && formikRef.current.dirty) {
+      setCoursePreview({
+        id: '',
+        ...formikRef.current.values,
+        image: courseImage,
+        creationDate: new Date(),
+        author: user.nickname,
+        targetAccessLevel: user.role.accessLevel,
+      })
+    }
+  }
+
   const createCourseSubmit = async (formData: typeof initialValues) => {
-    const createCourseResult = await RequestUtility.requestToServer<ICourse, Omit<ICourse, 'author'>>(
-      'POST',
-      '/createCourse',
-      { ...formData, image: courseImage || 'empty' },
-      user.token
-    )
+    const createCourseResult = await RequestUtility.requestToServer<
+      ICourse,
+      Omit<ICourse, 'author' | 'creationDate' | 'id' | 'targetAccessLevel'>
+    >('POST', '/create-course', { ...formData, image: courseImage || 'empty' }, user.token)
     if (createCourseResult.data) {
       setAnswerFromServer({ message: 'Course created successfully', isError: false })
     } else if (createCourseResult.message) {
@@ -70,10 +85,12 @@ export const CreateCourse: React.VFC<ICreateCourseProps> = ({ user }) => {
 
   return (
     <Block noMargin>
+      <h3 className={CS.subtitle}>Create course</h3>
       <Formik
         initialValues={initialValues}
         validationSchema={YupSchemas.CreateCourseSchema}
         onSubmit={createCourseSubmit}
+        innerRef={formikRef}
       >
         {({ errors, touched }) => (
           <Form>
@@ -151,13 +168,22 @@ export const CreateCourse: React.VFC<ICreateCourseProps> = ({ user }) => {
               <button type="submit" className={`${CS.btnPrimary} ${CS.btnBasicSize}`}>
                 Create course
               </button>
-              <button type="button" className={`${CS.btnSecondary} ${CS.btnBasicSize}`}>
+              <button onClick={coursePreviewHandler} type="button" className={`${CS.btnSecondary} ${CS.btnBasicSize}`}>
                 Preview
               </button>
             </div>
           </Form>
         )}
       </Formik>
+      {coursePreview && (
+        <div className={S.preview}>
+          <Table noPadding>
+            <CourseCard course={coursePreview} />
+            <CourseCard course={coursePreview} />
+            <CourseCard course={coursePreview} />
+          </Table>
+        </div>
+      )}
     </Block>
   )
 }

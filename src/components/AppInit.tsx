@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react'
 
+import { MemoizedModal } from '@components/Modal/Modal'
 import { PageLoader } from '@components/PageLoader/PageLoader'
 import { useUser } from '@hooks/useUser'
 
@@ -21,6 +22,7 @@ export const AppInit: React.FC = ({ children }) => {
     <>
       {restored && <>{children}</>}
       {!restored && <PageLoader />}
+      <MemoizedModal />
     </>
   )
 }

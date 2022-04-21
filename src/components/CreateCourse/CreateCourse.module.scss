@@ -63,6 +63,12 @@
   border: none;
 }
 
+.preview {
+  padding: 1.75rem;
+  background-color: $neutral-color;
+  margin-top: 1.75rem;
+}
+
 @include mobile {
   .imageContainer {
     flex-direction: column;

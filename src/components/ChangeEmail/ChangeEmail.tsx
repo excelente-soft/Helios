@@ -31,7 +31,7 @@ export const ChangeEmail: React.VFC<IChangeEmailProps> = ({ user }) => {
     const changeEmailResult = await RequestUtility.requestToServer<
       { email: string },
       { email: string; password: string }
-    >('PUT', '/changeEmail', { email, password: passwordConfirm }, user.token)
+    >('PUT', '/change-email', { email, password: passwordConfirm }, user.token)
     if (changeEmailResult.data) {
       clearUser()
     } else if (changeEmailResult.message) {

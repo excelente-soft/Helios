@@ -40,7 +40,7 @@ export const ChangeAvatar: React.VFC<IChangeAvatarProps> = ({ user }) => {
     if (file.data) {
       const changeAvatarResult = await RequestUtility.requestToServer<{ avatar: string }, { avatar: string }>(
         'PUT',
-        '/changeAvatar',
+        '/change-avatar',
         { avatar: file.data },
         user.token
       )

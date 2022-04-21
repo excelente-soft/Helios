@@ -36,7 +36,10 @@ export const useUser = () => {
       }
     }
 
-    console.log('~ User data was restored from storage ~')
+    console.log(
+      '%c🤯 User was restored from local storage 🤯',
+      'background: #1B2024; color: #D4EBFF; padding: 10px 16px'
+    )
   }
 
   const validate = async (probUser?: IUser | null) => {

@@ -21,7 +21,8 @@ body {
 }
 
 a,
-button {
+button,
+input[type='checkbox'] {
   @include keyboardOutline;
 }
 

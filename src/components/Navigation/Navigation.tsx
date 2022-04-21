@@ -1,15 +1,16 @@
 import Link from 'next/link'
+import { memo } from 'react'
 
+import { MENTOR_ROUTES, PUBLIC_ROUTES } from '@constants'
 import { IUser } from '@interfaces/IUser'
 
-import { PROTECTED_ROUTES, PUBLIC_ROUTES } from '../../constants'
 import S from './Navigation.module.scss'
 
 interface INavigationProps {
   user: IUser | null
 }
 
-export const Navigation: React.VFC<INavigationProps> = ({ user }) => {
+const Navigation: React.VFC<INavigationProps> = ({ user }) => {
   return (
     <nav>
       <ul className={S.routesList}>
@@ -21,7 +22,8 @@ export const Navigation: React.VFC<INavigationProps> = ({ user }) => {
           </li>
         ))}
         {user &&
-          PROTECTED_ROUTES.map(({ name, path }) => (
+          user.role.accessLevel > 0 &&
+          MENTOR_ROUTES.map(({ name, path }) => (
             <li key={name}>
               <Link href={path}>
                 <a className={S.routeLink}>{name}</a>
@@ -32,3 +34,5 @@ export const Navigation: React.VFC<INavigationProps> = ({ user }) => {
     </nav>
   )
 }
+
+export const MemoizedNavigation = memo(Navigation)

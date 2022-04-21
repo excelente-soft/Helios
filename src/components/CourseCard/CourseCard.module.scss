@@ -3,6 +3,8 @@
 .card {
   display: block;
   position: relative;
+  min-height: 0;
+  min-width: 0;
 
   &::before {
     content: '';
@@ -52,12 +54,31 @@
 
 .content {
   padding: 1rem;
+  overflow: hidden;
 }
 
 .price {
   font-size: 1.5rem;
   color: $secondary-color;
   margin: 0;
+}
+
+.new {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0.5rem 0.875rem;
+  margin: 0;
+  background-color: #ffd300;
+  color: $secondary-color;
+  box-shadow: 0 5px 10px rgb(20 27 58 / 5%), 0 10px 25px rgb(9 14 34 / 20%);
+}
+
+.subtitle,
+.price {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .title,

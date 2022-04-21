@@ -1,4 +1,5 @@
 @import '@variables';
+@import '@mixins';
 
 .searchContainer {
   background-color: #fff;
@@ -10,7 +11,6 @@
 .searchPanel {
   display: flex;
   gap: 1rem;
-  position: relative;
   z-index: 799;
 }
 
@@ -36,8 +36,32 @@
 
 .dropdownIcon {
   display: block;
-  background: url('../../../public/images/dropdown.svg') no-repeat;
-  background-position: bottom -2px right;
+  transition: transform 0.2s ease-in;
+  background: url('../../../public/images/dropdown.svg') no-repeat center;
   width: 0.75rem;
   height: 0.75rem;
+}
+
+.dropdownIconReverse {
+  transform: rotate(180deg);
+}
+
+.dropdown {
+  position: absolute;
+  top: 3.25rem;
+  right: 0;
+  z-index: 800;
+  width: 100%;
+  border-bottom: 1px solid $secondary-color;
+  background-color: rgb(255, 255, 255);
+}
+
+@include mobile {
+  .filterContainer {
+    flex-direction: column;
+    align-items: center;
+  }
+  .totalContainer {
+    display: none;
+  }
 }

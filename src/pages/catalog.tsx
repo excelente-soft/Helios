@@ -2,47 +2,72 @@ import { useEffect, useState } from 'react'
 
 import { MemoizedCatalogHeader } from '@components/CatalogHeader/CatalogHeader'
 import { CourseCard } from '@components/CourseCard/CourseCard'
-import { MemoizedCourseSearch } from '@components/CourseSearch/CourseSearch'
+import { CourseSearch } from '@components/CourseSearch/CourseSearch'
 import { Layout } from '@components/Layout/Layout'
-import { ICourse } from '@interfaces/ICourse'
+import { Table } from '@components/Table/Table'
+import { useAppSelector } from '@hooks/app'
+import { ICourse, ICourseRaw } from '@interfaces/ICourse'
 import { RequestUtility } from '@utils/request'
-
-import S from '../styles/Catalog.module.scss'
-import CS from '@common.module.scss'
 
 const Catalog = () => {
   const [courses, setCourses] = useState<ICourse[]>([])
-  const [searchCretria, setSearchCretria] = useState('')
+  const catalogTerms = useAppSelector(({ catalogTerms }) => catalogTerms)
+  const [searchCreteria, setSearchCreteria] = useState(catalogTerms.search)
 
   useEffect(() => {
     const getCourses = async () => {
-      const courses = await RequestUtility.requestToServer<ICourse[], null>('GET', '/getCourses', null)
-      if (courses.data) {
-        setCourses(courses.data)
+      const rawCourses = await RequestUtility.requestToServer<ICourseRaw[], null>('GET', '/get-courses', null)
+      if (rawCourses.data) {
+        const courses = rawCourses.data.map((course) => ({ ...course, creationDate: new Date(course.creationDate) }))
+        setCourses(courses)
       }
     }
     getCourses()
   }, [])
 
-  const search = (courses: ICourse[]) => {
-    if (searchCretria === '') {
-      return courses
+  const search = (coursesParam: ICourse[]) => {
+    if (searchCreteria === '') {
+      return coursesParam
     }
-    return courses.filter(
+    return coursesParam.filter(
       (course) =>
-        course.name.toLowerCase().includes(searchCretria.toLowerCase()) ||
-        course.shortDescription.toLowerCase().includes(searchCretria.toLowerCase())
+        course.name.toLowerCase().includes(searchCreteria.toLowerCase()) ||
+        course.shortDescription.toLowerCase().includes(searchCreteria.toLowerCase())
     )
   }
 
-  const filteredCourses = search(courses)
+  const filterByDate = (coursesParam: ICourse[]) => {
+    if (catalogTerms.byDate === 'any') {
+      return coursesParam
+    } else if (catalogTerms.byDate === 'lastWeek') {
+      return coursesParam.filter((course) => course.creationDate.getTime() > Date.now() - 1000 * 60 * 60 * 24 * 7)
+    } else {
+      return coursesParam.filter((course) => course.creationDate.getTime() < Date.now() - 1000 * 60 * 60 * 24 * 7)
+    }
+  }
+
+  const filterByPrice = (coursesParam: ICourse[]) => {
+    if (catalogTerms.byPrice === 'any') {
+      return coursesParam
+    } else if (catalogTerms.byPrice === 'free') {
+      return coursesParam.filter((course) => course.price === 0)
+    } else {
+      return coursesParam.filter((course) => course.price > 0)
+    }
+  }
+
+  const foundedCourses = filterByPrice(filterByDate(search(courses)))
   return (
     <Layout title="Catalog">
       <MemoizedCatalogHeader courses={courses} />
-      <MemoizedCourseSearch total={filteredCourses.length} creteria={searchCretria} setCreteria={setSearchCretria} />
-      <div className={`${CS.pageContainer} ${S.catalog}`}>
-        {filteredCourses && filteredCourses.map((course) => <CourseCard key={course.name} course={course} />)}
-      </div>
+      <CourseSearch
+        total={foundedCourses.length}
+        searchCreteria={searchCreteria}
+        setSearchCreteria={setSearchCreteria}
+      />
+      <Table>
+        {foundedCourses && foundedCourses.map((course) => <CourseCard key={course.name} course={course} />)}
+      </Table>
     </Layout>
   )
 }
