@@ -1,6 +1,6 @@
-import { ProtectedLayout } from '@components/ProtectedLayout/ProtectedLayout'
+import MyCourses from '@components/MyCourses/MyCourses'
+import ProtectedLayout from '@components/ProtectedLayout/ProtectedLayout'
 
-import { MyCourses } from '../components/MyCourses/MyCourses'
 import CS from '@common.module.scss'
 
 const Courses = () => {

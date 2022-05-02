@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 
-import { Block } from '@components/Block/Block'
+import Block from '@components/Block/Block'
 
 import S from './CoursePreviewTodo.module.scss'
 import CS from '@common.module.scss'
@@ -14,7 +14,7 @@ interface ICoursePreviewHeaderProps {
   description: string
 }
 
-export const CoursePreviewTodo: React.VFC<ICoursePreviewHeaderProps> = ({ description }) => {
+const CoursePreviewTodo: React.VFC<ICoursePreviewHeaderProps> = ({ description }) => {
   return (
     <section className={`${S.todoSection} ${CS.pageContainer}`}>
       <div className={S.todoContent}>
@@ -30,3 +30,5 @@ export const CoursePreviewTodo: React.VFC<ICoursePreviewHeaderProps> = ({ descri
     </section>
   )
 }
+
+export default CoursePreviewTodo

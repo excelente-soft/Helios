@@ -10,7 +10,7 @@ interface ICourseCardProps {
   url?: string
 }
 
-export const CourseCard: React.VFC<ICourseCardProps> = ({ course, url }) => {
+const CourseCard: React.VFC<ICourseCardProps> = ({ course, url }) => {
   const isNew = course.creationDate.getTime() > Date.now() - 1000 * 60 * 60 * 24 * 7
 
   return (
@@ -29,3 +29,5 @@ export const CourseCard: React.VFC<ICourseCardProps> = ({ course, url }) => {
     </Link>
   )
 }
+
+export default CourseCard

@@ -12,13 +12,9 @@ export const useUser = () => {
   const { clearUser } = useClear()
 
   const refresh = async (refreshToken: string) => {
-    const responseFromServer = await RequestUtility.requestToServer<IUserLogin, { refreshToken: string }>(
-      'POST',
-      '/refresh',
-      {
-        refreshToken,
-      }
-    )
+    const responseFromServer = await RequestUtility.requestToServer<IUserLogin>('POST', '/refresh', {
+      refreshToken,
+    })
     if (responseFromServer.data) {
       StorageUtility.saveItemToStorage<IUser>(STORAGE_USER, responseFromServer.data.user)
       StorageUtility.saveItemToStorage<string>(STORAGE_REFRESH_TOKEN, responseFromServer.data.refreshToken)
@@ -45,12 +41,7 @@ export const useUser = () => {
   const validate = async (probUser?: IUser | null) => {
     const userToValidate = probUser ? probUser : user
     if (userToValidate) {
-      const responseFromServer = await RequestUtility.requestToServer<boolean, object>(
-        'POST',
-        '/validate',
-        {},
-        userToValidate.token
-      )
+      const responseFromServer = await RequestUtility.requestToServer('POST', '/validate', {}, userToValidate.token)
       if (!responseFromServer.data) {
         const refreshToken = StorageUtility.getItemFromStorage<string>(STORAGE_REFRESH_TOKEN) || ''
         const refreshResponseFromServer = await refresh(refreshToken)

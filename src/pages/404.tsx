@@ -1,5 +1,5 @@
-import { ErrorRoute } from '@components/ErrorRoute/ErrorRoute'
-import { Layout } from '@components/Layout/Layout'
+import ErrorRoute from '@components/ErrorRoute/ErrorRoute'
+import Layout from '@components/Layout/Layout'
 
 const Custom404 = () => {
   return (

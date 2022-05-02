@@ -9,11 +9,7 @@ export const useAuth = () => {
   const dispatch = useAppDispatch()
 
   const login = async (credentials: IUserCredentials) => {
-    const responseFromServer = await RequestUtility.requestToServer<IUserLogin, IUserCredentials>(
-      'POST',
-      '/login',
-      credentials
-    )
+    const responseFromServer = await RequestUtility.requestToServer<IUserLogin>('POST', '/login', credentials)
     if (responseFromServer.data) {
       StorageUtility.saveItemToStorage<IUser>(STORAGE_USER, responseFromServer.data.user)
       StorageUtility.saveItemToStorage<string>(STORAGE_REFRESH_TOKEN, responseFromServer.data.refreshToken)
@@ -23,11 +19,7 @@ export const useAuth = () => {
   }
 
   const signup = async (userData: IUserSignup) => {
-    const responseFromServer = await RequestUtility.requestToServer<IUserLogin, IUserSignup>(
-      'POST',
-      '/signup',
-      userData
-    )
+    const responseFromServer = await RequestUtility.requestToServer<IUserLogin>('POST', '/signup', userData)
     if (responseFromServer.data) {
       StorageUtility.saveItemToStorage<IUser>(STORAGE_USER, responseFromServer.data.user)
       StorageUtility.saveItemToStorage<string>(STORAGE_REFRESH_TOKEN, responseFromServer.data.refreshToken)

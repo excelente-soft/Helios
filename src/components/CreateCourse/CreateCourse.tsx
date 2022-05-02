@@ -2,31 +2,30 @@ import { Form, Formik, FormikProps } from 'formik'
 import Image from 'next/image'
 import { useRef, useState } from 'react'
 
-import { Block } from '@components/Block/Block'
-import { CourseCard } from '@components/CourseCard/CourseCard'
-import { Notification } from '@components/Notification/Notification'
-import { RowField } from '@components/RowField/RowField'
-import { Table } from '@components/Table/Table'
+import { IWithNotificationProps, withNotification } from '@HOC/withNotification'
+import Block from '@components/Block/Block'
+import CourseCard from '@components/CourseCard/CourseCard'
+import RowField from '@components/RowField/RowField'
+import Table from '@components/Table/Table'
+import { useImage } from '@hooks/useImage'
 import { ICourse } from '@interfaces/ICourse'
-import { INotification } from '@interfaces/INotification'
 import { IUser } from '@interfaces/IUser'
-import { ReaderUtility } from '@utils/reader'
 import { RequestUtility } from '@utils/request'
 import { YupSchemas } from '@utils/yupSchemas'
 
 import S from './CreateCourse.module.scss'
 import CS from '@common.module.scss'
 
-interface ICreateCourseProps {
+interface ICreateCourseProps extends IWithNotificationProps {
   user: IUser
 }
 
-export const CreateCourse: React.VFC<ICreateCourseProps> = ({ user }) => {
-  const [answerFromServer, setAnswerFromServer] = useState<INotification>({ message: '', isError: false })
-  const [courseImage, setCourseImagge] = useState('')
+const CreateCourse: React.VFC<ICreateCourseProps> = ({ user, notification, setAnswerFromServer }) => {
   const [coursePreview, setCoursePreview] = useState<ICourse | null>(null)
   const formikRef = useRef<FormikProps<typeof initialValues>>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
+  const [courseImage, uploadImageTrigger, imageHandler, setCourseImage] = useImage(fileInputRef, '')
+
   const initialValues = {
     name: '',
     shortDescription: '',
@@ -48,10 +47,12 @@ export const CreateCourse: React.VFC<ICreateCourseProps> = ({ user }) => {
   }
 
   const createCourseSubmit = async (formData: typeof initialValues) => {
-    const createCourseResult = await RequestUtility.requestToServer<
-      ICourse,
-      Omit<ICourse, 'author' | 'creationDate' | 'id' | 'targetAccessLevel'>
-    >('POST', '/create-course', { ...formData, image: courseImage || 'empty' }, user.token)
+    const createCourseResult = await RequestUtility.requestToServer<ICourse>(
+      'POST',
+      '/create-course',
+      { ...formData, image: courseImage || 'empty' },
+      user.token
+    )
     if (createCourseResult.data) {
       setAnswerFromServer({ message: 'Course created successfully', isError: false })
     } else if (createCourseResult.message) {
@@ -59,28 +60,8 @@ export const CreateCourse: React.VFC<ICreateCourseProps> = ({ user }) => {
     }
   }
 
-  const uploadCourseImageHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.currentTarget.files
-    if (!file) {
-      return
-    }
-    ReaderUtility.readFile(file[0], uploadCourseImageSetter)
-    e.target.value = ''
-  }
-
-  const uploadCourseImageSetter = (file: { message?: string; data?: string }) => {
-    setCourseImagge(courseImage)
-    if (file.data) {
-      setCourseImagge(file.data)
-    }
-  }
-
   const deleteImageHandler = () => {
-    setCourseImagge('')
-  }
-
-  const uploadCourseAvatarTrigger = () => {
-    fileInputRef.current?.click()
+    setCourseImage('')
   }
 
   return (
@@ -141,15 +122,11 @@ export const CreateCourse: React.VFC<ICreateCourseProps> = ({ user }) => {
                 )}
               </div>
               <div className={S.imageControls}>
-                <button
-                  onClick={uploadCourseAvatarTrigger}
-                  type="button"
-                  className={`${CS.btnPrimary} ${S.uploadImage}`}
-                >
+                <button onClick={uploadImageTrigger} type="button" className={`${CS.btnPrimary} ${S.uploadImage}`}>
                   Upload course image
                 </button>
                 <input
-                  onChange={uploadCourseImageHandler}
+                  onChange={imageHandler}
                   ref={fileInputRef}
                   className={S.hiddenFileInput}
                   type="file"
@@ -163,7 +140,7 @@ export const CreateCourse: React.VFC<ICreateCourseProps> = ({ user }) => {
                 </p>
               </div>
             </div>
-            {answerFromServer.message && <Notification answerFromServer={answerFromServer} />}
+            {notification}
             <div className={S.controls}>
               <button type="submit" className={`${CS.btnPrimary} ${CS.btnBasicSize}`}>
                 Create course
@@ -187,3 +164,5 @@ export const CreateCourse: React.VFC<ICreateCourseProps> = ({ user }) => {
     </Block>
   )
 }
+
+export default withNotification(CreateCourse)

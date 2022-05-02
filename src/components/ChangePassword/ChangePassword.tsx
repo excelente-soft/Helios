@@ -1,23 +1,20 @@
 import { Form, Formik } from 'formik'
-import { useState } from 'react'
 
-import { Block } from '@components/Block/Block'
-import { Notification } from '@components/Notification/Notification'
-import { RowField } from '@components/RowField/RowField'
+import { IWithNotificationProps, withNotification } from '@HOC/withNotification'
+import Block from '@components/Block/Block'
+import RowField from '@components/RowField/RowField'
 import { useClear } from '@hooks/useClear'
-import { INotification } from '@interfaces/INotification'
 import { RequestUtility } from '@utils/request'
 import { YupSchemas } from '@utils/yupSchemas'
 
 import S from './ChangePassword.module.scss'
 import CS from '@common.module.scss'
 
-interface IChangePasswordProps {
+interface IChangePasswordProps extends IWithNotificationProps {
   token: string
 }
 
-export const ChangePassword: React.VFC<IChangePasswordProps> = ({ token }) => {
-  const [answerFromServer, setAnswerFromServer] = useState<INotification>({ message: '', isError: false })
+const ChangePassword: React.VFC<IChangePasswordProps> = ({ token, notification, setAnswerFromServer }) => {
   const { clearUser } = useClear()
 
   const initialValues = {
@@ -27,10 +24,12 @@ export const ChangePassword: React.VFC<IChangePasswordProps> = ({ token }) => {
   }
 
   const changePasswordSubmit = async ({ currentPassword, password }: typeof initialValues) => {
-    const changePasswordResult = await RequestUtility.requestToServer<
-      { password: boolean },
-      { currentPassword: string; newPassword: string }
-    >('PUT', '/change-password', { currentPassword, newPassword: password }, token)
+    const changePasswordResult = await RequestUtility.requestToServer<{ password: boolean }>(
+      'PUT',
+      '/change-password',
+      { currentPassword, newPassword: password },
+      token
+    )
 
     if (changePasswordResult.data) {
       clearUser()
@@ -74,7 +73,7 @@ export const ChangePassword: React.VFC<IChangePasswordProps> = ({ token }) => {
               error={errors.newPasswordConfirm}
               touched={touched.newPasswordConfirm}
             />
-            {answerFromServer.message && <Notification answerFromServer={answerFromServer} />}
+            {notification}
             <p className={S.notification}>
               <span className={S.warning}>Warning: Changing your password will sign you out.</span> You can then sign
               back in with your new password.
@@ -88,3 +87,5 @@ export const ChangePassword: React.VFC<IChangePasswordProps> = ({ token }) => {
     </Block>
   )
 }
+
+export default withNotification(ChangePassword)

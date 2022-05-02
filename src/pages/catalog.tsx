@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
 
 import { MemoizedCatalogHeader } from '@components/CatalogHeader/CatalogHeader'
-import { CourseCard } from '@components/CourseCard/CourseCard'
-import { CourseSearch } from '@components/CourseSearch/CourseSearch'
-import { Layout } from '@components/Layout/Layout'
-import { Table } from '@components/Table/Table'
+import CourseCard from '@components/CourseCard/CourseCard'
+import CourseSearch from '@components/CourseSearch/CourseSearch'
+import Layout from '@components/Layout/Layout'
+import Table from '@components/Table/Table'
 import { useAppSelector } from '@hooks/app'
 import { ICourse, ICourseRaw } from '@interfaces/ICourse'
 import { RequestUtility } from '@utils/request'
@@ -16,7 +16,7 @@ const Catalog = () => {
 
   useEffect(() => {
     const getCourses = async () => {
-      const rawCourses = await RequestUtility.requestToServer<ICourseRaw[], null>('GET', '/get-courses', null)
+      const rawCourses = await RequestUtility.requestToServer<ICourseRaw[]>('GET', '/get-courses', null)
       if (rawCourses.data) {
         const courses = rawCourses.data.map((course) => ({ ...course, creationDate: new Date(course.creationDate) }))
         setCourses(courses)

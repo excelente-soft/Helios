@@ -1,8 +1,8 @@
 import { memo } from 'react'
 
-import { Entry } from '@components/Entry/Entry'
-import { Logo } from '@components/Logo/Logo'
-import { MiniProfile } from '@components/MiniProfile/MiniProfile'
+import Entry from '@components/Entry/Entry'
+import Logo from '@components/Logo/Logo'
+import MiniProfile from '@components/MiniProfile/MiniProfile'
 import { MemoizedNavigation } from '@components/Navigation/Navigation'
 import { useUser } from '@hooks/useUser'
 

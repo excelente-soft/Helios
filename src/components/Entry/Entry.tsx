@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import S from './Entry.module.scss'
 import CS from '@common.module.scss'
 
-export const Entry = () => {
+const Entry = () => {
   const router = useRouter()
   const { pathname } = router
   const showSignUpControl = pathname !== '/signup'
@@ -24,3 +24,5 @@ export const Entry = () => {
     </>
   )
 }
+
+export default Entry

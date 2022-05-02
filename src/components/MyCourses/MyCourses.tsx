@@ -1,23 +1,22 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react'
 
-import { Table } from '@components/Table/Table'
+import CourseCard from '@components/CourseCard/CourseCard'
+import Table from '@components/Table/Table'
+import { ICourse, ICourseRaw } from '@interfaces/ICourse'
 import { IUser } from '@interfaces/IUser'
 import { RequestUtility } from '@utils/request'
-
-import { ICourse, ICourseRaw } from '../../interfaces/ICourse'
-import { CourseCard } from '../CourseCard/CourseCard'
 
 interface IMyCoursesProps {
   user: IUser
 }
 
-export const MyCourses: React.VFC<IMyCoursesProps> = ({ user }) => {
+const MyCourses: React.VFC<IMyCoursesProps> = ({ user }) => {
   const [myCourses, setMyCourses] = useState<ICourse[]>([])
 
   useEffect(() => {
     const fetchMyCourses = async () => {
-      const myCoursesResponse = await RequestUtility.requestToServer<Array<{ course: ICourseRaw }>, null>(
+      const myCoursesResponse = await RequestUtility.requestToServer<{ course: ICourseRaw }[]>(
         'GET',
         '/my-courses',
         null,
@@ -27,8 +26,6 @@ export const MyCourses: React.VFC<IMyCoursesProps> = ({ user }) => {
         const rawCourses = myCoursesResponse.data.map((myCourse) => myCourse.course)
         const courses = rawCourses.map((course) => ({ ...course, creationDate: new Date(course.creationDate) }))
         setMyCourses(courses)
-      } else {
-        console.log(myCoursesResponse.message)
       }
     }
     fetchMyCourses()
@@ -43,3 +40,5 @@ export const MyCourses: React.VFC<IMyCoursesProps> = ({ user }) => {
     </Table>
   )
 }
+
+export default MyCourses

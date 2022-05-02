@@ -12,7 +12,7 @@ const filterVariants = {
   hidden: { height: 0, paddingBottom: 0 },
 }
 
-export const CatalogFilter = () => {
+const CatalogFilter = () => {
   const catalogTerms = useAppSelector(({ catalogTerms }) => catalogTerms)
   const dispatch = useAppDispatch()
 
@@ -130,3 +130,5 @@ export const CatalogFilter = () => {
     </motion.div>
   )
 }
+
+export default CatalogFilter

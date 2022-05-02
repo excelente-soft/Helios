@@ -1,11 +1,10 @@
 import Image from 'next/image'
-import { useRef, useState } from 'react'
+import { useRef } from 'react'
 
-import { Block } from '@components/Block/Block'
-import { Notification } from '@components/Notification/Notification'
+import { IWithNotificationProps, withNotification } from '@HOC/withNotification'
+import Block from '@components/Block/Block'
 import { STORAGE_USER } from '@constants'
 import { useAppDispatch } from '@hooks/app'
-import { INotification } from '@interfaces/INotification'
 import { IUser } from '@interfaces/IUser'
 import { setAvatar } from '@store/user/userSlice'
 import { ReaderUtility } from '@utils/reader'
@@ -15,15 +14,11 @@ import { StorageUtility } from '@utils/storage'
 import S from './ChangeAvatar.module.scss'
 import CS from '@common.module.scss'
 
-interface IChangeAvatarProps {
+interface IChangeAvatarProps extends IWithNotificationProps {
   user: IUser
 }
 
-export const ChangeAvatar: React.VFC<IChangeAvatarProps> = ({ user }) => {
-  const [uploadAvatarNotification, setUploadAvatarNotification] = useState<INotification>({
-    message: '',
-    isError: false,
-  })
+const ChangeAvatar: React.VFC<IChangeAvatarProps> = ({ user, notification, setAnswerFromServer }) => {
   const fileInputRef = useRef<HTMLInputElement>(null)
   const dispatch = useAppDispatch()
 
@@ -38,7 +33,7 @@ export const ChangeAvatar: React.VFC<IChangeAvatarProps> = ({ user }) => {
 
   const uploadAvatarSubmit = async (file: { message?: string; data?: string }) => {
     if (file.data) {
-      const changeAvatarResult = await RequestUtility.requestToServer<{ avatar: string }, { avatar: string }>(
+      const changeAvatarResult = await RequestUtility.requestToServer<{ avatar: string }>(
         'PUT',
         '/change-avatar',
         { avatar: file.data },
@@ -47,12 +42,12 @@ export const ChangeAvatar: React.VFC<IChangeAvatarProps> = ({ user }) => {
       if (changeAvatarResult.data) {
         StorageUtility.saveItemToStorage<IUser>(STORAGE_USER, { ...user, ...changeAvatarResult.data })
         dispatch(setAvatar(changeAvatarResult.data.avatar))
-        setUploadAvatarNotification({ message: 'Avatar successfully changed', isError: false })
+        setAnswerFromServer({ message: 'Avatar successfully changed', isError: false })
       } else if (changeAvatarResult.message) {
-        setUploadAvatarNotification({ message: changeAvatarResult.message, isError: true })
+        setAnswerFromServer({ message: changeAvatarResult.message, isError: true })
       }
     } else if (file.message) {
-      setUploadAvatarNotification({ message: file.message, isError: true })
+      setAnswerFromServer({ message: file.message, isError: true })
       return
     }
   }
@@ -97,7 +92,9 @@ export const ChangeAvatar: React.VFC<IChangeAvatarProps> = ({ user }) => {
           </p>
         </div>
       </div>
-      {uploadAvatarNotification.message && <Notification answerFromServer={uploadAvatarNotification} />}
+      {notification}
     </Block>
   )
 }
+
+export default withNotification(ChangeAvatar)

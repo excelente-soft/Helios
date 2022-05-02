@@ -1,0 +1,32 @@
+@import '@variables';
+@import '@mixins';
+
+.changeTestContainer {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 1rem;
+}
+
+.btnChange {
+  height: 2.188rem;
+  flex: 2;
+}
+
+.control {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.quests {
+  display: flex;
+  flex-direction: column;
+  grid-gap: 0.5rem;
+  margin: 1.5rem 0;
+}
+
+.btnDelete {
+  height: 2.188rem;
+  flex: 1;
+}

@@ -4,7 +4,9 @@ interface INotificationProps {
   answerFromServer: { message: string; isError: boolean }
 }
 
-export const Notification: React.VFC<INotificationProps> = ({ answerFromServer }) => {
+const Notification: React.VFC<INotificationProps> = ({ answerFromServer }) => {
   const { message, isError } = answerFromServer
-  return <div className={isError ? S.operationError : S.operationSuccess}>{message}</div>
+  return <>{message && <div className={isError ? S.operationError : S.operationSuccess}>{message}</div>}</>
 }
+
+export default Notification

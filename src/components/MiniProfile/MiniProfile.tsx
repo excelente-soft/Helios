@@ -13,7 +13,7 @@ interface IMiniProfileProps {
   user: IUser
 }
 
-export const MiniProfile: React.VFC<IMiniProfileProps> = ({ user }) => {
+const MiniProfile: React.VFC<IMiniProfileProps> = ({ user }) => {
   const menuRef = useRef<HTMLDivElement>(null)
   const [isMenuOpen, setMenuOpen] = useOutside(menuRef)
   const { clearUser } = useClear()
@@ -108,3 +108,5 @@ export const MiniProfile: React.VFC<IMiniProfileProps> = ({ user }) => {
     </div>
   )
 }
+
+export default MiniProfile

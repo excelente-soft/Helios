@@ -1,0 +1,30 @@
+@import '@variables';
+@import '@mixins';
+
+.changeLectureContainer {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 1rem;
+}
+
+.editor {
+  margin: 1.5rem 0;
+  height: 20rem;
+}
+
+.btnChange {
+  height: 2.188rem;
+  flex: 2;
+}
+
+.btnDelete {
+  height: 2.188rem;
+  flex: 1;
+}
+
+.control {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}

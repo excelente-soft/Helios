@@ -40,11 +40,28 @@
   color: $primary-color;
 
   &:hover {
-    background-color: rgb(0 0 0 / 7%);
+    background-color: rgb(0 0 0 / 5%);
   }
 
   &:active {
     background-color: rgb(0 0 0 / 3%);
+  }
+}
+
+.btnThird {
+  @include btn;
+
+  background-color: $error-color;
+  border: 1px solid $error-color;
+  font-size: 0.875rem;
+  color: #fff;
+
+  &:hover {
+    background-color: #fb1e09;
+  }
+
+  &:active {
+    background-color: #931205;
   }
 }
 

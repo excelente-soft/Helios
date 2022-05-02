@@ -1,12 +1,10 @@
 import { Form, Formik } from 'formik'
-import { useState } from 'react'
 
-import { Block } from '@components/Block/Block'
-import { Notification } from '@components/Notification/Notification'
-import { RowField } from '@components/RowField/RowField'
+import { IWithNotificationProps, withNotification } from '@HOC/withNotification'
+import Block from '@components/Block/Block'
+import RowField from '@components/RowField/RowField'
 import { STORAGE_USER } from '@constants'
 import { useAppDispatch } from '@hooks/app'
-import { INotification } from '@interfaces/INotification'
 import { IUser, IUserProfile } from '@interfaces/IUser'
 import { setProfile } from '@store/user/userSlice'
 import { RequestUtility } from '@utils/request'
@@ -16,12 +14,11 @@ import { YupSchemas } from '@utils/yupSchemas'
 import S from './ChangeProfile.module.scss'
 import CS from '@common.module.scss'
 
-interface IChangeProfileProps {
+interface IChangeProfileProps extends IWithNotificationProps {
   user: IUser
 }
 
-export const ChangeProfile: React.VFC<IChangeProfileProps> = ({ user }) => {
-  const [answerFromServer, setAnswerFromServer] = useState<INotification>({ message: '', isError: false })
+const ChangeProfile: React.VFC<IChangeProfileProps> = ({ user, setAnswerFromServer, notification }) => {
   const dispatch = useAppDispatch()
 
   const initialValues: IUserProfile = {
@@ -31,7 +28,7 @@ export const ChangeProfile: React.VFC<IChangeProfileProps> = ({ user }) => {
   }
 
   const profileSubmit = async (formData: IUserProfile) => {
-    const changeProfileResult = await RequestUtility.requestToServer<IUserProfile, IUserProfile>(
+    const changeProfileResult = await RequestUtility.requestToServer<IUserProfile>(
       'PUT',
       '/change-profile',
       formData,
@@ -78,7 +75,7 @@ export const ChangeProfile: React.VFC<IChangeProfileProps> = ({ user }) => {
               error={errors.nickname}
               touched={touched.nickname}
             />
-            {answerFromServer.message && <Notification answerFromServer={answerFromServer} />}
+            {notification}
             <button type="submit" className={`${CS.btnPrimary} ${CS.btnBasicSize}`}>
               Update profile
             </button>
@@ -88,3 +85,5 @@ export const ChangeProfile: React.VFC<IChangeProfileProps> = ({ user }) => {
     </Block>
   )
 }
+
+export default withNotification(ChangeProfile)

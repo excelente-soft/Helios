@@ -2,8 +2,8 @@
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 
-import { Layout } from '@components/Layout/Layout'
-import { PageLoader } from '@components/PageLoader/PageLoader'
+import Layout from '@components/Layout/Layout'
+import PageLoader from '@components/PageLoader/PageLoader'
 import { useAppSelector } from '@hooks/app'
 import { useUser } from '@hooks/useUser'
 import { ILayoutProps } from '@interfaces/ILayout'
@@ -13,7 +13,7 @@ interface IProtectedLayoutProps extends ILayoutProps {
   children: (user: IUser) => React.ReactNode
 }
 
-export const ProtectedLayout: React.FC<IProtectedLayoutProps> = ({ children, title }) => {
+const ProtectedLayout: React.FC<IProtectedLayoutProps> = ({ children, title }) => {
   const user = useAppSelector(({ user }) => user)
   const router = useRouter()
   const { validate } = useUser()
@@ -42,3 +42,5 @@ export const ProtectedLayout: React.FC<IProtectedLayoutProps> = ({ children, tit
     </>
   )
 }
+
+export default ProtectedLayout

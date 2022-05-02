@@ -6,7 +6,7 @@ import { ILayoutProps } from '@interfaces/ILayout'
 
 import S from './Layout.module.scss'
 
-export const Layout: React.FC<ILayoutProps> = ({ children, title }) => {
+const Layout: React.FC<ILayoutProps> = ({ children, title }) => {
   return (
     <>
       <Head>
@@ -17,3 +17,5 @@ export const Layout: React.FC<ILayoutProps> = ({ children, title }) => {
     </>
   )
 }
+
+export default Layout

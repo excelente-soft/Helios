@@ -2,8 +2,8 @@
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 
-import { Layout } from '@components/Layout/Layout'
-import { PageLoader } from '@components/PageLoader/PageLoader'
+import Layout from '@components/Layout/Layout'
+import PageLoader from '@components/PageLoader/PageLoader'
 import { useAppSelector } from '@hooks/app'
 import { useUser } from '@hooks/useUser'
 import { ILayoutProps } from '@interfaces/ILayout'
@@ -14,7 +14,7 @@ interface IPrivateLayoutProps extends ILayoutProps {
   accessLevel?: number
 }
 
-export const PrivateLayout: React.FC<IPrivateLayoutProps> = ({ children, accessLevel = 1, title }) => {
+const PrivateLayout: React.FC<IPrivateLayoutProps> = ({ children, accessLevel = 1, title }) => {
   const user = useAppSelector(({ user }) => user)
   const router = useRouter()
   const { validate } = useUser()
@@ -22,8 +22,10 @@ export const PrivateLayout: React.FC<IPrivateLayoutProps> = ({ children, accessL
   useEffect(() => {
     const validateUser = async () => {
       const validUser = await validate(user)
-      if (!validUser || validUser.role.accessLevel < accessLevel) {
+      if (!validUser) {
         router.push('/login')
+      } else if (validUser.role.accessLevel < accessLevel) {
+        router.push('/')
       }
     }
 
@@ -43,3 +45,5 @@ export const PrivateLayout: React.FC<IPrivateLayoutProps> = ({ children, accessL
     </>
   )
 }
+
+export default PrivateLayout

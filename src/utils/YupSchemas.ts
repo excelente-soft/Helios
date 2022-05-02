@@ -140,6 +140,30 @@ const CreateRoleSchema = object({
     .required('Required field'),
 })
 
+const ChangeCourseSchema = object({
+  name: string()
+    .min(6, 'Name must include at least 6 characters.')
+    .max(64, 'Name must not contain more than 64 characters.')
+    .required('Required field'),
+  shortDescription: string()
+    .min(6, 'Short description must include at least 6 characters.')
+    .max(64, 'Short description must not contain more than 64 characters.')
+    .required('Required field'),
+  description: string()
+    .min(16, 'Description must include at least 16 characters.')
+    .max(1024, 'Description must not contain more than 1024 characters.')
+    .required('Required field'),
+  price: number()
+    .min(0, 'Price must be greater than 0.')
+    .max(100000, 'Price must be less than 100000.')
+    .required('Required field'),
+  targetAccessLevel: number()
+    .min(2, 'Access level must be greater than 2.')
+    .max(ref('hiddenAccessLevel'), 'Access level must be less than current access level.')
+    .required('Required field'),
+  hiddenAccessLevel: number(),
+})
+
 export const YupSchemas = {
   LoginSchema,
   SigniupSchema,
@@ -148,4 +172,5 @@ export const YupSchemas = {
   ChangePasswordSchema,
   CreateCourseSchema,
   CreateRoleSchema,
+  ChangeCourseSchema,
 }

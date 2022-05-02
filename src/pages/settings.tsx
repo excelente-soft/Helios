@@ -1,9 +1,9 @@
-import { ChangeAvatar } from '@components/ChangeAvatar/ChangeAvatar'
-import { ChangeEmail } from '@components/ChangeEmail/ChangeEmail'
-import { ChangePassword } from '@components/ChangePassword/ChangePassword'
-import { ChangeProfile } from '@components/ChangeProfile/ChangeProfile'
-import { ChangeProfileType } from '@components/ChangeType/ChangeProfileType'
-import { ProtectedLayout } from '@components/ProtectedLayout/ProtectedLayout'
+import ChangeAvatar from '@components/ChangeAvatar/ChangeAvatar'
+import ChangeEmail from '@components/ChangeEmail/ChangeEmail'
+import ChangePassword from '@components/ChangePassword/ChangePassword'
+import ChangeProfile from '@components/ChangeProfile/ChangeProfile'
+import ChangeProfileType from '@components/ChangeType/ChangeProfileType'
+import ProtectedLayout from '@components/ProtectedLayout/ProtectedLayout'
 
 import CS from '@common.module.scss'
 

@@ -4,7 +4,7 @@ interface IBlockProps {
   noMargin?: boolean
 }
 
-export const Block: React.FC<IBlockProps> = ({ children, noMargin }) => {
+const Block: React.FC<IBlockProps> = ({ children, noMargin }) => {
   return (
     <div className={`${S.outside} ${noMargin ? S.noMargin : ''}`}>
       <div className={S.block}>{children}</div>
@@ -12,3 +12,5 @@ export const Block: React.FC<IBlockProps> = ({ children, noMargin }) => {
     </div>
   )
 }
+
+export default Block

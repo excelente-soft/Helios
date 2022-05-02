@@ -3,9 +3,9 @@ import { useRouter } from 'next/router'
 
 import { useModal } from '@hooks/useModal'
 import { useUser } from '@hooks/useUser'
+import { IModalRaw } from '@interfaces/IModal'
 import { RequestUtility } from '@utils/request'
 
-import { IModalRaw } from '../../interfaces/IModal'
 import S from './CoursePreviewHeader.module.scss'
 import CS from '@common.module.scss'
 
@@ -25,7 +25,7 @@ interface ICoursePreviewHeaderProps {
   price: number
 }
 
-export const CoursePreviewHeader: React.VFC<ICoursePreviewHeaderProps> = ({ name, shortDescription, price }) => {
+const CoursePreviewHeader: React.VFC<ICoursePreviewHeaderProps> = ({ name, shortDescription, price }) => {
   const { user } = useUser()
   const router = useRouter()
   const { showModal } = useModal()
@@ -35,7 +35,7 @@ export const CoursePreviewHeader: React.VFC<ICoursePreviewHeaderProps> = ({ name
     if (!user) {
       return router.push('/login')
     }
-    const requestFromServer = await RequestUtility.requestToServer<IModalRaw, { name: string }>(
+    const requestFromServer = await RequestUtility.requestToServer<IModalRaw>(
       'POST',
       '/register-to-course',
       { name: courseName as string },
@@ -75,3 +75,5 @@ export const CoursePreviewHeader: React.VFC<ICoursePreviewHeaderProps> = ({ name
     </section>
   )
 }
+
+export default CoursePreviewHeader

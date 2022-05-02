@@ -2,10 +2,10 @@
 import { useEffect, useState } from 'react'
 
 import { MemoizedModal } from '@components/Modal/Modal'
-import { PageLoader } from '@components/PageLoader/PageLoader'
+import PageLoader from '@components/PageLoader/PageLoader'
 import { useUser } from '@hooks/useUser'
 
-export const AppInit: React.FC = ({ children }) => {
+const AppInit: React.FC = ({ children }) => {
   const { restoreFromStorage } = useUser()
   const [restored, setRestored] = useState(false)
 
@@ -26,3 +26,5 @@ export const AppInit: React.FC = ({ children }) => {
     </>
   )
 }
+
+export default AppInit

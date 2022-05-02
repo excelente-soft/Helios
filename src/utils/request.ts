@@ -2,8 +2,8 @@ import { API } from 'src/constants'
 
 import { IResponse } from '@interfaces/IResponse'
 
-const requestToServer = async <R, B>(
-  method: 'GET' | 'POST' | 'PUT',
+const requestToServer = async <R = boolean, B = unknown>(
+  method: 'GET' | 'POST' | 'PUT' | 'DELETE',
   url: string,
   body: B,
   token?: string

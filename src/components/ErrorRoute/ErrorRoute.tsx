@@ -8,10 +8,7 @@ interface IErrorRouteProps {
   status?: number
 }
 
-export const ErrorRoute: React.VFC<IErrorRouteProps> = ({
-  status = 404,
-  description = 'This page could not be found.',
-}) => {
+const ErrorRoute: React.VFC<IErrorRouteProps> = ({ status = 404, description = 'This page could not be found.' }) => {
   return (
     <div className={S.errorContainer}>
       <h2 className={S.status}>{status}</h2>
@@ -22,3 +19,5 @@ export const ErrorRoute: React.VFC<IErrorRouteProps> = ({
     </div>
   )
 }
+
+export default ErrorRoute

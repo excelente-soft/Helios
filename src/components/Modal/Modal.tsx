@@ -15,7 +15,7 @@ const modalVariants = {
   hidden: { opacity: 0, y: -50 },
 }
 
-export const Modal = () => {
+const Modal = () => {
   const dispatch = useAppDispatch()
   const content = useAppSelector((state) => state.modal.content)
   const type = useAppSelector((state) => state.modal.type)

@@ -1,11 +1,9 @@
 import { Form, Formik } from 'formik'
-import { useState } from 'react'
 
-import { Block } from '@components/Block/Block'
-import { Notification } from '@components/Notification/Notification'
-import { RowField } from '@components/RowField/RowField'
+import { IWithNotificationProps, withNotification } from '@HOC/withNotification'
+import Block from '@components/Block/Block'
+import RowField from '@components/RowField/RowField'
 import { useClear } from '@hooks/useClear'
-import { INotification } from '@interfaces/INotification'
 import { IUser } from '@interfaces/IUser'
 import { RequestUtility } from '@utils/request'
 import { YupSchemas } from '@utils/yupSchemas'
@@ -13,12 +11,11 @@ import { YupSchemas } from '@utils/yupSchemas'
 import S from './ChangeEmail.module.scss'
 import CS from '@common.module.scss'
 
-interface IChangeEmailProps {
+interface IChangeEmailProps extends IWithNotificationProps {
   user: IUser
 }
 
-export const ChangeEmail: React.VFC<IChangeEmailProps> = ({ user }) => {
-  const [answerFromServer, setAnswerFromServer] = useState<INotification>({ message: '', isError: false })
+const ChangeEmail: React.VFC<IChangeEmailProps> = ({ user, setAnswerFromServer, notification }) => {
   const { clearUser } = useClear()
 
   const initialValues = {
@@ -28,10 +25,12 @@ export const ChangeEmail: React.VFC<IChangeEmailProps> = ({ user }) => {
   }
 
   const emailSubmit = async ({ email, passwordConfirm }: typeof initialValues) => {
-    const changeEmailResult = await RequestUtility.requestToServer<
-      { email: string },
-      { email: string; password: string }
-    >('PUT', '/change-email', { email, password: passwordConfirm }, user.token)
+    const changeEmailResult = await RequestUtility.requestToServer<{ email: string }>(
+      'PUT',
+      '/change-email',
+      { email, password: passwordConfirm },
+      user.token
+    )
     if (changeEmailResult.data) {
       clearUser()
     } else if (changeEmailResult.message) {
@@ -61,7 +60,7 @@ export const ChangeEmail: React.VFC<IChangeEmailProps> = ({ user }) => {
               error={errors.passwordConfirm}
               touched={touched.passwordConfirm}
             />
-            {answerFromServer.message && <Notification answerFromServer={answerFromServer} />}
+            {notification}
             <p className={S.notification}>
               <span className={S.warning}>Warning: Changing your email will result in a logout.</span> You can then log
               in again with a new mail.
@@ -75,3 +74,5 @@ export const ChangeEmail: React.VFC<IChangeEmailProps> = ({ user }) => {
     </Block>
   )
 }
+
+export default withNotification(ChangeEmail)

@@ -1,7 +1,7 @@
 import { ReactNode } from 'react'
 
-import { clearModal, setModal } from '../store/modal/modalSlice'
-import { useAppDispatch } from './app'
+import { useAppDispatch } from '@hooks/app'
+import { clearModal, setModal } from '@store/modal/modalSlice'
 
 export const useModal = () => {
   const dispatch = useAppDispatch()

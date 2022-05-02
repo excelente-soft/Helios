@@ -2,7 +2,7 @@
 import { AnimatePresence } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
 
-import { CatalogFilter } from '@components/CatalogFilter/CatalogFilter'
+import CatalogFilter from '@components/CatalogFilter/CatalogFilter'
 import { useAppDispatch } from '@hooks/app'
 import { setSearch } from '@store/catalogTerms/catalogTermsSlice'
 
@@ -15,7 +15,7 @@ interface ICourseSearchProps {
   setSearchCreteria: (creteria: string) => void
 }
 
-export const CourseSearch: React.VFC<ICourseSearchProps> = ({ total, searchCreteria, setSearchCreteria }) => {
+const CourseSearch: React.VFC<ICourseSearchProps> = ({ total, searchCreteria, setSearchCreteria }) => {
   const [isOpen, setIsOpen] = useState(false)
   const creteriaRef = useRef(searchCreteria)
   const dispatch = useAppDispatch()
@@ -65,3 +65,5 @@ export const CourseSearch: React.VFC<ICourseSearchProps> = ({ total, searchCrete
     </div>
   )
 }
+
+export default CourseSearch

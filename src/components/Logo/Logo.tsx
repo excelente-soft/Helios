@@ -4,7 +4,7 @@ import { SITE_NAME } from '@constants'
 
 import S from './Logo.module.scss'
 
-export const Logo = () => {
+const Logo = () => {
   return (
     <Link href="/">
       <a className={S.logoContainer}>
@@ -16,3 +16,5 @@ export const Logo = () => {
     </Link>
   )
 }
+
+export default Logo

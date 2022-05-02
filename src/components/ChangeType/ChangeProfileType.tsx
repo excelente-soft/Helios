@@ -1,10 +1,9 @@
-import React, { useState } from 'react'
+import React from 'react'
 
-import { Block } from '@components/Block/Block'
-import { Notification } from '@components/Notification/Notification'
+import { IWithNotificationProps, withNotification } from '@HOC/withNotification'
+import Block from '@components/Block/Block'
 import { STORAGE_USER } from '@constants'
 import { useAppDispatch } from '@hooks/app'
-import { INotification } from '@interfaces/INotification'
 import { IUser, UserTypeEnum } from '@interfaces/IUser'
 import { setType } from '@store/user/userSlice'
 import { RequestUtility } from '@utils/request'
@@ -13,19 +12,15 @@ import { StorageUtility } from '@utils/storage'
 import S from './ChangeProfileType.module.scss'
 import CS from '@common.module.scss'
 
-interface IChangeProfileTypeProps {
+interface IChangeProfileTypeProps extends IWithNotificationProps {
   user: IUser
 }
 
-export const ChangeProfileType: React.VFC<IChangeProfileTypeProps> = ({ user }) => {
-  const [answerFromServer, setAnswerFromServer] = useState<INotification>({ message: '', isError: false })
+const ChangeProfileType: React.VFC<IChangeProfileTypeProps> = ({ user, notification, setAnswerFromServer }) => {
   const dispatch = useAppDispatch()
 
   const changeProfileTypeHandler = async () => {
-    const changeProfileTypeResult = await RequestUtility.requestToServer<
-      { type: UserTypeEnum },
-      { type: UserTypeEnum }
-    >(
+    const changeProfileTypeResult = await RequestUtility.requestToServer<{ type: UserTypeEnum }>(
       'PUT',
       '/change-type',
       { type: user.type === UserTypeEnum.public ? UserTypeEnum.private : UserTypeEnum.public },
@@ -55,7 +50,7 @@ export const ChangeProfileType: React.VFC<IChangeProfileTypeProps> = ({ user }) 
         </label>
         <span className={S.label}>Public</span>
       </div>
-      {answerFromServer.message && <Notification answerFromServer={answerFromServer} />}
+      {notification}
       <p className={S.notification}>
         <span className={S.warning}>
           Warning: With a private profile type, no one will be able to find your profile
@@ -64,3 +59,5 @@ export const ChangeProfileType: React.VFC<IChangeProfileTypeProps> = ({ user }) 
     </Block>
   )
 }
+
+export default withNotification(ChangeProfileType)

@@ -2,13 +2,12 @@
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 
-import { CoursePreviewHeader } from '@components/CoursePreviewHeader/CoursePreviewHeader'
-import { ErrorRoute } from '@components/ErrorRoute/ErrorRoute'
-import { Layout } from '@components/Layout/Layout'
+import CoursePreviewHeader from '@components/CoursePreviewHeader/CoursePreviewHeader'
+import CoursePreviewTodo from '@components/CoursePreviewTodo/CoursePreviewTodo'
+import ErrorRoute from '@components/ErrorRoute/ErrorRoute'
+import Layout from '@components/Layout/Layout'
 import { ICourse } from '@interfaces/ICourse'
 import { RequestUtility } from '@utils/request'
-
-import { CoursePreviewTodo } from '../../components/CoursePreviewTodo/CoursePreviewTodo'
 
 const CoursePreview = () => {
   const router = useRouter()
@@ -19,7 +18,7 @@ const CoursePreview = () => {
   useEffect(() => {
     if (router.isReady) {
       const fetchCourse = async () => {
-        const responseFromServer = await RequestUtility.requestToServer<ICourse, null>(
+        const responseFromServer = await RequestUtility.requestToServer<ICourse>(
           'GET',
           `/get-courses/${courseName}`,
           null

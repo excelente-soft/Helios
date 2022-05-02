@@ -7,7 +7,7 @@ interface IEntryWelcomeProps {
   subtitle: string
 }
 
-export const EntryWelcome: React.VFC<IEntryWelcomeProps> = ({ title, subtitle }) => {
+const EntryWelcome: React.VFC<IEntryWelcomeProps> = ({ title, subtitle }) => {
   return (
     <div className={S.welcome}>
       <h2 className={S.title}>{title}</h2>
@@ -29,3 +29,5 @@ export const EntryWelcome: React.VFC<IEntryWelcomeProps> = ({ title, subtitle })
     </div>
   )
 }
+
+export default EntryWelcome

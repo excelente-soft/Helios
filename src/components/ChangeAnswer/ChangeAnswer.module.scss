@@ -1,0 +1,20 @@
+.answerContainer {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.answerField {
+  line-height: 1 !important;
+  padding: 0.5rem 0.25rem;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.btnControl {
+  height: 1.75rem;
+}

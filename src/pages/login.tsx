@@ -1,13 +1,12 @@
 import { Form, Formik } from 'formik'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useState } from 'react'
 
-import { EntryControl } from '@components/EntryControl/EntryControl'
-import { EntryWelcome } from '@components/EntryWelcome/EntryWelcome'
-import { Notification } from '@components/Notification/Notification'
-import { PublicLayout } from '@components/PublicLayout/PublicLayout'
-import { RowField } from '@components/RowField/RowField'
+import { IWithNotificationProps, withNotification } from '@HOC/withNotification'
+import EntryControl from '@components/EntryControl/EntryControl'
+import EntryWelcome from '@components/EntryWelcome/EntryWelcome'
+import PublicLayout from '@components/PublicLayout/PublicLayout'
+import RowField from '@components/RowField/RowField'
 import { SITE_NAME } from '@constants'
 import { useAuth } from '@hooks/useAuth'
 import { IUserCredentials } from '@interfaces/IUser'
@@ -16,10 +15,9 @@ import { YupSchemas } from '@utils/yupSchemas'
 import S from '../styles/Login.module.scss'
 import CS from '@common.module.scss'
 
-const Login = () => {
+const Login: React.VFC<IWithNotificationProps> = ({ setAnswerFromServer, notification }) => {
   const { login } = useAuth()
   const router = useRouter()
-  const [answerFromServer, setAnswerFromServer] = useState({ message: '', isError: false })
 
   const initialValues: IUserCredentials = {
     login: '',
@@ -60,7 +58,7 @@ const Login = () => {
                   touched={touched.password}
                   type="password"
                 />
-                {answerFromServer.message && <Notification answerFromServer={answerFromServer} />}
+                {notification}
                 <div className={S.forgot}>
                   <Link href="/forgot">
                     <a className={CS.link}>I forgot my password</a>
@@ -84,4 +82,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default withNotification(Login)
