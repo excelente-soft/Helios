@@ -11,7 +11,7 @@ import { RequestUtility } from '@utils/request'
 
 const Catalog = () => {
   const [courses, setCourses] = useState<ICourse[]>([])
-  const catalogTerms = useAppSelector(({ catalogTerms }) => catalogTerms)
+  const catalogTerms = useAppSelector((state) => state.catalogTerms)
   const [searchCreteria, setSearchCreteria] = useState(catalogTerms.search)
 
   useEffect(() => {

@@ -1,15 +1,5 @@
 @import '@variables';
 
-.warning {
-  color: $warning-color;
-  font-weight: 700;
-}
-
-.notification {
-  color: $secondary-color;
-  margin: 1rem 0 0;
-}
-
 .switchContainer {
   display: flex;
   align-items: center;

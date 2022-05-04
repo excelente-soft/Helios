@@ -138,3 +138,13 @@
   width: 8.875rem;
   height: 2.188rem;
 }
+
+.warning {
+  color: $warning-color;
+  font-weight: 700;
+}
+
+.notification {
+  color: $secondary-color;
+  margin: 1rem 0;
+}

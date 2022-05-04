@@ -5,6 +5,16 @@ export enum UserTypeEnum {
   private = 'private',
 }
 
+export interface IUserStorage {
+  nickname: string
+  avatar: string
+  email: string
+  name: string
+  secondName: string
+  token: string
+  type: UserTypeEnum
+}
+
 export interface IUserCredentials {
   login: string
   password: string

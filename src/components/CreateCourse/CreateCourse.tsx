@@ -155,9 +155,9 @@ const CreateCourse: React.VFC<ICreateCourseProps> = ({ user, notification, setAn
       {coursePreview && (
         <div className={S.preview}>
           <Table noPadding>
-            <CourseCard course={coursePreview} />
-            <CourseCard course={coursePreview} />
-            <CourseCard course={coursePreview} />
+            <CourseCard url="#" course={coursePreview} />
+            <CourseCard url="#" course={coursePreview} />
+            <CourseCard url="#" course={coursePreview} />
           </Table>
         </div>
       )}

@@ -2,7 +2,6 @@ import React from 'react'
 
 import { IWithNotificationProps, withNotification } from '@HOC/withNotification'
 import Block from '@components/Block/Block'
-import { STORAGE_USER } from '@constants'
 import { useAppDispatch } from '@hooks/app'
 import { IUser, UserTypeEnum } from '@interfaces/IUser'
 import { setType } from '@store/user/userSlice'
@@ -27,7 +26,7 @@ const ChangeProfileType: React.VFC<IChangeProfileTypeProps> = ({ user, notificat
       user.token
     )
     if (changeProfileTypeResult.data) {
-      StorageUtility.saveItemToStorage<IUser>(STORAGE_USER, { ...user, ...changeProfileTypeResult.data })
+      StorageUtility.saveUserToStorage({ ...user, ...changeProfileTypeResult.data })
       dispatch(setType(changeProfileTypeResult.data.type))
     } else if (changeProfileTypeResult.message) {
       setAnswerFromServer({ message: changeProfileTypeResult.message, isError: true })
@@ -51,8 +50,8 @@ const ChangeProfileType: React.VFC<IChangeProfileTypeProps> = ({ user, notificat
         <span className={S.label}>Public</span>
       </div>
       {notification}
-      <p className={S.notification}>
-        <span className={S.warning}>
+      <p className={CS.notification}>
+        <span className={CS.warning}>
           Warning: With a private profile type, no one will be able to find your profile
         </span>
       </p>

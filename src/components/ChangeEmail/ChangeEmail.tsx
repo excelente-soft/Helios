@@ -8,7 +8,6 @@ import { IUser } from '@interfaces/IUser'
 import { RequestUtility } from '@utils/request'
 import { YupSchemas } from '@utils/yupSchemas'
 
-import S from './ChangeEmail.module.scss'
 import CS from '@common.module.scss'
 
 interface IChangeEmailProps extends IWithNotificationProps {
@@ -61,8 +60,8 @@ const ChangeEmail: React.VFC<IChangeEmailProps> = ({ user, setAnswerFromServer, 
               touched={touched.passwordConfirm}
             />
             {notification}
-            <p className={S.notification}>
-              <span className={S.warning}>Warning: Changing your email will result in a logout.</span> You can then log
+            <p className={CS.notification}>
+              <span className={CS.warning}>Warning: Changing your email will result in a logout.</span> You can then log
               in again with a new mail.
             </p>
             <button type="submit" className={`${CS.btnPrimary} ${CS.btnBasicSize}`}>

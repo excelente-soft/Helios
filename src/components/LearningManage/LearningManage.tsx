@@ -1,15 +1,16 @@
 import { Reorder } from 'framer-motion'
+import { Dispatch, SetStateAction } from 'react'
 
 import Block from '@components/Block/Block'
 import ControlledTask from '@components/ControlledTask/ControlledTask'
 import { LearningManageContext } from '@contexts/LearningManage'
 import { IAnswer } from '@interfaces/IAnswer'
+import { IPractice } from '@interfaces/IPractice'
 import { IQuest } from '@interfaces/IQuest'
 import { ITask } from '@interfaces/ITask'
 import { ITest } from '@interfaces/ITest'
 import { RequestUtility } from '@utils/request'
 
-import { IPractice } from '../../interfaces/IPractice'
 import S from './LearningManage.module.scss'
 import CS from '@common.module.scss'
 
@@ -17,7 +18,7 @@ interface ILearningManage {
   tasks: ITask[]
   token: string
   courseId: string
-  setTasks: (tasks: ITask[]) => void
+  setTasks: Dispatch<SetStateAction<ITask[]>>
 }
 
 const LearningManage: React.VFC<ILearningManage> = ({ tasks, token, setTasks, courseId }) => {
@@ -59,8 +60,18 @@ const LearningManage: React.VFC<ILearningManage> = ({ tasks, token, setTasks, co
     setTasks(newTasks)
   }
 
+  const changeLecture = (lectureId: string, text: string, name: string) => {
+    const newTasks = tasks.map((task) => {
+      if (task.id === lectureId) {
+        return { ...task, text, name }
+      }
+      return task
+    })
+    setTasks(newTasks)
+  }
+
   const addTask = (task: ITask) => {
-    setTasks([...tasks, task])
+    setTasks((prevTasks) => [...prevTasks, task])
   }
 
   const changeTaskName = (taskId: string, name: string) => {
@@ -196,6 +207,7 @@ const LearningManage: React.VFC<ILearningManage> = ({ tasks, token, setTasks, co
         deleteAnswer,
         addAnswer,
         changePractice,
+        changeLecture,
       }}
     >
       <Block noMargin>

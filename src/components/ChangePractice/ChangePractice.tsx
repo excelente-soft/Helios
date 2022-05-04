@@ -6,9 +6,11 @@ import remarkGfm from 'remark-gfm'
 
 import { IWithNotificationProps, withNotification } from '@HOC/withNotification'
 import { LearningManageContext } from '@contexts/LearningManage'
+import { useModal } from '@hooks/useModal'
 import { IPractice } from '@interfaces/IPractice'
 import { RequestUtility } from '@utils/request'
 
+import Steps from '../Steps/Steps'
 import S from './ChangePractice.module.scss'
 import CS from '@common.module.scss'
 
@@ -27,6 +29,7 @@ const ChangePractice: React.VFC<IChangePracticeProps> = ({ token, practice, noti
   const [name, setName] = useState(practice.name)
   const [objectiveLink, setObjectiveLink] = useState(practice.link)
   const { deleteTask, changePractice } = useContext(LearningManageContext)
+  const { showModal } = useModal()
 
   const objectiveChangeHandler = ({ text }: { text: string }) => {
     setObjective(text)
@@ -69,6 +72,10 @@ const ChangePractice: React.VFC<IChangePracticeProps> = ({ token, practice, noti
     }
   }
 
+  const showStepsHandler = () => {
+    showModal(<Steps />, 'Info')
+  }
+
   return (
     <div className={S.changePracticeContainer}>
       <input
@@ -103,6 +110,13 @@ const ChangePractice: React.VFC<IChangePracticeProps> = ({ token, practice, noti
         onChange={changeObjectiveLinkHandler}
         name="objective link"
       />
+      <p className={`${CS.notification} ${S.notify}`}>
+        <span className={CS.warning}>Warning: Incorrect link will lead to incorrect display of the task.</span> To get
+        the correct link you need to follow{' '}
+        <button onClick={showStepsHandler} type="button" className={S.steps}>
+          these steps.
+        </button>
+      </p>
       <MdEditor
         className={S.editor}
         renderHTML={(text) => <ReactMarkdown remarkPlugins={[remarkGfm]}>{text}</ReactMarkdown>}

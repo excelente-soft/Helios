@@ -134,8 +134,8 @@ const ChangeCourse: React.VFC<IChangeCourse> = ({ course, user, notification, se
                 </p>
               </div>
             </div>
-            <p className={S.notification}>
-              <span className={S.warning}>Warning: Changing the name of the course will change the link.</span> It is
+            <p className={CS.notification}>
+              <span className={CS.warning}>Warning: Changing the name of the course will change the link.</span> It is
               recommended not to change the name of the course
             </p>
             {notification}

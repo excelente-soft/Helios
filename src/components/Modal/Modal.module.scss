@@ -17,6 +17,7 @@
   position: relative;
   min-width: 10rem;
   min-height: 5rem;
+  max-width: 68%;
   background-color: $neutral-color;
   padding: 2rem;
   border: 1px solid $secondary-color;
@@ -29,4 +30,14 @@
   align-items: center;
   justify-content: center;
   margin-bottom: 2rem;
+}
+
+.blur {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  backdrop-filter: blur(0.25rem);
+  z-index: 8999;
 }

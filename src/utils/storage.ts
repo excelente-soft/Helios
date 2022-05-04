@@ -1,3 +1,6 @@
+import { STORAGE_USER } from '@constants'
+import { IUser, IUserStorage } from '@interfaces/IUser'
+
 const getItemFromStorage = <T>(key: string, defaultValue: T | null = null) => {
   try {
     const item = window.localStorage.getItem(key) || ''
@@ -27,8 +30,14 @@ const removeItemFromStorage = (key: string) => {
   }
 }
 
+const saveUserToStorage = (user: IUser | IUserStorage) => {
+  const { nickname, avatar, email, name, secondName, token, type } = user
+  return saveItemToStorage<IUserStorage>(STORAGE_USER, { nickname, avatar, email, name, secondName, token, type })
+}
+
 export const StorageUtility = {
   getItemFromStorage,
   saveItemToStorage,
   removeItemFromStorage,
+  saveUserToStorage,
 }

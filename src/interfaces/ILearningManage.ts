@@ -13,4 +13,5 @@ export interface ILearningManageContext {
   deleteAnswer: (questId: string, answerId: string) => void
   addAnswer: (questId: string, answer: IAnswer) => void
   changePractice: (taskId: string, practice: IPractice) => void
+  changeLecture: (lectureId: string, text: string, name: string) => void
 }

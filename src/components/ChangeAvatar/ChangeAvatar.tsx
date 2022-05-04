@@ -3,7 +3,6 @@ import { useRef } from 'react'
 
 import { IWithNotificationProps, withNotification } from '@HOC/withNotification'
 import Block from '@components/Block/Block'
-import { STORAGE_USER } from '@constants'
 import { useAppDispatch } from '@hooks/app'
 import { IUser } from '@interfaces/IUser'
 import { setAvatar } from '@store/user/userSlice'
@@ -40,7 +39,7 @@ const ChangeAvatar: React.VFC<IChangeAvatarProps> = ({ user, notification, setAn
         user.token
       )
       if (changeAvatarResult.data) {
-        StorageUtility.saveItemToStorage<IUser>(STORAGE_USER, { ...user, ...changeAvatarResult.data })
+        StorageUtility.saveUserToStorage({ ...user, ...changeAvatarResult.data })
         dispatch(setAvatar(changeAvatarResult.data.avatar))
         setAnswerFromServer({ message: 'Avatar successfully changed', isError: false })
       } else if (changeAvatarResult.message) {

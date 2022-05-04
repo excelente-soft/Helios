@@ -4,11 +4,11 @@ import ReactMarkdown from 'react-markdown'
 import 'react-markdown-editor-lite/lib/index.css'
 import remarkGfm from 'remark-gfm'
 
+import { IWithNotificationProps, withNotification } from '@HOC/withNotification'
 import { LearningManageContext } from '@contexts/LearningManage'
 import { ILecture } from '@interfaces/ILecture'
 import { RequestUtility } from '@utils/request'
 
-import { IWithNotificationProps, withNotification } from '../../HOC/withNotification'
 import S from './ChangeLecture.module.scss'
 import CS from '@common.module.scss'
 
@@ -24,7 +24,7 @@ interface IChangeLecture extends IWithNotificationProps {
 const ChangeLecture: React.VFC<IChangeLecture> = ({ lecture, token, notification, setAnswerFromServer }) => {
   const [text, setText] = useState(lecture.text)
   const [name, setName] = useState(lecture.name)
-  const { changeTaskName, deleteTask } = useContext(LearningManageContext)
+  const { deleteTask, changeLecture } = useContext(LearningManageContext)
 
   const textChangeHandler = ({ text }: { text: string }) => {
     setText(text)
@@ -40,7 +40,7 @@ const ChangeLecture: React.VFC<IChangeLecture> = ({ lecture, token, notification
     if (changeLectureResult.message) {
       setAnswerFromServer({ message: changeLectureResult.message, isError: true })
     } else if (changeLectureResult.data) {
-      changeTaskName(lecture.id, changeLectureResult.data.name)
+      changeLecture(lecture.id, changeLectureResult.data.text, changeLectureResult.data.name)
       setAnswerFromServer({ message: 'Lecture successfully changed', isError: false })
     }
   }

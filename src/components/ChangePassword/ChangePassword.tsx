@@ -7,7 +7,6 @@ import { useClear } from '@hooks/useClear'
 import { RequestUtility } from '@utils/request'
 import { YupSchemas } from '@utils/yupSchemas'
 
-import S from './ChangePassword.module.scss'
 import CS from '@common.module.scss'
 
 interface IChangePasswordProps extends IWithNotificationProps {
@@ -74,8 +73,8 @@ const ChangePassword: React.VFC<IChangePasswordProps> = ({ token, notification, 
               touched={touched.newPasswordConfirm}
             />
             {notification}
-            <p className={S.notification}>
-              <span className={S.warning}>Warning: Changing your password will sign you out.</span> You can then sign
+            <p className={CS.notification}>
+              <span className={CS.warning}>Warning: Changing your password will sign you out.</span> You can then sign
               back in with your new password.
             </p>
             <button type="submit" className={`${CS.btnPrimary} ${CS.btnBasicSize}`}>

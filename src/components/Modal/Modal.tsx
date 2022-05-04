@@ -15,6 +15,11 @@ const modalVariants = {
   hidden: { opacity: 0, y: -50 },
 }
 
+const blurVariants = {
+  visible: { opacity: 1 },
+  hidden: { opacity: 0 },
+}
+
 const Modal = () => {
   const dispatch = useAppDispatch()
   const content = useAppSelector((state) => state.modal.content)
@@ -32,20 +37,23 @@ const Modal = () => {
   return (
     <>
       {content && (
-        <div onClick={modalCloseHandler} className={S.modalBackground}>
-          <motion.div
-            onClick={modalCloseRestrict}
-            className={S.modalContainer}
-            initial="hidden"
-            animate="visible"
-            variants={modalVariants}
-          >
-            <div className={S.typeImage}>
-              <Image src={modalIcon} height={128} width={128} alt={`${type} icon`} />
-            </div>
-            <div>{content}</div>
-          </motion.div>
-        </div>
+        <>
+          <motion.div className={S.blur} initial="hidden" animate="visible" variants={blurVariants}></motion.div>
+          <div onClick={modalCloseHandler} className={S.modalBackground}>
+            <motion.div
+              onClick={modalCloseRestrict}
+              className={S.modalContainer}
+              initial="hidden"
+              animate="visible"
+              variants={modalVariants}
+            >
+              <div className={S.typeImage}>
+                <Image src={modalIcon} height={128} width={128} alt={`${type} icon`} />
+              </div>
+              <div>{content}</div>
+            </motion.div>
+          </div>
+        </>
       )}
     </>
   )

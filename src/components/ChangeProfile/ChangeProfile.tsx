@@ -3,7 +3,6 @@ import { Form, Formik } from 'formik'
 import { IWithNotificationProps, withNotification } from '@HOC/withNotification'
 import Block from '@components/Block/Block'
 import RowField from '@components/RowField/RowField'
-import { STORAGE_USER } from '@constants'
 import { useAppDispatch } from '@hooks/app'
 import { IUser, IUserProfile } from '@interfaces/IUser'
 import { setProfile } from '@store/user/userSlice'
@@ -35,7 +34,7 @@ const ChangeProfile: React.VFC<IChangeProfileProps> = ({ user, setAnswerFromServ
       user.token
     )
     if (changeProfileResult.data) {
-      StorageUtility.saveItemToStorage<IUser>(STORAGE_USER, { ...user, ...changeProfileResult.data })
+      StorageUtility.saveUserToStorage({ ...user, ...changeProfileResult.data })
       dispatch(setProfile(changeProfileResult.data))
       setAnswerFromServer({ message: 'Profile changed successfully', isError: false })
     } else if (changeProfileResult.message) {

@@ -13,7 +13,7 @@ const filterVariants = {
 }
 
 const CatalogFilter = () => {
-  const catalogTerms = useAppSelector(({ catalogTerms }) => catalogTerms)
+  const catalogTerms = useAppSelector((state) => state.catalogTerms)
   const dispatch = useAppDispatch()
 
   const changeFilterByPrice = (value: IFilterByPrice) => {

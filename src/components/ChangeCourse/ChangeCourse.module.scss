@@ -53,16 +53,6 @@
   border: none;
 }
 
-.warning {
-  color: $warning-color;
-  font-weight: 700;
-}
-
-.notification {
-  color: $secondary-color;
-  margin: 1rem 0;
-}
-
 @include mobile {
   .imageContainer {
     flex-direction: column;

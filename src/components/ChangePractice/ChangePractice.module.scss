@@ -78,3 +78,19 @@
   align-items: center;
   gap: 1rem;
 }
+
+.notify {
+  margin-bottom: 0 !important;
+}
+
+.steps {
+  display: inline;
+  background-color: transparent;
+  color: #3a10e5;
+  font-weight: 500;
+  font-size: 1rem;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  border: none;
+}

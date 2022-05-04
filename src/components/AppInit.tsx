@@ -3,15 +3,21 @@ import { useEffect, useState } from 'react'
 
 import { MemoizedModal } from '@components/Modal/Modal'
 import PageLoader from '@components/PageLoader/PageLoader'
-import { useUser } from '@hooks/useUser'
+import { useAppDispatch } from '@hooks/app'
+import { useAuth } from '@hooks/useAuth'
+import { setUser } from '@store/user/userSlice'
 
 const AppInit: React.FC = ({ children }) => {
-  const { restoreFromStorage } = useUser()
+  const { restoreFromStorage } = useAuth()
   const [restored, setRestored] = useState(false)
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
     const appInit = async () => {
-      await restoreFromStorage()
+      const restoredUser = await restoreFromStorage()
+      if (restoredUser) {
+        dispatch(setUser(restoredUser))
+      }
       setRestored(true)
     }
 

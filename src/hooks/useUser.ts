@@ -1,4 +1,4 @@
-import { STORAGE_REFRESH_TOKEN, STORAGE_USER } from '@constants'
+import { STORAGE_REFRESH_TOKEN } from '@constants'
 import { useAppDispatch, useAppSelector } from '@hooks/app'
 import { useClear } from '@hooks/useClear'
 import { IUser, IUserLogin } from '@interfaces/IUser'
@@ -7,7 +7,7 @@ import { RequestUtility } from '@utils/request'
 import { StorageUtility } from '@utils/storage'
 
 export const useUser = () => {
-  const user = useAppSelector(({ user }) => user)
+  const user = useAppSelector((state) => state.user)
   const dispatch = useAppDispatch()
   const { clearUser } = useClear()
 
@@ -16,26 +16,11 @@ export const useUser = () => {
       refreshToken,
     })
     if (responseFromServer.data) {
-      StorageUtility.saveItemToStorage<IUser>(STORAGE_USER, responseFromServer.data.user)
+      StorageUtility.saveUserToStorage(responseFromServer.data.user)
       StorageUtility.saveItemToStorage<string>(STORAGE_REFRESH_TOKEN, responseFromServer.data.refreshToken)
       dispatch(setUser(responseFromServer.data.user))
     }
     return responseFromServer
-  }
-
-  const restoreFromStorage = async () => {
-    const userFromStorage = StorageUtility.getItemFromStorage<IUser>(STORAGE_USER)
-    if (userFromStorage) {
-      const validatedUser = await validate(userFromStorage)
-      if (validatedUser) {
-        dispatch(setUser(userFromStorage))
-      }
-    }
-
-    console.log(
-      '%c🤯 User was restored from local storage 🤯',
-      'background: #1B2024; color: #D4EBFF; padding: 10px 16px'
-    )
   }
 
   const validate = async (probUser?: IUser | null) => {
@@ -55,5 +40,5 @@ export const useUser = () => {
     return null
   }
 
-  return { user, restoreFromStorage, validate }
+  return { user, validate }
 }
