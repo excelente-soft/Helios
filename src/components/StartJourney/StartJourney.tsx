@@ -5,16 +5,13 @@ import { useUser } from '@hooks/useUser'
 import { IModalRaw } from '@interfaces/IModal'
 import { RequestUtility } from '@utils/request'
 
-import S from './CoursePreviewHeader.module.scss'
-import CS from '@common.module.scss'
+import S from './StartJourney.module.scss'
 
-interface ICoursePreviewHeaderProps {
-  name: string
-  shortDescription: string
+interface IStartJourneyProps {
   price: number
 }
 
-const CoursePreviewHeader: React.VFC<ICoursePreviewHeaderProps> = ({ name, shortDescription, price }) => {
+const StartJourney: React.VFC<IStartJourneyProps> = ({ price }) => {
   const { user } = useUser()
   const router = useRouter()
   const { showModal } = useModal()
@@ -40,16 +37,13 @@ const CoursePreviewHeader: React.VFC<ICoursePreviewHeaderProps> = ({ name, short
   }
 
   return (
-    <section className={S.header}>
-      <div className={`${CS.pageContainer} ${S.headContainer}`}>
-        <h1 className={S.name}>{name}</h1>
-        <p className={S.shortDescription}>{shortDescription}</p>
-        <button className={S.btnStartLearning} onClick={registerToCourseHandler}>
-          Start learning for <span className={S.price}>{price === 0 ? ' FREE' : ` ${price}$`}</span>
-        </button>
-      </div>
+    <section className={S.startJourneySection}>
+      <h2 className={S.start}>Ready to kick-start your learning journey?</h2>
+      <button className={S.btnStartLearning} onClick={registerToCourseHandler}>
+        Start learning for <span className={S.price}>{price === 0 ? ' FREE' : ` ${price}$`}</span>
+      </button>
     </section>
   )
 }
 
-export default CoursePreviewHeader
+export default StartJourney

@@ -1,0 +1,53 @@
+@import '@variables';
+@import '@mixins';
+
+.learningProcessSection {
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+}
+
+.learn {
+  font-size: 2.375rem;
+  color: $secondary-color;
+  text-align: center;
+  margin: 0;
+}
+
+.process {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3.438rem;
+  padding: 3.125rem 0;
+}
+
+.procWrapper {
+  background: #fff;
+  padding: 1.8rem;
+}
+
+.procName {
+  color: $secondary-color;
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin: 0 0 1.25rem;
+}
+
+.procDescription {
+  font-size: 1.25rem;
+  line-height: 1.7;
+  color: $secondary-color;
+}
+
+.reverse {
+  order: 1;
+}
+
+@include tablet {
+  .process {
+    grid-template-columns: 1fr;
+    margin-bottom: 2.5rem;
+  }
+  .reverse {
+    order: -1;
+  }
+}

@@ -5,12 +5,12 @@ import 'react-markdown-editor-lite/lib/index.css'
 import remarkGfm from 'remark-gfm'
 
 import { IWithNotificationProps, withNotification } from '@HOC/withNotification'
+import Steps from '@components/Steps/Steps'
 import { LearningManageContext } from '@contexts/LearningManage'
 import { useModal } from '@hooks/useModal'
 import { IPractice } from '@interfaces/IPractice'
 import { RequestUtility } from '@utils/request'
 
-import Steps from '../Steps/Steps'
 import S from './ChangePractice.module.scss'
 import CS from '@common.module.scss'
 

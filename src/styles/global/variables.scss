@@ -4,12 +4,4 @@ $neutral-color: rgb(251, 237, 227);
 $error-color: rgb(195, 25, 9);
 $warning-color: rgb(199, 104, 7);
 $success-color: rgb(19, 185, 25);
-
-:export {
-  primaryColor: $primary-color;
-  secondaryColor: $secondary-color;
-  neutralColor: $neutral-color;
-  errorColor: $error-color;
-  warningColor: $warning-color;
-  successColor: $success-color;
-}
+$progress-color: rgb(249, 207, 6);

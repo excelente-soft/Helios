@@ -1,15 +1,15 @@
 @import '@variables';
 
-.todo {
-  font-size: 2.875rem;
-  color: $secondary-color;
-  text-align: center;
-  margin: 0;
+.todoSection {
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
 }
 
-.todoSection {
-  padding-top: 5.5rem;
-  padding-bottom: 5.5rem;
+.todo {
+  font-size: 2.375rem;
+  color: $secondary-color;
+  text-align: center;
+  margin: 0 0 3.5625rem;
 }
 
 .description {
@@ -21,15 +21,10 @@
 }
 
 .descriptionContainer {
-  max-width: 65rem;
   margin: 0 auto;
 }
 
-.todoContent {
-  height: 62px;
-}
-
-.trail {
-  will-change: transform, opacity;
-  overflow: hidden;
+.block {
+  padding: 2.125rem;
+  background-color: #fff;
 }

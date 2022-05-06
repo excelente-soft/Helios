@@ -1,0 +1,49 @@
+@import '@variables';
+
+.questionContainer {
+  background-color: #fff;
+  border-radius: 0.25rem;
+  border: 1px solid $secondary-color;
+  padding: 0 1.75rem;
+}
+
+.question {
+  font-size: 1.25rem;
+  color: $secondary-color;
+  margin: 0;
+}
+
+.questDisplay {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.55rem 0;
+}
+
+.dropdownIcon {
+  display: block;
+  transition: transform 0.2s ease-in;
+  background: url('../../../public/images/dropdown.svg') no-repeat center;
+  width: 1rem;
+  height: 1rem;
+  min-width: 1rem;
+  min-height: 1rem;
+  cursor: pointer;
+}
+
+.dropdownIconReverse {
+  transform: rotate(180deg);
+}
+
+.dropdownContainer {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 1rem;
+}
+
+.answer {
+  font-size: 1.125rem;
+  color: $secondary-color;
+  margin: 0;
+}

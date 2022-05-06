@@ -12,6 +12,10 @@ export interface ICourse {
   targetAccessLevel: number
 }
 
+export interface ICourseWithProgress extends ICourse {
+  progress: number
+}
+
 export interface ICourseRaw extends Omit<ICourse, 'creationDate'> {
   creationDate: string
 }

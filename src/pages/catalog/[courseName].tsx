@@ -6,25 +6,37 @@ import CoursePreviewHeader from '@components/CoursePreviewHeader/CoursePreviewHe
 import CoursePreviewTodo from '@components/CoursePreviewTodo/CoursePreviewTodo'
 import ErrorRoute from '@components/ErrorRoute/ErrorRoute'
 import Layout from '@components/Layout/Layout'
-import { ICourse } from '@interfaces/ICourse'
+import LearningProcess from '@components/LearningProcess/LearningProcess'
+import PossibleQuestions from '@components/PossibleQuestions/PossibleQuestions'
+import StartJourney from '@components/StartJourney/StartJourney'
+import SyllabusPreview from '@components/SyllabusPreview/SyllabusPreview'
+import { ICourse, IManageRaw } from '@interfaces/ICourse'
+import { ITask } from '@interfaces/ITask'
 import { RequestUtility } from '@utils/request'
 
 const CoursePreview = () => {
   const router = useRouter()
   const [course, setCourse] = useState<ICourse | null>(null)
+  const [syllabus, setSyllabus] = useState<ITask[]>([])
   const [isFetched, setIsFetched] = useState(false)
   const { courseName } = router.query
 
   useEffect(() => {
     if (router.isReady) {
       const fetchCourse = async () => {
-        const responseFromServer = await RequestUtility.requestToServer<ICourse>(
+        const responseFromServer = await RequestUtility.requestToServer<IManageRaw>(
           'GET',
           `/get-courses/${courseName}`,
           null
         )
         if (responseFromServer.data) {
-          setCourse(responseFromServer.data)
+          const parsedDate = new Date(responseFromServer.data.course.creationDate)
+          setCourse({ ...responseFromServer.data.course, creationDate: parsedDate })
+          const allTasks: ITask[] = responseFromServer.data.lectures
+            .concat(responseFromServer.data.tests)
+            .concat(responseFromServer.data.practices)
+          const sortedTasks = allTasks.sort((a, b) => a.position - b.position)
+          setSyllabus(sortedTasks)
         }
         setIsFetched(true)
       }
@@ -40,6 +52,10 @@ const CoursePreview = () => {
         <>
           <CoursePreviewHeader name={course.name} shortDescription={course.shortDescription} price={course.price} />
           <CoursePreviewTodo description={course.description} />
+          <SyllabusPreview syllabus={syllabus} />
+          <LearningProcess />
+          <StartJourney price={course.price} />
+          <PossibleQuestions />
         </>
       )}
     </Layout>

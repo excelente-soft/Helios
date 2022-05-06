@@ -4,25 +4,28 @@ import { useEffect, useState } from 'react'
 import { IWithAuthorizationProps, withAuthorization } from '@HOC/withAuthorization'
 import CourseCard from '@components/CourseCard/CourseCard'
 import Table from '@components/Table/Table'
-import { ICourse, ICourseRaw } from '@interfaces/ICourse'
+import { ICourseWithProgress } from '@interfaces/ICourse'
 import { RequestUtility } from '@utils/request'
 
+import S from '../styles/Courses.module.scss'
 import CS from '@common.module.scss'
 
 const Courses: React.VFC<IWithAuthorizationProps> = ({ user }) => {
-  const [myCourses, setMyCourses] = useState<ICourse[]>([])
+  const [myCourses, setMyCourses] = useState<ICourseWithProgress[]>([])
 
   useEffect(() => {
     const fetchMyCourses = async () => {
-      const myCoursesResponse = await RequestUtility.requestToServer<{ course: ICourseRaw }[]>(
+      const myCoursesResponse = await RequestUtility.requestToServer<ICourseWithProgress[]>(
         'GET',
         '/my-courses',
         null,
         user.token
       )
       if (myCoursesResponse.data) {
-        const rawCourses = myCoursesResponse.data.map((myCourse) => myCourse.course)
-        const courses = rawCourses.map((course) => ({ ...course, creationDate: new Date(course.creationDate) }))
+        const courses = myCoursesResponse.data.map((course) => ({
+          ...course,
+          creationDate: new Date(course.creationDate),
+        }))
         setMyCourses(courses)
       }
     }
@@ -32,12 +35,19 @@ const Courses: React.VFC<IWithAuthorizationProps> = ({ user }) => {
   return (
     <div className={CS.pageContainer}>
       <h1 className={CS.pageTitle}>MyCourses</h1>
-      <Table noPadding>
-        {myCourses &&
-          myCourses.map((course) => (
-            <CourseCard key={course.name} course={course} url={`/study/course/${encodeURIComponent(course.name)}`} />
-          ))}
-      </Table>
+      <div className={S.tableWrapper}>
+        <Table noPadding>
+          {myCourses &&
+            myCourses.map((course) => (
+              <CourseCard
+                key={course.name}
+                course={course}
+                url={`/study/course/${encodeURIComponent(course.name)}`}
+                progress={course.progress}
+              />
+            ))}
+        </Table>
+      </div>
     </div>
   )
 }

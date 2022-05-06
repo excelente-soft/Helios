@@ -1,0 +1,66 @@
+@import '@variables';
+@import '@mixins';
+
+.syllabusPreviewSection {
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+}
+
+.willDo {
+  font-size: 2.375rem;
+  color: $secondary-color;
+  text-align: center;
+  margin: 0;
+}
+
+.syllabus {
+  border: 1px solid #dddce0;
+  background-color: #fff;
+  border-left: 6px solid $primary-color;
+  margin: 3.5625rem auto auto;
+}
+
+.task {
+  display: flex;
+  border-bottom: 1px solid #dddce0;
+  padding: 2rem 0;
+}
+
+.position {
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: #646466;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 12.5rem;
+}
+
+.info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  color: $secondary-color;
+}
+
+.name {
+  font-size: 1.6rem;
+  margin: 0;
+}
+
+.BtnMore {
+  height: 7.125rem;
+  width: 100%;
+  font-size: 1.125rem !important;
+}
+
+@include tablet {
+  .task {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .position {
+    width: 100%;
+  }
+}

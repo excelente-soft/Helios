@@ -83,7 +83,29 @@
 
 .title,
 .subtitle,
-.price {
+.price,
+.progress {
   position: relative;
   z-index: 10;
+}
+
+.progressPercentage {
+  display: block;
+  font-size: 1.5rem;
+  color: $secondary-color;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.progressLine {
+  height: 0.5rem;
+  width: 100%;
+  background: url('../../../public/images/diagonal-dense.svg') repeat;
+  border-radius: 10rem;
+}
+
+.progressed {
+  background-color: $progress-color;
+  height: 100%;
+  border-radius: inherit;
 }
