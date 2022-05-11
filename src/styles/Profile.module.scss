@@ -1,0 +1,43 @@
+@import '@variables';
+
+.bigAvatar {
+  border-radius: 100%;
+}
+
+.profileInfo {
+  display: flex;
+  gap: 2.5rem;
+}
+
+.fullName {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.nickname {
+  color: $secondary-color;
+  font-size: 2rem;
+  margin: 0 0 1.5rem;
+}
+
+.basicInfo {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.name {
+  color: $secondary-color;
+  margin: 0;
+}
+
+.email {
+  color: $secondary-color;
+  margin: 0 0 1rem;
+}
+
+.role {
+  margin: 0;
+}

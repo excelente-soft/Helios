@@ -164,6 +164,10 @@ const ChangeCourseSchema = object({
   hiddenAccessLevel: number(),
 })
 
+const LinkSchema = object({
+  link: string().required('Required field'),
+})
+
 export const YupSchemas = {
   LoginSchema,
   SigniupSchema,
@@ -173,4 +177,5 @@ export const YupSchemas = {
   CreateCourseSchema,
   CreateRoleSchema,
   ChangeCourseSchema,
+  LinkSchema,
 }

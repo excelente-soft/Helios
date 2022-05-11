@@ -1,10 +1,10 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
-import { ICatalogTerms, IFilterByDate, IFilterByPrice } from '@interfaces/ICatalogTerms'
+import { FilterByDate, FilterByPrice, ICatalogTerms } from '@interfaces/ICatalogTerms'
 
 const initialState: ICatalogTerms = {
-  byDate: 'any',
-  byPrice: 'any',
+  byDate: FilterByDate.Any,
+  byPrice: FilterByPrice.Any,
   search: '',
 }
 
@@ -12,10 +12,10 @@ export const catalogTermsSlice = createSlice({
   name: 'catalogTerms',
   initialState,
   reducers: {
-    setFilterByDate: (state, action: PayloadAction<IFilterByDate>) => {
+    setFilterByDate: (state, action: PayloadAction<FilterByDate>) => {
       state.byDate = action.payload
     },
-    setFilterByPrice: (state, action: PayloadAction<IFilterByPrice>) => {
+    setFilterByPrice: (state, action: PayloadAction<FilterByPrice>) => {
       state.byPrice = action.payload
     },
     setSearch: (state, action: PayloadAction<string>) => {

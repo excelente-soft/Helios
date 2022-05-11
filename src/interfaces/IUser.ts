@@ -1,3 +1,5 @@
+import { type } from 'os'
+
 import { IRole } from '@interfaces/IRole'
 
 export enum UserTypeEnum {
@@ -43,4 +45,9 @@ export interface IUser extends IUserProfile {
 export interface IUserLogin {
   refreshToken: string
   user: IUser
+}
+
+export interface IAnotherUserProfile extends Omit<IUserStorage, 'token'> {
+  id: string
+  role: IRole
 }

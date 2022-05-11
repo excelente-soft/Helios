@@ -12,8 +12,8 @@ import { useAuth } from '@hooks/useAuth'
 import { IUserSignup } from '@interfaces/IUser'
 import { YupSchemas } from '@utils/yupSchemas'
 
-import S from '../styles/Signup.module.scss'
 import CS from '@common.module.scss'
+import S from '@styles/Signup.module.scss'
 
 const Signup = () => {
   const { signup } = useAuth()

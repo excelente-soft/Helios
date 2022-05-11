@@ -7,8 +7,8 @@ import Table from '@components/Table/Table'
 import { ICourse, ICourseRaw } from '@interfaces/ICourse'
 import { RequestUtility } from '@utils/request'
 
-import S from '../styles/Courses-management.module.scss'
 import CS from '@common.module.scss'
+import S from '@styles/Courses-management.module.scss'
 
 const СoursesManagement: React.VFC<IWithAdminProps> = ({ user }) => {
   const [coursesToManage, setCoursesToManage] = useState<ICourse[]>([])

@@ -17,22 +17,27 @@ interface IChangeTest extends IWithNotificationProps {
 
 const ChangeTest: React.VFC<IChangeTest> = ({ test, token, notification, setAnswerFromServer }) => {
   const [name, setName] = useState(test.name)
-  const { changeTaskName, deleteTask, addQuest } = useContext(LearningManageContext)
+  const [time, setTime] = useState(test.time)
+  const { changeTest, deleteTask, addQuest } = useContext(LearningManageContext)
 
   const changeNameHandler = (e: React.SyntheticEvent<HTMLInputElement>) => {
     setName(e.currentTarget.value)
   }
 
-  const changeTestNameHandler = async () => {
+  const changeTimeHandler = (e: React.SyntheticEvent<HTMLInputElement>) => {
+    setTime(+e.currentTarget.value)
+  }
+
+  const changeTestHandler = async () => {
     const changeTestNameResult = await RequestUtility.requestToServer<Omit<ITest, 'quests'>>(
       'PUT',
-      `/change-test-name`,
-      { id: test.id, name },
+      `/change-test`,
+      { id: test.id, name, time },
       token
     )
     if (changeTestNameResult.data) {
-      changeTaskName(test.id, changeTestNameResult.data.name)
-      setAnswerFromServer({ message: 'Test name successfully changed', isError: false })
+      changeTest(test.id, changeTestNameResult.data.name, changeTestNameResult.data.time)
+      setAnswerFromServer({ message: 'Test successfully changed', isError: false })
     } else if (changeTestNameResult.message) {
       setAnswerFromServer({ message: changeTestNameResult.message, isError: true })
     }
@@ -50,7 +55,7 @@ const ChangeTest: React.VFC<IChangeTest> = ({ test, token, notification, setAnsw
   const createQuestHandler = async () => {
     const createQuestResult = await RequestUtility.requestToServer<IQuestSolo>(
       'POST',
-      `/create-question`,
+      `/create-quest`,
       { testId: test.id },
       token
     )
@@ -64,13 +69,20 @@ const ChangeTest: React.VFC<IChangeTest> = ({ test, token, notification, setAnsw
   return (
     <div className={S.changeTestContainer}>
       <input
-        id="field[test]"
         type="input"
-        className={CS.field}
+        className={`${CS.field} ${S.testName}`}
         placeholder="Test name"
         value={name}
         onChange={changeNameHandler}
         name="test"
+      />
+      <input
+        type="input"
+        className={CS.field}
+        placeholder="Time for test (in seconds)"
+        value={time}
+        onChange={changeTimeHandler}
+        name="time"
       />
       <div className={S.quests}>
         {test.quests.length > 0 &&
@@ -78,8 +90,8 @@ const ChangeTest: React.VFC<IChangeTest> = ({ test, token, notification, setAnsw
       </div>
       {notification}
       <div className={S.control}>
-        <button className={`${CS.btnPrimary} ${S.btnChange}`} onClick={changeTestNameHandler}>
-          Change name
+        <button className={`${CS.btnPrimary} ${S.btnChange}`} onClick={changeTestHandler}>
+          Update test
         </button>
         <button className={`${CS.btnSecondary} ${S.btnChange}`} onClick={createQuestHandler}>
           Create question

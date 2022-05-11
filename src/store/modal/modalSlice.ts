@@ -1,10 +1,10 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
-import { IModal } from '@interfaces/IModal'
+import { IModal, ModalType } from '@interfaces/IModal'
 
 const initialState: IModal = {
   content: null,
-  type: 'Info',
+  type: ModalType.Info,
 }
 
 export const modalSlice = createSlice({

@@ -4,3 +4,8 @@ export interface IAnswer {
   isCorrect: boolean
   questId: string
 }
+
+export interface IUserAnswer {
+  questId: string
+  answersId: string[]
+}

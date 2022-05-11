@@ -12,8 +12,8 @@ import { useAuth } from '@hooks/useAuth'
 import { IUserCredentials } from '@interfaces/IUser'
 import { YupSchemas } from '@utils/yupSchemas'
 
-import S from '../styles/Login.module.scss'
 import CS from '@common.module.scss'
+import S from '@styles/Login.module.scss'
 
 const Login: React.VFC<IWithNotificationProps> = ({ setAnswerFromServer, notification }) => {
   const { login } = useAuth()

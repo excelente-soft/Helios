@@ -27,7 +27,7 @@ const ChangeQuest: React.VFC<IChangeQuestProps> = ({ quest, token, notification,
   const changeQuestHandler = async () => {
     const changeQuestResult = await RequestUtility.requestToServer<IQuestSolo>(
       'PUT',
-      `/change-question`,
+      `/change-quest`,
       { id: quest.id, question: questText },
       token
     )
@@ -106,7 +106,7 @@ const ChangeQuest: React.VFC<IChangeQuestProps> = ({ quest, token, notification,
           {notification}
           <div className={S.control}>
             <button className={`${CS.btnPrimary} ${S.btnChange}`} onClick={changeQuestHandler}>
-              Change question
+              Update question
             </button>
             <button className={`${CS.btnSecondary} ${S.btnChange}`} onClick={createAnswerHandler}>
               Create answer

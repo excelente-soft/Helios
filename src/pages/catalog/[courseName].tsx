@@ -12,6 +12,7 @@ import StartJourney from '@components/StartJourney/StartJourney'
 import SyllabusPreview from '@components/SyllabusPreview/SyllabusPreview'
 import { ICourse, IManageRaw } from '@interfaces/ICourse'
 import { ITask } from '@interfaces/ITask'
+import { CombineUtility } from '@utils/combiner'
 import { RequestUtility } from '@utils/request'
 
 const CoursePreview = () => {
@@ -32,9 +33,11 @@ const CoursePreview = () => {
         if (responseFromServer.data) {
           const parsedDate = new Date(responseFromServer.data.course.creationDate)
           setCourse({ ...responseFromServer.data.course, creationDate: parsedDate })
-          const allTasks: ITask[] = responseFromServer.data.lectures
-            .concat(responseFromServer.data.tests)
-            .concat(responseFromServer.data.practices)
+          const allTasks = CombineUtility.combineArray(
+            responseFromServer.data.lectures,
+            responseFromServer.data.tests,
+            responseFromServer.data.practices
+          )
           const sortedTasks = allTasks.sort((a, b) => a.position - b.position)
           setSyllabus(sortedTasks)
         }

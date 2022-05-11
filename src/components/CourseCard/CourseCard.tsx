@@ -3,6 +3,7 @@ import Link from 'next/link'
 
 import { ICourse } from '@interfaces/ICourse'
 
+import ProgressBar from '../ProgressBar/ProgressBar'
 import S from './CourseCard.module.scss'
 
 interface ICourseCardProps {
@@ -27,9 +28,7 @@ const CourseCard: React.VFC<ICourseCardProps> = ({ course, url, progress }) => {
           {isProgress && (
             <div className={S.progress}>
               <span className={S.progressPercentage}>{progress}%</span>
-              <div className={S.progressLine}>
-                <div className={S.progressed} style={{ width: `${progress}%` }}></div>
-              </div>
+              <ProgressBar percent={progress} duration={0} />
             </div>
           )}
         </div>

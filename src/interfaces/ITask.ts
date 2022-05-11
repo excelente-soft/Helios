@@ -5,3 +5,7 @@ export interface ITask {
   courseId: string
   type: 'lecture' | 'test' | 'practice'
 }
+
+export interface ITaskWithGrade extends ITask {
+  grade: number
+}

@@ -8,6 +8,7 @@ import { IWithNotificationProps, withNotification } from '@HOC/withNotification'
 import Steps from '@components/Steps/Steps'
 import { LearningManageContext } from '@contexts/LearningManage'
 import { useModal } from '@hooks/useModal'
+import { ModalType } from '@interfaces/IModal'
 import { IPractice } from '@interfaces/IPractice'
 import { RequestUtility } from '@utils/request'
 
@@ -73,7 +74,7 @@ const ChangePractice: React.VFC<IChangePracticeProps> = ({ token, practice, noti
   }
 
   const showStepsHandler = () => {
-    showModal(<Steps />, 'Info')
+    showModal(<Steps />, ModalType.Info)
   }
 
   return (
@@ -126,7 +127,7 @@ const ChangePractice: React.VFC<IChangePracticeProps> = ({ token, practice, noti
       {notification}
       <div className={S.control}>
         <button className={`${CS.btnPrimary} ${S.btnChange}`} onClick={changePracticeHandler}>
-          Change practice
+          Update practice
         </button>
         <button className={`${CS.btnThird} ${S.btnDelete}`} onClick={deletePracticeHandler}>
           Delete practice

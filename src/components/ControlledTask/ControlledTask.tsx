@@ -1,7 +1,7 @@
 import { Reorder, useDragControls } from 'framer-motion'
 import { useContext } from 'react'
 
-import Task from '@components/Task/Task'
+import TaskManage from '@components/TaskManage/TaskManage'
 import { LearningManageContext } from '@contexts/LearningManage'
 import { ITask } from '@interfaces/ITask'
 
@@ -16,7 +16,7 @@ const ControlledTask: React.VFC<IControlledTaskProps> = ({ task, token }) => {
 
   return (
     <Reorder.Item key={task.id} dragControls={controls} value={task} dragListener={false} onDragEnd={changeOrder}>
-      <Task key={task.id} task={task} token={token} controls={controls} />
+      <TaskManage key={task.id} task={task} token={token} controls={controls} />
     </Reorder.Item>
   )
 }

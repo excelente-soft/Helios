@@ -48,3 +48,4 @@ export const POSSIBLE_QUESTIONS = [
     answer: 'You can contact us by email: support-me@helios.education',
   },
 ]
+export const LECTURE_COMPLETE_DELAY = 7000

@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
 
 import { useAppDispatch, useAppSelector } from '@hooks/app'
-import { IFilterByDate, IFilterByPrice } from '@interfaces/ICatalogTerms'
+import { FilterByDate, FilterByPrice } from '@interfaces/ICatalogTerms'
 import { setFilterByDate, setFilterByPrice } from '@store/catalogTerms/catalogTermsSlice'
 
 import S from './CatalogFilter.module.scss'
@@ -16,14 +16,14 @@ const CatalogFilter = () => {
   const catalogTerms = useAppSelector((state) => state.catalogTerms)
   const dispatch = useAppDispatch()
 
-  const changeFilterByPrice = (value: IFilterByPrice) => {
+  const changeFilterByPrice = (value: FilterByPrice) => {
     if (catalogTerms.byPrice === value) {
       return
     }
     dispatch(setFilterByPrice(value))
   }
 
-  const changeFilterByDate = (value: IFilterByDate) => {
+  const changeFilterByDate = (value: FilterByDate) => {
     if (catalogTerms.byDate === value) {
       return
     }
@@ -51,8 +51,8 @@ const CatalogFilter = () => {
               name="costAny"
               type="checkbox"
               className={S.checkbox}
-              checked={byPrice === 'any'}
-              onChange={() => changeFilterByPrice('any')}
+              checked={byPrice === FilterByPrice.Any}
+              onChange={() => changeFilterByPrice(FilterByPrice.Any)}
             />
           </li>
           <li className={S.term}>
@@ -64,8 +64,8 @@ const CatalogFilter = () => {
               name="costFree"
               type="checkbox"
               className={S.checkbox}
-              checked={byPrice === 'free'}
-              onChange={() => changeFilterByPrice('free')}
+              checked={byPrice === FilterByPrice.Free}
+              onChange={() => changeFilterByPrice(FilterByPrice.Free)}
             />
           </li>
           <li className={S.term}>
@@ -77,8 +77,8 @@ const CatalogFilter = () => {
               name="costPremium"
               type="checkbox"
               className={S.checkbox}
-              checked={byPrice === 'premium'}
-              onChange={() => changeFilterByPrice('premium')}
+              checked={byPrice === FilterByPrice.Premium}
+              onChange={() => changeFilterByPrice(FilterByPrice.Premium)}
             />
           </li>
         </ul>
@@ -95,8 +95,8 @@ const CatalogFilter = () => {
               name="costAny"
               type="checkbox"
               className={S.checkbox}
-              checked={byDate === 'any'}
-              onChange={() => changeFilterByDate('any')}
+              checked={byDate === FilterByDate.Any}
+              onChange={() => changeFilterByDate(FilterByDate.Any)}
             />
           </li>
           <li className={S.term}>
@@ -108,8 +108,8 @@ const CatalogFilter = () => {
               name="costLastWeek"
               type="checkbox"
               className={S.checkbox}
-              checked={byDate === 'lastWeek'}
-              onChange={() => changeFilterByDate('lastWeek')}
+              checked={byDate === FilterByDate.LastWeek}
+              onChange={() => changeFilterByDate(FilterByDate.LastWeek)}
             />
           </li>
           <li className={S.term}>
@@ -121,8 +121,8 @@ const CatalogFilter = () => {
               name="filterDateOlder"
               type="checkbox"
               className={S.checkbox}
-              checked={byDate === 'older'}
-              onChange={() => changeFilterByDate('older')}
+              checked={byDate === FilterByDate.Older}
+              onChange={() => changeFilterByDate(FilterByDate.Older)}
             />
           </li>
         </ul>

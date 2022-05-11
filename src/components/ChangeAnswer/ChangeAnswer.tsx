@@ -73,7 +73,7 @@ const ChangeAnswer: React.VFC<IChangeAnswerProps> = ({
       <input type="checkbox" onChange={changeCorrectHandler} name="question" checked={isCorrect} />
       <div className={S.controls}>
         <button className={`${CS.btnPrimary} ${S.btnControl}`} onClick={changeAnswerHandler}>
-          Change
+          Update
         </button>
         <button className={`${CS.btnThird} ${S.btnControl}`} onClick={deleteAnswerHandler}>
           Delete

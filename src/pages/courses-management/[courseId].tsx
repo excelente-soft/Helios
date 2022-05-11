@@ -7,6 +7,7 @@ import ChangeCourse from '@components/ChangeCourse/ChangeCourse'
 import LearningManage from '@components/LearningManage/LearningManage'
 import { ICourse, IManageRaw } from '@interfaces/ICourse'
 import { ITask } from '@interfaces/ITask'
+import { CombineUtility } from '@utils/combiner'
 import { RequestUtility } from '@utils/request'
 
 import CS from '@common.module.scss'
@@ -30,9 +31,11 @@ const CoursesManagement: React.VFC<IWithAdminProps> = ({ user }) => {
         if (responseFromServer.data) {
           const parsedDate = new Date(responseFromServer.data.course.creationDate)
           setCourse({ ...responseFromServer.data.course, creationDate: parsedDate })
-          const allTasks: ITask[] = responseFromServer.data.lectures
-            .concat(responseFromServer.data.tests)
-            .concat(responseFromServer.data.practices)
+          const allTasks = CombineUtility.combineArray(
+            responseFromServer.data.lectures,
+            responseFromServer.data.tests,
+            responseFromServer.data.practices
+          )
           const sortedTasks = allTasks.sort((a, b) => a.position - b.position)
           setTasks(sortedTasks)
         }
@@ -44,15 +47,13 @@ const CoursesManagement: React.VFC<IWithAdminProps> = ({ user }) => {
 
   return (
     <div className={CS.pageContainer}>
-      <div>
-        <h2 className={CS.pageTitle}>Course management</h2>
-        {isFetched && course && (
-          <>
-            <LearningManage tasks={tasks} token={user.token} courseId={course.id} setTasks={setTasks} />
-            <ChangeCourse course={course} user={user} />
-          </>
-        )}
-      </div>
+      <h2 className={CS.pageTitle}>Course management</h2>
+      {isFetched && course && (
+        <>
+          <LearningManage tasks={tasks} token={user.token} courseId={course.id} setTasks={setTasks} />
+          <ChangeCourse course={course} user={user} />
+        </>
+      )}
     </div>
   )
 }

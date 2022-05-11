@@ -1,8 +1,17 @@
 export interface ICatalogTerms {
-  byPrice: IFilterByPrice
-  byDate: IFilterByDate
+  byPrice: FilterByPrice
+  byDate: FilterByDate
   search: string
 }
 
-export type IFilterByPrice = 'any' | 'free' | 'premium'
-export type IFilterByDate = 'any' | 'lastWeek' | 'older'
+export enum FilterByPrice {
+  Any = 'any',
+  Free = 'free',
+  Premium = 'premium',
+}
+
+export enum FilterByDate {
+  Any = 'any',
+  LastWeek = 'lastWeek',
+  Older = 'older',
+}

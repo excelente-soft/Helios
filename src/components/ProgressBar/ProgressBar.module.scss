@@ -1,0 +1,15 @@
+@import '@variables';
+
+.progress {
+  background-color: $progress-color;
+  height: 100%;
+  width: 0%;
+  border-radius: inherit;
+}
+
+.progressLine {
+  height: 0.5rem;
+  width: 100%;
+  background: url('../../../public/images/diagonal-dense.svg') repeat;
+  border-radius: 10rem;
+}

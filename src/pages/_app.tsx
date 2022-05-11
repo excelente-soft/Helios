@@ -4,7 +4,7 @@ import { Provider } from 'react-redux'
 import AppInit from '@components/AppInit'
 import store from '@store/store'
 
-import '../styles/global/globals.scss'
+import '@styles/global/globals.scss'
 
 const App = ({ Component, pageProps }: AppProps) => {
   return (

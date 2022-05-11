@@ -7,8 +7,8 @@ import Table from '@components/Table/Table'
 import { ICourseWithProgress } from '@interfaces/ICourse'
 import { RequestUtility } from '@utils/request'
 
-import S from '../styles/Courses.module.scss'
 import CS from '@common.module.scss'
+import S from '@styles/Courses.module.scss'
 
 const Courses: React.VFC<IWithAuthorizationProps> = ({ user }) => {
   const [myCourses, setMyCourses] = useState<ICourseWithProgress[]>([])

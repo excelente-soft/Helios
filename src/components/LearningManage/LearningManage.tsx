@@ -35,9 +35,14 @@ const LearningManage: React.VFC<ILearningManage> = ({ tasks, token, setTasks, co
   }
 
   const createTestHandler = async () => {
-    const createTestResult = await RequestUtility.requestToServer<ITask>('POST', '/create-test', { courseId }, token)
+    const createTestResult = await RequestUtility.requestToServer<Omit<ITest, 'quests'>>(
+      'POST',
+      '/create-test',
+      { courseId },
+      token
+    )
     if (createTestResult.data) {
-      const test: ITest = { ...createTestResult.data, quests: [] }
+      const test = { ...createTestResult.data, quests: [] }
       addTask(test)
     }
   }
@@ -78,6 +83,16 @@ const LearningManage: React.VFC<ILearningManage> = ({ tasks, token, setTasks, co
     const newTasks = tasks.map((task) => {
       if (task.id === taskId) {
         return { ...task, name }
+      }
+      return task
+    })
+    setTasks(newTasks)
+  }
+
+  const changeTest = (taskId: string, name: string, time: number) => {
+    const newTasks = tasks.map((task) => {
+      if (task.id === taskId && task.type === 'test') {
+        return { ...task, name, time }
       }
       return task
     })
@@ -140,7 +155,6 @@ const LearningManage: React.VFC<ILearningManage> = ({ tasks, token, setTasks, co
         const newTask = { ...task } as ITest
         newTask.quests = newTask.quests.map((quest) => {
           if (quest.id === questId) {
-            console.log(quest)
             return { ...quest, answers: quest.answers.filter((answerItem) => answerItem.id !== answerId) }
           }
           return quest
@@ -208,6 +222,7 @@ const LearningManage: React.VFC<ILearningManage> = ({ tasks, token, setTasks, co
         addAnswer,
         changePractice,
         changeLecture,
+        changeTest,
       }}
     >
       <Block noMargin>

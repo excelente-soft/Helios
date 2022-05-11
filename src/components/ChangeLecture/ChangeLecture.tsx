@@ -83,7 +83,7 @@ const ChangeLecture: React.VFC<IChangeLecture> = ({ lecture, token, notification
       {notification}
       <div className={S.control}>
         <button className={`${CS.btnPrimary} ${S.btnChange}`} onClick={changeLectureHandler}>
-          Change lecture
+          Update lecture
         </button>
         <button className={`${CS.btnThird} ${S.btnDelete}`} onClick={deleteLectureHandler}>
           Delete lecture

@@ -5,7 +5,11 @@
   "singleQuote": true,
   "useTabs": false,
   "endOfLine": "crlf",
-  "importOrder": ["^[a-zA-Z]|(@redux)", "^@(compo|uti|int|hook|stor|con|ima|HOC)", "^(@common.module.scss)|(.)$"],
+  "importOrder": [
+    "^[a-zA-Z]|(@redux)",
+    "^@(compo|uti|int|hook|stor|con|ima|HOC)",
+    "^(@common.module.scss)|(./)|(@styles)$"
+  ],
   "importOrderSeparation": true,
   "importOrderSortSpecifiers": true
 }

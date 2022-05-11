@@ -1,44 +1,27 @@
-import { DragControls } from 'framer-motion'
-import React, { useState } from 'react'
+import Link from 'next/link'
+import React from 'react'
 
-import ChangeLecture from '@components/ChangeLecture/ChangeLecture'
-import ChangePractice from '@components/ChangePractice/ChangePractice'
-import ChangeTest from '@components/ChangeTest/ChangeTest'
-import { ILecture } from '@interfaces/ILecture'
-import { IPractice } from '@interfaces/IPractice'
 import { ITask } from '@interfaces/ITask'
-import { ITest } from '@interfaces/ITest'
 
 import S from './Task.module.scss'
+import CS from '@common.module.scss'
 
 interface ITaskProps {
   task: ITask
-  token: string
-  controls: DragControls
+  completed: boolean
 }
 
-const Task: React.VFC<ITaskProps> = ({ task, token, controls }) => {
-  const [isOpen, setIsOpen] = useState(false)
-
-  const toggleDropdownHandler = () => {
-    setIsOpen(!isOpen)
-  }
-
+const Task: React.VFC<ITaskProps> = ({ task, completed }) => {
+  const TaskTypeIcon = task.type === 'lecture' ? S.lectureIcon : task.type === 'practice' ? S.practiceIcon : S.testIcon
   return (
-    <div className={S.taskContainer}>
-      <div className={S.taskDisplay}>
-        <span className={S.moveIcon} onPointerDown={(e) => controls.start(e)}></span>
-        <h2 className={S.taskName}>
-          {task.name} <span className={S.type}>({task.type})</span>
-        </h2>
-        <span
-          className={`${S.dropdownIcon} ${isOpen ? S.dropdownIconReverse : ''}`}
-          onClick={toggleDropdownHandler}
-        ></span>
-      </div>
-      {isOpen && task.type === 'lecture' && <ChangeLecture lecture={task as ILecture} token={token} />}
-      {isOpen && task.type === 'test' && <ChangeTest test={task as ITest} token={token} />}
-      {isOpen && task.type === 'practice' && <ChangePractice practice={task as IPractice} token={token} />}
+    <div className={S.taskDisplay}>
+      {<span className={`${S.icon} ${completed ? S.completedIcon : TaskTypeIcon}`}></span>}
+      <h2 className={S.taskName}>
+        {task.name} <span className={S.type}>({task.type})</span>
+      </h2>
+      <Link href={`/study/${task.type}/${task.id}`}>
+        <a className={`${CS.btnSecondary} ${S.btnExplore}`}>Explore</a>
+      </Link>
     </div>
   )
 }

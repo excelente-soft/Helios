@@ -2,7 +2,7 @@ import { useRouter } from 'next/router'
 
 import { useModal } from '@hooks/useModal'
 import { useUser } from '@hooks/useUser'
-import { IModalRaw } from '@interfaces/IModal'
+import { IModalRaw, ModalType } from '@interfaces/IModal'
 import { RequestUtility } from '@utils/request'
 
 import S from './StartJourney.module.scss'
@@ -31,7 +31,7 @@ const StartJourney: React.VFC<IStartJourneyProps> = ({ price }) => {
       showModal(requestFromServer.data.message, requestFromServer.data.type)
     } else {
       if (requestFromServer.message) {
-        showModal(requestFromServer.message, 'Error')
+        showModal(requestFromServer.message, ModalType.Error)
       }
     }
   }

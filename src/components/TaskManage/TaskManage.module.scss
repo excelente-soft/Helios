@@ -1,0 +1,61 @@
+@import '@variables';
+
+.taskContainer {
+  border: 2px solid $primary-color;
+  overflow: hidden;
+  user-select: none;
+}
+
+.dropdownIcon {
+  display: block;
+  transition: transform 0.2s ease-in;
+  background: url('../../../public/images/dropdown.svg') no-repeat center;
+  width: 1rem;
+  height: 1rem;
+  min-width: 1rem;
+  min-height: 1rem;
+  cursor: pointer;
+}
+
+.dropdownIconReverse {
+  transform: rotate(180deg);
+}
+
+.type {
+  color: $success-color;
+}
+
+.taskDisplay {
+  display: flex;
+  align-items: center;
+  font-weight: 700;
+  margin: 0;
+  transition: all 0.15s ease-in-out;
+  border-radius: 5px;
+  font-size: 0.875rem;
+  color: $primary-color;
+  background-color: #fff;
+  width: 100%;
+  height: 4rem;
+  justify-content: space-between;
+  padding: 0 3rem;
+}
+
+.moveIcon {
+  display: block;
+  cursor: grab;
+  transition: transform 0.2s ease-in;
+  background: url('../../../public/images/move.svg') no-repeat center / cover;
+  width: 1.35rem;
+  height: 1.35rem;
+  min-width: 1.35rem;
+  min-height: 1.35rem;
+}
+
+.taskName {
+  margin: 0;
+  user-select: none;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}

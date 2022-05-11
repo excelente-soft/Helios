@@ -1,0 +1,20 @@
+@import '@variables';
+
+.infoRow {
+  display: block;
+  margin: 0 0 1.25rem;
+}
+
+.ratingRow {
+  margin: 0.313rem 0;
+}
+
+.infoRow,
+.ratingRow {
+  color: $secondary-color;
+}
+
+.ratingList {
+  padding-left: 1.5rem;
+  list-style-type: disc;
+}

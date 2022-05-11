@@ -10,4 +10,8 @@ export interface IModalRaw {
   type: ModalType
 }
 
-type ModalType = 'Error' | 'Success' | 'Info'
+export enum ModalType {
+  Error = 'Error',
+  Info = 'Info',
+  Success = 'Success',
+}

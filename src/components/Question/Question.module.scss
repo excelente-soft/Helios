@@ -1,0 +1,46 @@
+@import '@variables';
+
+.question {
+  font-size: 1.5rem;
+  color: $secondary-color;
+  margin: 0 0 1.5rem;
+}
+
+.currentQuestion {
+  text-align: center;
+}
+
+.questionContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.activeAnswer {
+  background-color: $success-color !important;
+  border: 2px solid #0a6c0d !important;
+  color: #fff !important;
+}
+
+.answer {
+  padding-top: 1.188rem;
+  padding-bottom: 1.188rem;
+  width: 100%;
+  border: 2px solid $primary-color;
+}
+
+.nextContainer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.timer {
+  height: 1rem;
+  background-color: red;
+  width: 0%;
+}
+
+.timerBar {
+  margin: 0.75rem 0;
+}
