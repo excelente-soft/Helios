@@ -1,71 +1,66 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 
-import Block from '@components/Block/Block'
 import ErrorRoute from '@components/ErrorRoute/ErrorRoute'
 import Layout from '@components/Layout/Layout'
+import ProfileHeader from '@components/ProfileHeader/ProfileHeader'
+import UserCourses from '@components/UserCourses/UserCourses'
 import { useUser } from '@hooks/useUser'
+import { IRole } from '@interfaces/IRole'
 import { IAnotherUserProfile } from '@interfaces/IUser'
 import { RequestUtility } from '@utils/request'
 
 import CS from '@common.module.scss'
-import S from '@styles/Profile.module.scss'
 
 const Profile = () => {
   const router = useRouter()
   const { nickname } = router.query
   const [isFetched, setFetched] = useState(false)
   const [userProfile, setUserProfile] = useState<IAnotherUserProfile>()
+  const [userRole, setUserRole] = useState<IRole>()
   const { user } = useUser()
 
   useEffect(() => {
-    const fetchTest = async () => {
-      const responseFromServer = await RequestUtility.requestToServer<IAnotherUserProfile>(
-        'GET',
-        `/profile/${nickname}`,
-        null,
-        user ? user.token : undefined
-      )
-      if (responseFromServer.data) {
-        setUserProfile(responseFromServer.data)
+    if (router.isReady) {
+      const fetchUserProfile = async () => {
+        const isAdmin = user && user.role.accessLevel > 1
+        const isSelf = user && user.nickname === nickname
+        const url = `/profile/${isAdmin ? `full/${nickname}` : isSelf ? `me/${nickname}` : nickname}`
+        const responseFromServer = await RequestUtility.requestToServer<IAnotherUserProfile>(
+          'GET',
+          url,
+          null,
+          user?.token
+        )
+        if (responseFromServer.data) {
+          setUserProfile(responseFromServer.data)
+          setUserRole(responseFromServer.data.role)
+        }
+        setFetched(true)
       }
-      setFetched(true)
+      fetchUserProfile()
     }
-    fetchTest()
   }, [router.isReady])
 
+  const changeUserRoleHandler = (newRole: IRole) => {
+    setUserRole(newRole)
+  }
+
   return (
-    <Layout title={`${`${userProfile ? userProfile.name : '404'}` || 'Loading user profile'}`}>
+    <Layout title={`${`${userProfile ? userProfile.nickname : 'Loading user profile'}`}`}>
       {isFetched && !userProfile && <ErrorRoute description="This user could not be found." />}
-      {isFetched && userProfile && (
+      {isFetched && userProfile && userRole && (
         <div className={CS.pageContainer}>
           <h2 className={CS.pageTitle}>User profile</h2>
-          <Block noMargin>
-            <div className={S.profileInfo}>
-              <Image
-                src={userProfile.avatar}
-                alt={`${userProfile.nickname}'s big avatar`}
-                className={S.bigAvatar}
-                layout="fixed"
-                height={248}
-                width={248}
-                objectFit="cover"
-              />
-              <div className={S.basicInfo}>
-                <h2 className={S.nickname}>{userProfile.nickname}</h2>
-                <div className={S.fullName}>
-                  <h3 className={S.name}>{userProfile.name}</h3>
-                  <h3 className={S.name}>{userProfile.secondName}</h3>
-                </div>
-                <h3 className={S.email}>{userProfile.email}</h3>
-                <h3 className={S.role} style={{ color: userProfile.role.color }}>
-                  {userProfile.role.roleName}
-                </h3>
-              </div>
-            </div>
-          </Block>
+          <ProfileHeader
+            userRole={userRole}
+            userProfile={userProfile}
+            targetAccessLevel={user?.role.accessLevel}
+            token={user?.token}
+            changeUserRole={changeUserRoleHandler}
+          />
+          <UserCourses userId={userProfile.id} />
         </div>
       )}
     </Layout>

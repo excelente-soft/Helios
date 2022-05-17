@@ -1,3 +1,4 @@
+import { IGrade } from '@interfaces/IGrade'
 import { ITask } from '@interfaces/ITask'
 
 export interface ICourse {
@@ -14,6 +15,7 @@ export interface ICourse {
 
 export interface ICourseWithProgress extends ICourse {
   progress: number
+  hasCertificate: boolean
 }
 
 export interface ICourseRaw extends Omit<ICourse, 'creationDate'> {
@@ -25,4 +27,8 @@ export interface IManageRaw {
   tests: ITask[]
   lectures: ITask[]
   practices: ITask[]
+}
+
+export interface IManageWithGradesRaw extends IManageRaw {
+  grades: IGrade[]
 }

@@ -3,7 +3,7 @@ import React from 'react'
 import { IWithNotificationProps, withNotification } from '@HOC/withNotification'
 import Block from '@components/Block/Block'
 import { useAppDispatch } from '@hooks/app'
-import { IUser, UserTypeEnum } from '@interfaces/IUser'
+import { IUser, UserType } from '@interfaces/IUser'
 import { setType } from '@store/user/userSlice'
 import { RequestUtility } from '@utils/request'
 import { StorageUtility } from '@utils/storage'
@@ -19,10 +19,10 @@ const ChangeProfileType: React.VFC<IChangeProfileTypeProps> = ({ user, notificat
   const dispatch = useAppDispatch()
 
   const changeProfileTypeHandler = async () => {
-    const changeProfileTypeResult = await RequestUtility.requestToServer<{ type: UserTypeEnum }>(
+    const changeProfileTypeResult = await RequestUtility.requestToServer<{ type: UserType }>(
       'PUT',
       '/change-type',
-      { type: user.type === UserTypeEnum.public ? UserTypeEnum.private : UserTypeEnum.public },
+      { type: user.type === UserType.Public ? UserType.Private : UserType.Public },
       user.token
     )
     if (changeProfileTypeResult.data) {
@@ -43,7 +43,7 @@ const ChangeProfileType: React.VFC<IChangeProfileTypeProps> = ({ user, notificat
             className={S.switchBox}
             onChange={changeProfileTypeHandler}
             type="checkbox"
-            checked={user.type === 'public' ? true : false}
+            checked={user.type === UserType.Public}
           />
           <span className={S.slider}></span>
         </label>

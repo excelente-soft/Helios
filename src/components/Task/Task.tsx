@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import React from 'react'
 
-import { ITask } from '@interfaces/ITask'
+import { ITask, TaskType } from '@interfaces/ITask'
 
 import S from './Task.module.scss'
 import CS from '@common.module.scss'
@@ -12,7 +12,8 @@ interface ITaskProps {
 }
 
 const Task: React.VFC<ITaskProps> = ({ task, completed }) => {
-  const TaskTypeIcon = task.type === 'lecture' ? S.lectureIcon : task.type === 'practice' ? S.practiceIcon : S.testIcon
+  const TaskTypeIcon =
+    task.type === TaskType.Lecture ? S.lectureIcon : task.type === TaskType.Practice ? S.practiceIcon : S.testIcon
   return (
     <div className={S.taskDisplay}>
       {<span className={`${S.icon} ${completed ? S.completedIcon : TaskTypeIcon}`}></span>}

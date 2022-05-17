@@ -5,8 +5,9 @@ import React, { useEffect, useState } from 'react'
 import { IWithAuthorizationProps, withAuthorization } from '@HOC/withAuthorization'
 import Block from '@components/Block/Block'
 import ErrorRoute from '@components/ErrorRoute/ErrorRoute'
+import GradesChart from '@components/GradesChart/GradesChart'
 import Task from '@components/Task/Task'
-import { ICourse, IManageRaw } from '@interfaces/ICourse'
+import { ICourse, IManageWithGradesRaw } from '@interfaces/ICourse'
 import { IGrade } from '@interfaces/IGrade'
 import { ITaskWithGrade } from '@interfaces/ITask'
 import { CombineUtility } from '@utils/combiner'
@@ -18,6 +19,7 @@ import S from '@styles/StudyCourse.module.scss'
 const StudyCourse: React.VFC<IWithAuthorizationProps> = ({ user }) => {
   const router = useRouter()
   const [course, setCourse] = useState<ICourse>()
+  const [allGrades, setAllGrades] = useState<IGrade[]>([])
   const [tasks, setTasks] = useState<ITaskWithGrade[]>()
   const [isFetched, setFetched] = useState(false)
   const { courseName } = router.query
@@ -25,7 +27,7 @@ const StudyCourse: React.VFC<IWithAuthorizationProps> = ({ user }) => {
   useEffect(() => {
     if (router.isReady) {
       const fetchCourse = async () => {
-        const responseFromServer = await RequestUtility.requestToServer<IManageRaw & { grades: IGrade[] }>(
+        const responseFromServer = await RequestUtility.requestToServer<IManageWithGradesRaw>(
           'GET',
           `/study/course/${courseName}`,
           null,
@@ -39,6 +41,7 @@ const StudyCourse: React.VFC<IWithAuthorizationProps> = ({ user }) => {
             responseFromServer.data.tests,
             responseFromServer.data.practices
           )
+          setAllGrades(responseFromServer.data.grades)
           const tasksWithGrade = allTasks.map((task) => {
             const grade = responseFromServer.data?.grades.find((grade) => grade.taskId === task.id && grade.rating >= 4)
             return { ...task, grade: grade ? grade.rating : 0 }
@@ -67,6 +70,7 @@ const StudyCourse: React.VFC<IWithAuthorizationProps> = ({ user }) => {
               </div>
             </Block>
           </div>
+          <GradesChart grades={allGrades} />
         </>
       )}
     </div>

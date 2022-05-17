@@ -6,7 +6,7 @@ import ChangePractice from '@components/ChangePractice/ChangePractice'
 import ChangeTest from '@components/ChangeTest/ChangeTest'
 import { ILecture } from '@interfaces/ILecture'
 import { IPractice } from '@interfaces/IPractice'
-import { ITask } from '@interfaces/ITask'
+import { ITask, TaskType } from '@interfaces/ITask'
 import { ITest } from '@interfaces/ITest'
 
 import S from './TaskManage.module.scss'
@@ -36,9 +36,9 @@ const TaskManage: React.VFC<ITaskManageProps> = ({ task, token, controls }) => {
           onClick={toggleDropdownHandler}
         ></span>
       </div>
-      {isOpen && task.type === 'lecture' && <ChangeLecture lecture={task as ILecture} token={token} />}
-      {isOpen && task.type === 'test' && <ChangeTest test={task as ITest} token={token} />}
-      {isOpen && task.type === 'practice' && <ChangePractice practice={task as IPractice} token={token} />}
+      {isOpen && task.type === TaskType.Lecture && <ChangeLecture lecture={task as ILecture} token={token} />}
+      {isOpen && task.type === TaskType.Test && <ChangeTest test={task as ITest} token={token} />}
+      {isOpen && task.type === TaskType.Practice && <ChangePractice practice={task as IPractice} token={token} />}
     </div>
   )
 }

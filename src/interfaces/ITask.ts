@@ -3,7 +3,13 @@ export interface ITask {
   name: string
   position: number
   courseId: string
-  type: 'lecture' | 'test' | 'practice'
+  type: TaskType
+}
+
+export enum TaskType {
+  Lecture = 'lecture',
+  Test = 'test',
+  Practice = 'practice',
 }
 
 export interface ITaskWithGrade extends ITask {

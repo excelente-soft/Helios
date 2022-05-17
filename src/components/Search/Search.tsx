@@ -1,21 +1,24 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import { ActionCreatorWithPayload } from '@reduxjs/toolkit'
 import { AnimatePresence } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
 
 import CatalogFilter from '@components/CatalogFilter/CatalogFilter'
 import { useAppDispatch } from '@hooks/app'
-import { setSearch } from '@store/catalogTerms/catalogTermsSlice'
 
-import S from './CourseSearch.module.scss'
+import QueueFilter from '../QueueFilter/QueueFilter'
+import S from './Search.module.scss'
 import CS from '@common.module.scss'
 
-interface ICourseSearchProps {
+interface ISearchProps {
   total: number
   searchCreteria: string
   setSearchCreteria: (creteria: string) => void
+  type?: 'course' | 'task'
+  onSave: ActionCreatorWithPayload<string, string>
 }
 
-const CourseSearch: React.VFC<ICourseSearchProps> = ({ total, searchCreteria, setSearchCreteria }) => {
+const Search: React.VFC<ISearchProps> = ({ total, searchCreteria, setSearchCreteria, type = 'course', onSave }) => {
   const [isOpen, setIsOpen] = useState(false)
   const creteriaRef = useRef(searchCreteria)
   const dispatch = useAppDispatch()
@@ -26,7 +29,7 @@ const CourseSearch: React.VFC<ICourseSearchProps> = ({ total, searchCreteria, se
 
   useEffect(() => {
     return () => {
-      dispatch(setSearch(creteriaRef.current))
+      dispatch(onSave(creteriaRef.current))
     }
   }, [])
 
@@ -46,18 +49,21 @@ const CourseSearch: React.VFC<ICourseSearchProps> = ({ total, searchCreteria, se
           className={`${CS.field} ${S.searchField}`}
           value={searchCreteria}
           type="text"
-          placeholder="Search course"
+          placeholder={`Search ${type}`}
         />
         <button onClick={filterHandler} className={`${S.filter} ${CS.btnSecondary}`}>
           Filter <span className={`${S.dropdownIcon} ${isOpen ? S.dropdownIconReverse : ''}`}></span>
         </button>
         <div className={S.totalContainer}>
-          <p className={S.total}>{total} courses</p>
+          <p className={S.total}>
+            {total} {type}s
+          </p>
         </div>
         <AnimatePresence>
           {isOpen && (
             <div className={`${S.dropdown}`}>
-              <CatalogFilter />
+              {type === 'course' && <CatalogFilter />}
+              {type === 'task' && <QueueFilter />}
             </div>
           )}
         </AnimatePresence>
@@ -66,4 +72,4 @@ const CourseSearch: React.VFC<ICourseSearchProps> = ({ total, searchCreteria, se
   )
 }
 
-export default CourseSearch
+export default Search

@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
-import { FilterByDate, FilterByPrice, ICatalogTerms } from '@interfaces/ICatalogTerms'
+import { FilterByDate, FilterByPrice, ICatalogTerms } from '@interfaces/ITerms'
 
 const initialState: ICatalogTerms = {
   byDate: FilterByDate.Any,

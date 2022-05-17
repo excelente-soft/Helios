@@ -23,7 +23,7 @@ const ChangePassword: React.VFC<IChangePasswordProps> = ({ token, notification, 
   }
 
   const changePasswordSubmit = async ({ currentPassword, password }: typeof initialValues) => {
-    const changePasswordResult = await RequestUtility.requestToServer<{ password: boolean }>(
+    const changePasswordResult = await RequestUtility.requestToServer(
       'PUT',
       '/change-password',
       { currentPassword, newPassword: password },

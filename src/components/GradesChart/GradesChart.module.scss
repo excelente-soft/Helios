@@ -1,0 +1,35 @@
+@import '@variables';
+
+.chartContainer {
+  position: relative;
+  height: 31.25rem;
+  padding: 1rem;
+}
+
+.lockContainer {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.locked {
+  text-align: center;
+  display: block;
+  padding: 0.25rem;
+  background-color: #fff;
+  font-size: 1.5rem;
+  color: $secondary-color;
+  font-weight: 500;
+  z-index: 999;
+  cursor: not-allowed;
+  user-select: none;
+  margin: 0;
+  border: 1px solid $secondary-color;
+}
+
+.blur {
+  filter: blur(0.2rem);
+}

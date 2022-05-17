@@ -42,23 +42,25 @@ const Test: React.VFC<IWithAuthorizationProps> = ({ user }) => {
   }
 
   useEffect(() => {
-    const fetchTest = async () => {
-      const responseFromServer = await RequestUtility.requestToServer<ITest>(
-        'GET',
-        `/study/test/${testId}`,
-        null,
-        user.token
-      )
-      if (responseFromServer.data) {
-        const shuffledQuests = responseFromServer.data.quests.map((test) => {
-          return { ...test, answers: shuffle(test.answers) }
-        })
-        setTest({ ...responseFromServer.data, quests: shuffledQuests })
-      } else {
-        router.push('/courses')
+    if (router.isReady) {
+      const fetchTest = async () => {
+        const responseFromServer = await RequestUtility.requestToServer<ITest>(
+          'GET',
+          `/study/test/${testId}`,
+          null,
+          user.token
+        )
+        if (responseFromServer.data) {
+          const shuffledQuests = responseFromServer.data.quests.map((test) => {
+            return { ...test, answers: shuffle(test.answers) }
+          })
+          setTest({ ...responseFromServer.data, quests: shuffledQuests })
+        } else {
+          router.push('/courses')
+        }
       }
+      fetchTest()
     }
-    fetchTest()
   }, [router.isReady])
 
   const setAnswer = (questId: string, answersId: string[]) => {

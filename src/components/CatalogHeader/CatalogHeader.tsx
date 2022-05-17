@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import { memo } from 'react'
 
+import { CATALOG_IMAGES_COUNT } from '@constants'
 import { ICourse } from '@interfaces/ICourse'
 
 import S from './CatalogHeader.module.scss'
@@ -13,7 +14,7 @@ const CatalogHeader: React.VFC<ICatalogHeaderProps> = ({ courses }) => {
   const coursesImages = () => {
     const coursesWithImages = courses.filter((course) => course.image)
     if (coursesWithImages.length === 0) return null
-    const sevenRandomCoursesWithImages = new Array(7)
+    const sevenRandomCoursesWithImages = new Array(CATALOG_IMAGES_COUNT)
       .fill('')
       .map(() => coursesWithImages[Math.floor(Math.random() * coursesWithImages.length)])
     return sevenRandomCoursesWithImages

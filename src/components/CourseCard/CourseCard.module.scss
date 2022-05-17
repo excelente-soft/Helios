@@ -84,7 +84,8 @@
 .title,
 .subtitle,
 .price,
-.progress {
+.progress,
+.btnCertificate {
   position: relative;
   z-index: 10;
 }
@@ -95,4 +96,8 @@
   color: $secondary-color;
   font-weight: 700;
   margin-bottom: 0.25rem;
+}
+
+.btnCertificate {
+  width: 100%;
 }

@@ -24,7 +24,7 @@ const ChangeEmail: React.VFC<IChangeEmailProps> = ({ user, setAnswerFromServer, 
   }
 
   const emailSubmit = async ({ email, passwordConfirm }: typeof initialValues) => {
-    const changeEmailResult = await RequestUtility.requestToServer<{ email: string }>(
+    const changeEmailResult = await RequestUtility.requestToServer(
       'PUT',
       '/change-email',
       { email, password: passwordConfirm },

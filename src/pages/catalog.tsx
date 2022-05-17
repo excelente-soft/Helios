@@ -2,11 +2,13 @@ import { useEffect, useState } from 'react'
 
 import { MemoizedCatalogHeader } from '@components/CatalogHeader/CatalogHeader'
 import CourseCard from '@components/CourseCard/CourseCard'
-import CourseSearch from '@components/CourseSearch/CourseSearch'
 import Layout from '@components/Layout/Layout'
+import Search from '@components/Search/Search'
 import Table from '@components/Table/Table'
+import { WEEK } from '@constants'
 import { useAppSelector } from '@hooks/app'
 import { ICourse, ICourseRaw } from '@interfaces/ICourse'
+import { setSearch } from '@store/catalogTerms/catalogTermsSlice'
 import { RequestUtility } from '@utils/request'
 
 const Catalog = () => {
@@ -40,9 +42,9 @@ const Catalog = () => {
     if (catalogTerms.byDate === 'any') {
       return coursesParam
     } else if (catalogTerms.byDate === 'lastWeek') {
-      return coursesParam.filter((course) => course.creationDate.getTime() > Date.now() - 1000 * 60 * 60 * 24 * 7)
+      return coursesParam.filter((course) => course.creationDate.getTime() > Date.now() - WEEK)
     } else {
-      return coursesParam.filter((course) => course.creationDate.getTime() < Date.now() - 1000 * 60 * 60 * 24 * 7)
+      return coursesParam.filter((course) => course.creationDate.getTime() < Date.now() - WEEK)
     }
   }
 
@@ -60,10 +62,11 @@ const Catalog = () => {
   return (
     <Layout title="Catalog">
       <MemoizedCatalogHeader courses={courses} />
-      <CourseSearch
+      <Search
         total={foundedCourses.length}
         searchCreteria={searchCreteria}
         setSearchCreteria={setSearchCreteria}
+        onSave={setSearch}
       />
       <Table>
         {foundedCourses && foundedCourses.map((course) => <CourseCard key={course.name} course={course} />)}

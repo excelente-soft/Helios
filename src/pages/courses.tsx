@@ -34,7 +34,7 @@ const Courses: React.VFC<IWithAuthorizationProps> = ({ user }) => {
 
   return (
     <div className={CS.pageContainer}>
-      <h1 className={CS.pageTitle}>MyCourses</h1>
+      <h1 className={CS.pageTitle}>My Courses</h1>
       <div className={S.tableWrapper}>
         <Table noPadding>
           {myCourses &&
@@ -44,6 +44,8 @@ const Courses: React.VFC<IWithAuthorizationProps> = ({ user }) => {
                 course={course}
                 url={`/study/course/${encodeURIComponent(course.name)}`}
                 progress={course.progress}
+                token={user.token}
+                hasCertificate={course.hasCertificate}
               />
             ))}
         </Table>

@@ -32,26 +32,28 @@ const Lecture: React.VFC<IWithAuthorizationProps> = ({ user }) => {
   }
 
   useEffect(() => {
-    const fetchLecture = async () => {
-      const responseFromServer = await RequestUtility.requestToServer<ILecture>(
-        'GET',
-        `/study/lecture/${lectureId}`,
-        null,
-        user.token
-      )
-      if (responseFromServer.data) {
-        setLecture(responseFromServer.data)
-      } else {
-        router.push('/courses')
-      }
-    }
-    fetchLecture().then(() => {
-      completeTimeoutRef.current = +setTimeout(() => {
-        if (currentPercent === 100) {
-          lectureReadedSubmit()
+    if (router.isReady) {
+      const fetchLecture = async () => {
+        const responseFromServer = await RequestUtility.requestToServer<ILecture>(
+          'GET',
+          `/study/lecture/${lectureId}`,
+          null,
+          user.token
+        )
+        if (responseFromServer.data) {
+          setLecture(responseFromServer.data)
+        } else {
+          router.push('/courses')
         }
-      }, LECTURE_COMPLETE_DELAY)
-    })
+      }
+      fetchLecture().then(() => {
+        completeTimeoutRef.current = +setTimeout(() => {
+          if (currentPercent === 100) {
+            lectureReadedSubmit()
+          }
+        }, LECTURE_COMPLETE_DELAY)
+      })
+    }
   }, [router.isReady])
 
   useEffect(() => {

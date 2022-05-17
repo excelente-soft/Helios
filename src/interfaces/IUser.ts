@@ -1,10 +1,8 @@
-import { type } from 'os'
-
 import { IRole } from '@interfaces/IRole'
 
-export enum UserTypeEnum {
-  public = 'public',
-  private = 'private',
+export enum UserType {
+  Public = 'public',
+  Private = 'private',
 }
 
 export interface IUserStorage {
@@ -14,7 +12,7 @@ export interface IUserStorage {
   name: string
   secondName: string
   token: string
-  type: UserTypeEnum
+  type: UserType
 }
 
 export interface IUserCredentials {
@@ -39,7 +37,7 @@ export interface IUser extends IUserProfile {
   avatar: string
   token: string
   role: IRole
-  type: UserTypeEnum
+  type: UserType
 }
 
 export interface IUserLogin {

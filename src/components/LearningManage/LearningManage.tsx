@@ -7,7 +7,7 @@ import { LearningManageContext } from '@contexts/LearningManage'
 import { IAnswer } from '@interfaces/IAnswer'
 import { IPractice } from '@interfaces/IPractice'
 import { IQuest } from '@interfaces/IQuest'
-import { ITask } from '@interfaces/ITask'
+import { ITask, TaskType } from '@interfaces/ITask'
 import { ITest } from '@interfaces/ITest'
 import { RequestUtility } from '@utils/request'
 
@@ -91,7 +91,7 @@ const LearningManage: React.VFC<ILearningManage> = ({ tasks, token, setTasks, co
 
   const changeTest = (taskId: string, name: string, time: number) => {
     const newTasks = tasks.map((task) => {
-      if (task.id === taskId && task.type === 'test') {
+      if (task.id === taskId && task.type === TaskType.Test) {
         return { ...task, name, time }
       }
       return task
@@ -101,7 +101,7 @@ const LearningManage: React.VFC<ILearningManage> = ({ tasks, token, setTasks, co
 
   const addQuest = (taskId: string, quest: IQuest) => {
     const newTasks = tasks.map((task) => {
-      if (task.id === taskId && task.type === 'test') {
+      if (task.id === taskId && task.type === TaskType.Test) {
         const newTask = { ...task } as ITest
         newTask.quests = [...newTask.quests, quest]
         return newTask
@@ -113,7 +113,7 @@ const LearningManage: React.VFC<ILearningManage> = ({ tasks, token, setTasks, co
 
   const deleteQuest = (questId: string) => {
     const newTasks = tasks.map((task) => {
-      if (task.type === 'test') {
+      if (task.type === TaskType.Test) {
         const newTask = { ...task } as ITest
         newTask.quests = newTask.quests.filter((quest) => quest.id !== questId)
         return newTask
@@ -125,7 +125,7 @@ const LearningManage: React.VFC<ILearningManage> = ({ tasks, token, setTasks, co
 
   const changeQuest = (questId: string, question: string) => {
     const newTasks = tasks.map((task) => {
-      if (task.type === 'test') {
+      if (task.type === TaskType.Test) {
         const newTask = { ...task } as ITest
         newTask.quests = newTask.quests.map((quest) => {
           if (quest.id === questId) {
@@ -145,13 +145,13 @@ const LearningManage: React.VFC<ILearningManage> = ({ tasks, token, setTasks, co
   }
 
   const changePractice = async (taskId: string, practice: IPractice) => {
-    const newTasks = tasks.map((task) => (task.id === taskId && task.type === 'practice' ? practice : task))
+    const newTasks = tasks.map((task) => (task.id === taskId && task.type === TaskType.Practice ? practice : task))
     setTasks(newTasks)
   }
 
   const deleteAnswer = (questId: string, answerId: string) => {
     const newTasks = tasks.map((task) => {
-      if (task.type === 'test') {
+      if (task.type === TaskType.Test) {
         const newTask = { ...task } as ITest
         newTask.quests = newTask.quests.map((quest) => {
           if (quest.id === questId) {
@@ -168,7 +168,7 @@ const LearningManage: React.VFC<ILearningManage> = ({ tasks, token, setTasks, co
 
   const addAnswer = (questId: string, answer: IAnswer) => {
     const newTasks = tasks.map((task) => {
-      if (task.type === 'test') {
+      if (task.type === TaskType.Test) {
         const newTask = { ...task } as ITest
         newTask.quests = newTask.quests.map((quest) => {
           if (quest.id === questId) {
@@ -185,7 +185,7 @@ const LearningManage: React.VFC<ILearningManage> = ({ tasks, token, setTasks, co
 
   const changeAnswer = (questId: string, answerId: string, answer: string, isCorrect: boolean) => {
     const newTasks = tasks.map((task) => {
-      if (task.type === 'test') {
+      if (task.type === TaskType.Test) {
         const newTask = { ...task } as ITest
         newTask.quests = newTask.quests.map((quest) => {
           if (quest.id === questId) {
@@ -242,6 +242,7 @@ const LearningManage: React.VFC<ILearningManage> = ({ tasks, token, setTasks, co
           <button className={`${CS.btnSecondary} ${CS.btnBasicSize}`} onClick={createTestHandler}>
             Create test
           </button>
+          <button className={`${CS.btnSecondary} ${CS.btnBasicSize}`}></button>
         </div>
       </Block>
     </LearningManageContext.Provider>

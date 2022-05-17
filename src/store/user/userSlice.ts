@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
-import { IUser, IUserProfile, UserTypeEnum } from '@interfaces/IUser'
+import { IUser, IUserProfile, UserType } from '@interfaces/IUser'
 
 type UserState = IUser | null
 
@@ -18,7 +18,7 @@ export const userSlice = createSlice({
         state.avatar = action.payload
       }
     },
-    setType: (state, action: PayloadAction<UserTypeEnum>) => {
+    setType: (state, action: PayloadAction<UserType>) => {
       if (state) {
         state.type = action.payload
       }

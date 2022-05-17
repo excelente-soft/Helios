@@ -1,6 +1,6 @@
-import { ICourse } from './ICourse'
-import { IGrade } from './IGrade'
-import { ITask } from './ITask'
+import { ICourse } from '@interfaces/ICourse'
+import { IGrade } from '@interfaces/IGrade'
+import { ITask } from '@interfaces/ITask'
 
 export interface IProgress {
   course: ICourse

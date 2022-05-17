@@ -9,7 +9,7 @@ import Steps from '@components/Steps/Steps'
 import { LearningManageContext } from '@contexts/LearningManage'
 import { useModal } from '@hooks/useModal'
 import { ModalType } from '@interfaces/IModal'
-import { IPractice } from '@interfaces/IPractice'
+import { IPractice, ObjectiveType } from '@interfaces/IPractice'
 import { RequestUtility } from '@utils/request'
 
 import S from './ChangePractice.module.scss'
@@ -77,6 +77,10 @@ const ChangePractice: React.VFC<IChangePracticeProps> = ({ token, practice, noti
     showModal(<Steps />, ModalType.Info)
   }
 
+  const objectiveTypeCurry = (value: ObjectiveType) => {
+    return () => setObjectiveType(value)
+  }
+
   return (
     <div className={S.changePracticeContainer}>
       <input
@@ -89,16 +93,18 @@ const ChangePractice: React.VFC<IChangePracticeProps> = ({ token, practice, noti
       />
       <div className={S.switch}>
         <div
-          className={`${S.toggle} ${objectiveType === 'figma' ? '' : objectiveType === 'none' ? S.second : S.third}`}
+          className={`${S.toggle} ${
+            objectiveType === ObjectiveType.Figma ? '' : objectiveType === ObjectiveType.None ? S.second : S.third
+          }`}
         ></div>
         <div className={S.names}>
-          <p className={S.objectiveType} onClick={() => setObjectiveType('figma')}>
+          <p className={S.objectiveType} onClick={objectiveTypeCurry(ObjectiveType.Figma)}>
             Figma
           </p>
-          <p className={S.objectiveType} onClick={() => setObjectiveType('none')}>
+          <p className={S.objectiveType} onClick={objectiveTypeCurry(ObjectiveType.None)}>
             None
           </p>
-          <p className={S.objectiveType} onClick={() => setObjectiveType('codesandbox')}>
+          <p className={S.objectiveType} onClick={objectiveTypeCurry(ObjectiveType.Codesandbox)}>
             Codesandbox
           </p>
         </div>

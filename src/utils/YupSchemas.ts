@@ -168,6 +168,17 @@ const LinkSchema = object({
   link: string().required('Required field'),
 })
 
+const TaskReviewSchema = object({
+  review: string()
+    .min(6, 'Review must include at least 6 characters.')
+    .max(1024, 'Review must not contain more than 1024 characters.')
+    .required('Required field'),
+  rating: number()
+    .min(0, 'Rating must be greater than 0.')
+    .max(10, 'Rating must be less than 10.')
+    .required('Required field'),
+})
+
 export const YupSchemas = {
   LoginSchema,
   SigniupSchema,
@@ -178,4 +189,5 @@ export const YupSchemas = {
   CreateRoleSchema,
   ChangeCourseSchema,
   LinkSchema,
+  TaskReviewSchema,
 }
