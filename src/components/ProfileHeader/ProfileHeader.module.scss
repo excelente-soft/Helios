@@ -1,4 +1,5 @@
 @import '@variables';
+@import '@mixins';
 
 .bigAvatar {
   border-radius: 100%;
@@ -52,4 +53,11 @@
 
 .role {
   margin: 0;
+}
+
+@include tablet() {
+  .profileInfo {
+    flex-direction: column;
+    align-items: center;
+  }
 }

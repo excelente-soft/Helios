@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react'
 
 import Block from '@components/Block/Block'
@@ -19,11 +18,7 @@ const UserCourses: React.VFC<IUserCoursesProps> = ({ userId }) => {
 
   useEffect(() => {
     const fetchUserCourses = async () => {
-      const responseFromServer = await RequestUtility.requestToServer<ICourseRaw[]>(
-        'GET',
-        `/profile/courses/${userId}`,
-        null
-      )
+      const responseFromServer = await RequestUtility.requestToServer<ICourseRaw[]>('GET', `/profile/courses/${userId}`)
       if (responseFromServer.data) {
         const parsedCourses = responseFromServer.data.map((course: ICourseRaw) => ({
           ...course,
@@ -48,7 +43,7 @@ const UserCourses: React.VFC<IUserCoursesProps> = ({ userId }) => {
           </Table>
         </div>
       )}
-      {userCourses.length === 0 && isFetched && <p>This user has no courses.</p>}
+      {userCourses.length === 0 && isFetched && <h3 className={S.noCourses}>This user has no courses.</h3>}
     </Block>
   )
 }

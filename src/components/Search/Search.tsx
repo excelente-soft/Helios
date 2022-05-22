@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { ActionCreatorWithPayload } from '@reduxjs/toolkit'
 import { AnimatePresence } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'

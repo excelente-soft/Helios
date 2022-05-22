@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { Form, Formik } from 'formik'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'

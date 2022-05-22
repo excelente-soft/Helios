@@ -1,0 +1,13 @@
+@import '@variables';
+
+.viewer {
+  display: flex;
+  height: calc(100vh - 5rem);
+  width: 100%;
+}
+
+.viewFrame {
+  height: 100%;
+  width: 100%;
+  border: 1px solid $secondary-color;
+}

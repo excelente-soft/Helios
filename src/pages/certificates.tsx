@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react'
 
 import { IWithAuthorizationProps, withAuthorization } from '@HOC/withAuthorization'
@@ -11,6 +10,7 @@ import CS from '@common.module.scss'
 
 const Certificates: React.VFC<IWithAuthorizationProps> = ({ user }) => {
   const [certificates, setCertificates] = useState<ICertificate[]>()
+
   useEffect(() => {
     const fetchCertificates = async () => {
       const myCoursesResponse = await RequestUtility.requestToServer<ICertificate[]>(

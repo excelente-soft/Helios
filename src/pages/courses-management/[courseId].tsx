@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 
@@ -7,7 +6,6 @@ import ChangeCourse from '@components/ChangeCourse/ChangeCourse'
 import LearningManage from '@components/LearningManage/LearningManage'
 import { ICourse, IManageRaw } from '@interfaces/ICourse'
 import { ITask } from '@interfaces/ITask'
-import { CombineUtility } from '@utils/combiner'
 import { RequestUtility } from '@utils/request'
 
 import CS from '@common.module.scss'
@@ -31,11 +29,11 @@ const CoursesManagement: React.VFC<IWithAdminProps> = ({ user }) => {
         if (responseFromServer.data) {
           const parsedDate = new Date(responseFromServer.data.course.creationDate)
           setCourse({ ...responseFromServer.data.course, creationDate: parsedDate })
-          const allTasks = CombineUtility.combineArray(
+          const allTasks = [
             responseFromServer.data.lectures,
             responseFromServer.data.tests,
-            responseFromServer.data.practices
-          )
+            responseFromServer.data.practices,
+          ].flat(1)
           const sortedTasks = allTasks.sort((a, b) => a.position - b.position)
           setTasks(sortedTasks)
         }

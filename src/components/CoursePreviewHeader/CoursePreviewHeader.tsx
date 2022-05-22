@@ -24,17 +24,17 @@ const CoursePreviewHeader: React.VFC<ICoursePreviewHeaderProps> = ({ name, short
     if (!user) {
       return router.push('/login')
     }
-    const requestFromServer = await RequestUtility.requestToServer<IModalRaw>(
+    const responseFromServer = await RequestUtility.requestToServer<IModalRaw>(
       'POST',
       '/register-to-course',
-      { name: courseName as string },
+      { name: courseName },
       user.token
     )
-    if (requestFromServer.data) {
-      showModal(requestFromServer.data.message, requestFromServer.data.type)
+    if (responseFromServer.data) {
+      showModal(responseFromServer.data.message, responseFromServer.data.type)
     } else {
-      if (requestFromServer.message) {
-        showModal(requestFromServer.message, ModalType.Error)
+      if (responseFromServer.message) {
+        showModal(responseFromServer.message, ModalType.Error)
       }
     }
   }

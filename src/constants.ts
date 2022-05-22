@@ -8,6 +8,7 @@ export const IMAGE_MAX_SIZE = 15 * 1024 * 1024
 export const LECTURE_COMPLETE_DELAY = 7000
 export const WEEK = 1000 * 60 * 60 * 24 * 7
 export const CATALOG_IMAGES_COUNT = 7
+export const STARS_COUNT = 30
 export const PUBLIC_ROUTES: IRoute[] = [
   { name: 'Home', path: '/' },
   { name: 'Catalog', path: '/catalog' },

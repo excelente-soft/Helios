@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react'
 import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip } from 'recharts'
 
@@ -15,18 +14,18 @@ const MentorHeader: React.VFC<IMentorHeaderProps> = ({ token }) => {
   const [feedbacks, setFeedbacks] = useState<IFeedbackRaw[]>([])
 
   useEffect(() => {
-    const fetchMyFeedbacks = async () => {
-      const myFeedbacksResponse = await RequestUtility.requestToServer<IFeedbackRaw[]>(
+    const fetchFeedbacks = async () => {
+      const feedbacksResponse = await RequestUtility.requestToServer<IFeedbackRaw[]>(
         'GET',
         '/feedbacks-chart',
         null,
         token
       )
-      if (myFeedbacksResponse.data) {
-        setFeedbacks(myFeedbacksResponse.data)
+      if (feedbacksResponse.data) {
+        setFeedbacks(feedbacksResponse.data)
       }
     }
-    fetchMyFeedbacks()
+    fetchFeedbacks()
   }, [])
 
   return (

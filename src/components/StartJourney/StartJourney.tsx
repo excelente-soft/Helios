@@ -21,24 +21,24 @@ const StartJourney: React.VFC<IStartJourneyProps> = ({ price }) => {
     if (!user) {
       return router.push('/login')
     }
-    const requestFromServer = await RequestUtility.requestToServer<IModalRaw>(
+    const responseFromServer = await RequestUtility.requestToServer<IModalRaw>(
       'POST',
       '/register-to-course',
-      { name: courseName as string },
+      { name: courseName },
       user.token
     )
-    if (requestFromServer.data) {
-      showModal(requestFromServer.data.message, requestFromServer.data.type)
+    if (responseFromServer.data) {
+      showModal(responseFromServer.data.message, responseFromServer.data.type)
     } else {
-      if (requestFromServer.message) {
-        showModal(requestFromServer.message, ModalType.Error)
+      if (responseFromServer.message) {
+        showModal(responseFromServer.message, ModalType.Error)
       }
     }
   }
 
   return (
     <section className={S.startJourneySection}>
-      <h2 className={S.start}>Ready to kick-start your learning journey?</h2>
+      <h2 className={S.kickStart}>Ready to kick-start your learning journey?</h2>
       <button className={S.btnStartLearning} onClick={registerToCourseHandler}>
         Start learning for <span className={S.price}>{price === 0 ? ' FREE' : ` ${price}$`}</span>
       </button>

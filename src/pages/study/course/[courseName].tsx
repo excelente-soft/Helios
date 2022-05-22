@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 
@@ -10,7 +9,6 @@ import Task from '@components/Task/Task'
 import { ICourse, IManageWithGradesRaw } from '@interfaces/ICourse'
 import { IGrade } from '@interfaces/IGrade'
 import { ITaskWithGrade } from '@interfaces/ITask'
-import { CombineUtility } from '@utils/combiner'
 import { RequestUtility } from '@utils/request'
 
 import CS from '@common.module.scss'
@@ -36,11 +34,12 @@ const StudyCourse: React.VFC<IWithAuthorizationProps> = ({ user }) => {
         if (responseFromServer.data) {
           const parsedDate = new Date(responseFromServer.data.course.creationDate)
           setCourse({ ...responseFromServer.data.course, creationDate: parsedDate })
-          const allTasks = CombineUtility.combineArray(
+          const allTasks = [
             responseFromServer.data.lectures,
             responseFromServer.data.tests,
-            responseFromServer.data.practices
-          )
+            responseFromServer.data.practices,
+          ].flat(1)
+
           setAllGrades(responseFromServer.data.grades)
           const tasksWithGrade = allTasks.map((task) => {
             const grade = responseFromServer.data?.grades.find((grade) => grade.taskId === task.id && grade.rating >= 4)

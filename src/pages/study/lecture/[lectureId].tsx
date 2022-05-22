@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { motion, useTransform, useViewportScroll } from 'framer-motion'
 import { useRouter } from 'next/router'
 import { useEffect, useRef, useState } from 'react'

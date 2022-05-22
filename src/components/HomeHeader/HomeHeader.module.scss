@@ -1,0 +1,91 @@
+@import '@variables';
+@import '@mixins';
+
+.three {
+  height: 10.875rem;
+  width: 10.875rem;
+}
+
+.helios {
+  font-size: 3.9rem;
+  z-index: 500;
+  color: $secondary-color;
+  margin: 3rem 0;
+  padding: 0 1rem;
+}
+
+.threeWrapper {
+  margin-top: 4rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+  padding: 2rem 0;
+  height: calc(100vh - 5rem);
+  margin-bottom: 8rem;
+}
+
+.opportunities {
+  text-align: center;
+  font-size: 1.7rem;
+  color: $secondary-color;
+  padding: 0 1rem;
+  margin: 0 0 3rem;
+  max-width: 80rem;
+}
+
+.rocks {
+  position: absolute;
+  bottom: -6.5rem;
+  left: 0;
+  height: 252px;
+  width: 100%;
+}
+
+.btnControl {
+  width: 20rem;
+  height: 2.5rem;
+}
+
+.controls {
+  display: flex;
+  gap: 1rem;
+}
+
+.threeWrapper,
+.btnControl,
+.helios,
+.opportunities {
+  z-index: 500;
+}
+
+@include tablet() {
+  .helios {
+    font-size: 2.3rem;
+  }
+  .opportunities {
+    font-size: 1.25rem;
+  }
+  .btnControl {
+    width: 12rem;
+  }
+}
+
+@include mobile() {
+  .helios {
+    font-size: 1.7rem;
+  }
+  .opportunities {
+    font-size: 1rem;
+  }
+  .btnControl {
+    width: 10rem;
+  }
+}

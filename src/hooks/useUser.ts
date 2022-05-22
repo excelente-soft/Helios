@@ -26,7 +26,7 @@ export const useUser = () => {
   const validate = async (probUser?: IUser | null) => {
     const userToValidate = probUser ? probUser : user
     if (userToValidate) {
-      const responseFromServer = await RequestUtility.requestToServer('POST', '/validate', {}, userToValidate.token)
+      const responseFromServer = await RequestUtility.requestToServer('POST', '/validate', null, userToValidate.token)
       if (!responseFromServer.data) {
         const refreshToken = StorageUtility.getItemFromStorage<string>(STORAGE_REFRESH_TOKEN) || ''
         const refreshResponseFromServer = await refresh(refreshToken)

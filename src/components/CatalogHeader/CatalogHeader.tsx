@@ -13,29 +13,29 @@ interface ICatalogHeaderProps {
 const CatalogHeader: React.VFC<ICatalogHeaderProps> = ({ courses }) => {
   const coursesImages = () => {
     const coursesWithImages = courses.filter((course) => course.image)
-    if (coursesWithImages.length === 0) return null
-    const sevenRandomCoursesWithImages = new Array(CATALOG_IMAGES_COUNT)
+    if (coursesWithImages.length === 0) return []
+    const randomCoursesWithImages = new Array(CATALOG_IMAGES_COUNT)
       .fill('')
       .map(() => coursesWithImages[Math.floor(Math.random() * coursesWithImages.length)])
-    return sevenRandomCoursesWithImages
+    return randomCoursesWithImages
   }
-  const sevenRandomCoursesWithImages = coursesImages()
+
+  const randomCoursesWithImages = coursesImages()
   return (
     <div className={S.header}>
       <div className={S.images}>
-        {sevenRandomCoursesWithImages &&
-          sevenRandomCoursesWithImages.map((course, index) => (
-            <div key={index} className={S.courseImageWrapper}>
-              <Image
-                className={S.courseImage}
-                src={course.image}
-                height={64}
-                width={64}
-                objectFit={'cover'}
-                alt={course.name}
-              />
-            </div>
-          ))}
+        {randomCoursesWithImages.map((course, index) => (
+          <div key={index} className={S.courseImageWrapper}>
+            <Image
+              className={S.courseImage}
+              src={course.image}
+              height={64}
+              width={64}
+              objectFit={'cover'}
+              alt={course.name}
+            />
+          </div>
+        ))}
       </div>
       <h1 className={S.title}>{courses.length !== 0 ? courses.length : ''} courses for you to learn something</h1>
       <p className={S.subtitle}>

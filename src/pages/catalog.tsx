@@ -18,7 +18,7 @@ const Catalog = () => {
 
   useEffect(() => {
     const getCourses = async () => {
-      const rawCourses = await RequestUtility.requestToServer<ICourseRaw[]>('GET', '/get-courses', null)
+      const rawCourses = await RequestUtility.requestToServer<ICourseRaw[]>('GET', '/get-courses')
       if (rawCourses.data) {
         const courses = rawCourses.data.map((course) => ({ ...course, creationDate: new Date(course.creationDate) }))
         setCourses(courses)

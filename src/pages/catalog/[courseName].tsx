@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 
@@ -12,7 +11,6 @@ import StartJourney from '@components/StartJourney/StartJourney'
 import SyllabusPreview from '@components/SyllabusPreview/SyllabusPreview'
 import { ICourse, IManageRaw } from '@interfaces/ICourse'
 import { ITask } from '@interfaces/ITask'
-import { CombineUtility } from '@utils/combiner'
 import { RequestUtility } from '@utils/request'
 
 const CoursePreview = () => {
@@ -25,19 +23,15 @@ const CoursePreview = () => {
   useEffect(() => {
     if (router.isReady) {
       const fetchCourse = async () => {
-        const responseFromServer = await RequestUtility.requestToServer<IManageRaw>(
-          'GET',
-          `/get-courses/${courseName}`,
-          null
-        )
+        const responseFromServer = await RequestUtility.requestToServer<IManageRaw>('GET', `/get-courses/${courseName}`)
         if (responseFromServer.data) {
           const parsedDate = new Date(responseFromServer.data.course.creationDate)
           setCourse({ ...responseFromServer.data.course, creationDate: parsedDate })
-          const allTasks = CombineUtility.combineArray(
+          const allTasks = [
             responseFromServer.data.lectures,
             responseFromServer.data.tests,
-            responseFromServer.data.practices
-          )
+            responseFromServer.data.practices,
+          ].flat(1)
           const sortedTasks = allTasks.sort((a, b) => a.position - b.position)
           setSyllabus(sortedTasks)
         }

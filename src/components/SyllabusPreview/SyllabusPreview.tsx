@@ -16,14 +16,14 @@ const SyllabusPreview: React.VFC<ISyllabusPreviewProps> = ({ syllabus }) => {
     setIsMore(!isMore)
   }
 
-  const syllabusPrepared = isMore ? syllabus : syllabus.slice(0, 5)
+  const preparedSyllabus = isMore ? syllabus : syllabus.slice(0, 5)
   return (
     <section className={`${S.syllabusPreviewSection} ${CS.pageContainer}`}>
-      <h2 className={S.willDo}>What you will learn?</h2>
+      <h2 className={S.willLearn}>What you will learn?</h2>
       <div className={S.syllabus}>
-        {syllabusPrepared.map((task, index) => (
-          <div key={index} className={S.task}>
-            <div className={S.position}>{task.position}</div>
+        {preparedSyllabus.map((task, index) => (
+          <div key={task.id} className={S.task}>
+            <div className={S.position}>{index + 1}</div>
             <div className={S.info}>
               <h3 className={S.name}>
                 {task.name} ({task.type})
@@ -33,7 +33,7 @@ const SyllabusPreview: React.VFC<ISyllabusPreviewProps> = ({ syllabus }) => {
         ))}
         {syllabus.length > 5 && (
           <button className={`${CS.btnSecondary} ${S.BtnMore}`} type="button" onClick={toggleMoreHandler}>
-            {isMore ? 'Show less' : `Show more +${syllabus.length - syllabusPrepared.length}`}
+            {isMore ? 'Show less' : `Show more +${syllabus.length - preparedSyllabus.length}`}
           </button>
         )}
       </div>

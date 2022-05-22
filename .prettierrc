@@ -6,7 +6,7 @@
   "useTabs": false,
   "endOfLine": "crlf",
   "importOrder": [
-    "^[a-zA-Z]|(@redux)",
+    "^[a-zA-Z]|(@redux)|(@react)",
     "^@(compo|uti|int|hook|stor|con|ima|HOC)",
     "^(@common.module.scss)|(./)|(@styles)$"
   ],

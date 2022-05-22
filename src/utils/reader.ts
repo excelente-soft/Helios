@@ -10,7 +10,6 @@ const readFile = (file: File, onLoad: (result: { message?: string; data?: string
   } else if (file.size >= IMAGE_MAX_SIZE) {
     return onLoad({ message: 'Selected file is too large' })
   }
-
   const reader = new FileReader()
   reader.readAsDataURL(file)
   reader.addEventListener('load', (e: ProgressEvent<FileReader>) => {

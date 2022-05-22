@@ -1,5 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-
 /* eslint-disable react/display-name */
 import { useRouter } from 'next/router'
 import { VFC, useEffect } from 'react'

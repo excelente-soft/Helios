@@ -5,7 +5,7 @@ import { IResponse } from '@interfaces/IResponse'
 const requestToServer = async <R = boolean, B = unknown>(
   method: 'GET' | 'POST' | 'PUT' | 'DELETE',
   url: string,
-  body: B,
+  body?: B,
   token?: string
 ): Promise<IResponse<R>> => {
   try {
