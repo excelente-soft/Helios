@@ -31,7 +31,7 @@ const CatalogHeader: React.VFC<ICatalogHeaderProps> = ({ courses }) => {
               src={course.image}
               height={64}
               width={64}
-              objectFit={'cover'}
+              objectFit="cover"
               alt={course.name}
             />
           </div>

@@ -6,7 +6,7 @@ import RowField from '@components/RowField/RowField'
 import { useClear } from '@hooks/useClear'
 import { IUser } from '@interfaces/IUser'
 import { RequestUtility } from '@utils/request'
-import { YupSchemas } from '@utils/yupSchemas'
+import { YupSchemas } from '@utils/schemas'
 
 import CS from '@common.module.scss'
 

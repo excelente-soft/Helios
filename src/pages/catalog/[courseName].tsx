@@ -49,7 +49,7 @@ const CoursePreview = () => {
         <>
           <CoursePreviewHeader name={course.name} shortDescription={course.shortDescription} price={course.price} />
           <CoursePreviewTodo description={course.description} />
-          <SyllabusPreview syllabus={syllabus} />
+          {syllabus.length > 0 && <SyllabusPreview syllabus={syllabus} />}
           <LearningProcess />
           <StartJourney price={course.price} />
           <PossibleQuestions />

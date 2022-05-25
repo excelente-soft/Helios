@@ -10,7 +10,7 @@ import { useModal } from '@hooks/useModal'
 import { IModalRaw, ModalType } from '@interfaces/IModal'
 import { ITaskQueue, ITaskQueueRaw } from '@interfaces/ITaskQueue'
 import { RequestUtility } from '@utils/request'
-import { YupSchemas } from '@utils/yupSchemas'
+import { YupSchemas } from '@utils/schemas'
 
 import CS from '@common.module.scss'
 import S from '@styles/TaskReview.module.scss'

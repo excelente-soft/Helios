@@ -10,7 +10,7 @@ import RowField from '@components/RowField/RowField'
 import { SITE_NAME } from '@constants'
 import { useAuth } from '@hooks/useAuth'
 import { IUserCredentials } from '@interfaces/IUser'
-import { YupSchemas } from '@utils/yupSchemas'
+import { YupSchemas } from '@utils/schemas'
 
 import CS from '@common.module.scss'
 import S from '@styles/Login.module.scss'

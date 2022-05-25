@@ -6,7 +6,7 @@ import RowField from '@components/RowField/RowField'
 import { IRole } from '@interfaces/IRole'
 import { IUser } from '@interfaces/IUser'
 import { RequestUtility } from '@utils/request'
-import { YupSchemas } from '@utils/yupSchemas'
+import { YupSchemas } from '@utils/schemas'
 
 import S from './CreateRole.module.scss'
 import CS from '@common.module.scss'

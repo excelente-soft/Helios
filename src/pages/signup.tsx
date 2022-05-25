@@ -10,7 +10,7 @@ import Notification from '@components/Notification/Notification'
 import RowField from '@components/RowField/RowField'
 import { useAuth } from '@hooks/useAuth'
 import { IUserSignup } from '@interfaces/IUser'
-import { YupSchemas } from '@utils/yupSchemas'
+import { YupSchemas } from '@utils/schemas'
 
 import CS from '@common.module.scss'
 import S from '@styles/Signup.module.scss'

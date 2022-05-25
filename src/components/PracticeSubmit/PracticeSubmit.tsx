@@ -5,7 +5,7 @@ import RowField from '@components/RowField/RowField'
 import { useModal } from '@hooks/useModal'
 import { IModalRaw, ModalType } from '@interfaces/IModal'
 import { RequestUtility } from '@utils/request'
-import { YupSchemas } from '@utils/yupSchemas'
+import { YupSchemas } from '@utils/schemas'
 
 import CS from '@common.module.scss'
 

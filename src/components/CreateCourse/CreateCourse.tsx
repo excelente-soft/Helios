@@ -11,7 +11,7 @@ import { useImage } from '@hooks/useImage'
 import { ICourse } from '@interfaces/ICourse'
 import { IUser } from '@interfaces/IUser'
 import { RequestUtility } from '@utils/request'
-import { YupSchemas } from '@utils/yupSchemas'
+import { YupSchemas } from '@utils/schemas'
 
 import S from './CreateCourse.module.scss'
 import CS from '@common.module.scss'

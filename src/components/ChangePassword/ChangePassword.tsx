@@ -5,7 +5,7 @@ import Block from '@components/Block/Block'
 import RowField from '@components/RowField/RowField'
 import { useClear } from '@hooks/useClear'
 import { RequestUtility } from '@utils/request'
-import { YupSchemas } from '@utils/yupSchemas'
+import { YupSchemas } from '@utils/schemas'
 
 import CS from '@common.module.scss'
 
