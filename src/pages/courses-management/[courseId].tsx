@@ -13,7 +13,7 @@ import CS from '@common.module.scss'
 const CoursesManagement: React.VFC<IWithAdminProps> = ({ user }) => {
   const router = useRouter()
   const [course, setCourse] = useState<ICourse | null>(null)
-  const [isFetched, setIsFetched] = useState(false)
+  const [isFetched, setFetched] = useState(false)
   const [tasks, setTasks] = useState<ITask[]>([])
   const { courseId } = router.query
 
@@ -37,7 +37,7 @@ const CoursesManagement: React.VFC<IWithAdminProps> = ({ user }) => {
           const sortedTasks = allTasks.sort((a, b) => a.position - b.position)
           setTasks(sortedTasks)
         }
-        setIsFetched(true)
+        setFetched(true)
       }
       fetchCourse()
     }

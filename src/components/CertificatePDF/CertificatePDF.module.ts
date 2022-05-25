@@ -16,10 +16,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: '#fff',
     height: '100%',
+    width: '100%',
     fontFamily: 'Open Sans',
   },
   leftSection: {
-    flexGrow: 4,
+    width: '55%',
     padding: '32px',
     position: 'relative',
   },
@@ -41,8 +42,9 @@ const styles = StyleSheet.create({
   leftTitle: {
     position: 'absolute',
     transform: 'rotate(-90deg) translate(-50%, 50%)',
-    right: '-72px',
-    bottom: '79px',
+    right: '-81px',
+    bottom: 0,
+    textAlign: 'center',
     fontSize: '236px',
     color: '#141b3a2e',
   },
@@ -83,7 +85,7 @@ const styles = StyleSheet.create({
     marginBottom: '84px',
   },
   rightSection: {
-    flexGrow: 3,
+    width: '45%',
     padding: '32px',
     backgroundColor: 'rgb(58, 16, 229)',
   },

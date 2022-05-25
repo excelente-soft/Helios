@@ -10,10 +10,10 @@ interface ISyllabusPreviewProps {
 }
 
 const SyllabusPreview: React.VFC<ISyllabusPreviewProps> = ({ syllabus }) => {
-  const [isMore, setIsMore] = useState(false)
+  const [isMore, setMore] = useState(false)
 
   const toggleMoreHandler = () => {
-    setIsMore(!isMore)
+    setMore(!isMore)
   }
 
   const preparedSyllabus = isMore ? syllabus : syllabus.slice(0, 5)

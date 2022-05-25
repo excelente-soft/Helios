@@ -19,7 +19,6 @@ const AppInit: React.FC = ({ children }) => {
       }
       setRestored(true)
     }
-
     appInit()
   }, [])
 

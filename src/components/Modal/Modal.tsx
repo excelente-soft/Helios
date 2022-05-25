@@ -32,7 +32,6 @@ const Modal = () => {
   const modalCloseRestrict = (e: React.SyntheticEvent) => {
     e.stopPropagation()
   }
-
   const modalIcon = type === 'Error' ? errorIcon : type === 'Info' ? infoIcon : successIcon
   return (
     <>

@@ -17,7 +17,7 @@ const CoursePreview = () => {
   const router = useRouter()
   const [course, setCourse] = useState<ICourse | null>(null)
   const [syllabus, setSyllabus] = useState<ITask[]>([])
-  const [isFetched, setIsFetched] = useState(false)
+  const [isFetched, setFetched] = useState(false)
   const { courseName } = router.query
 
   useEffect(() => {
@@ -35,7 +35,7 @@ const CoursePreview = () => {
           const sortedTasks = allTasks.sort((a, b) => a.position - b.position)
           setSyllabus(sortedTasks)
         }
-        setIsFetched(true)
+        setFetched(true)
       }
       fetchCourse()
     }

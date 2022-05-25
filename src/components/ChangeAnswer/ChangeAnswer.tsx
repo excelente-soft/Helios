@@ -23,14 +23,14 @@ const ChangeAnswer: React.VFC<IChangeAnswerProps> = ({
   setAnswerFromServer,
 }) => {
   const [answerText, setAnswerText] = useState(answer.answer)
-  const [isCorrect, setIsCorrect] = useState(answer.isCorrect)
+  const [isCorrect, setCorrect] = useState(answer.isCorrect)
 
   const changeAnswerTextHandler = (e: React.SyntheticEvent<HTMLInputElement>) => {
     setAnswerText(e.currentTarget.value)
   }
 
   const changeCorrectHandler = (e: React.SyntheticEvent<HTMLInputElement>) => {
-    setIsCorrect(e.currentTarget.checked)
+    setCorrect(e.currentTarget.checked)
   }
 
   const changeAnswerHandler = async () => {

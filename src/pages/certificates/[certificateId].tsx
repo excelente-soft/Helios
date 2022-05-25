@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 
 import CertificatePDF from '@components/CertificatePDF/CertificatePDF'
+import ErrorRoute from '@components/ErrorRoute/ErrorRoute'
 import Layout from '@components/Layout/Layout'
 import { ICertificate } from '@interfaces/ICertificate'
 import { RequestUtility } from '@utils/request'
@@ -13,6 +14,7 @@ const Certificate = () => {
   const router = useRouter()
   const { certificateId } = router.query
   const [certificate, setCertificate] = useState<ICertificate>()
+  const [isFetched, setFetched] = useState(false)
 
   useEffect(() => {
     if (router.isReady) {
@@ -24,6 +26,7 @@ const Certificate = () => {
         if (responseFromServer.data) {
           setCertificate(responseFromServer.data)
         }
+        setFetched(true)
       }
       fetchCertificate()
     }
@@ -38,6 +41,7 @@ const Certificate = () => {
           </PDFViewer>
         </div>
       )}
+      {!certificate && isFetched && <ErrorRoute description="This certificate was not found" />}
     </Layout>
   )
 }

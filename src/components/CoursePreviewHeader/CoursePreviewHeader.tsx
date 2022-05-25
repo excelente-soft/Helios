@@ -32,10 +32,8 @@ const CoursePreviewHeader: React.VFC<ICoursePreviewHeaderProps> = ({ name, short
     )
     if (responseFromServer.data) {
       showModal(responseFromServer.data.message, responseFromServer.data.type)
-    } else {
-      if (responseFromServer.message) {
-        showModal(responseFromServer.message, ModalType.Error)
-      }
+    } else if (responseFromServer.message) {
+      showModal(responseFromServer.message, ModalType.Error)
     }
   }
 
