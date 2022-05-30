@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip } from 'recharts'
 
+import MentorTooltip from '@components/MentorTooltip/MentorTooltip'
 import { IFeedbackRaw } from '@interfaces/IFeedback'
 import { RequestUtility } from '@utils/request'
 
@@ -30,14 +31,16 @@ const MentorHeader: React.VFC<IMentorHeaderProps> = ({ token }) => {
 
   return (
     <div className={`${S.header} ${feedbacks.length < 2 ? S.colored : ''}`}>
-      <ResponsiveContainer width="100%" height="100%">
-        <AreaChart data={feedbacks} margin={{ top: 5, right: 0, left: 0, bottom: 0 }}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <Tooltip />
-          <Area type="natural" dataKey="rating" stroke="#19066a" fill="#3a10e5" fillOpacity="1" />
-          <Area type="natural" dataKey="review" stroke="#19066a" fill="#3a10e5" fillOpacity="1" />
-        </AreaChart>
-      </ResponsiveContainer>
+      {feedbacks.length > 1 && (
+        <ResponsiveContainer width="100%" height="100%">
+          <AreaChart data={feedbacks} margin={{ top: 5, right: 0, left: 0, bottom: 0 }}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <Tooltip content={<MentorTooltip />} />
+            {/* <Area type="natural" dataKey="review" stroke="#19066a" fill="#3a10e5" fillOpacity="1" /> */}
+            <Area type="natural" dataKey="rating" stroke="#19066a" fill="#3a10e5" fillOpacity="1" />
+          </AreaChart>
+        </ResponsiveContainer>
+      )}
     </div>
   )
 }

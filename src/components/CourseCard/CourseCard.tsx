@@ -1,11 +1,12 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import { useState } from 'react'
 
 import ProgressBar from '@components/ProgressBar/ProgressBar'
 import { WEEK } from '@constants'
 import { useModal } from '@hooks/useModal'
 import { ICourse } from '@interfaces/ICourse'
-import { IModal, ModalType } from '@interfaces/IModal'
+import { IModalRaw, ModalType } from '@interfaces/IModal'
 import { RequestUtility } from '@utils/request'
 
 import S from './CourseCard.module.scss'
@@ -21,16 +22,18 @@ interface ICourseCardProps {
 
 const CourseCard: React.VFC<ICourseCardProps> = ({ course, url, progress, hasCertificate, token }) => {
   const { showModal } = useModal()
+  const [gotCertificate, setGotCertificate] = useState(hasCertificate)
 
   const getCertificateHandler = async () => {
-    const certificateResult = await RequestUtility.requestToServer<IModal>(
+    const certificateResult = await RequestUtility.requestToServer<IModalRaw>(
       'POST',
       '/get-certificate',
       { courseId: course.id },
       token
     )
     if (certificateResult.data) {
-      showModal(certificateResult.data.content, certificateResult.data.type)
+      showModal(certificateResult.data.message, certificateResult.data.type)
+      setGotCertificate(true)
     } else {
       showModal(
         "You can't get certificate now. If you think this is a mistake, please contact us support-me@helios.education.",
@@ -62,7 +65,7 @@ const CourseCard: React.VFC<ICourseCardProps> = ({ course, url, progress, hasCer
           {isNew && <div className={S.new}>NEW</div>}
         </a>
       </Link>
-      {progress === 100 && !hasCertificate && (
+      {progress === 100 && !gotCertificate && (
         <button onClick={getCertificateHandler} className={`${S.btnCertificate} ${CS.btnSecondary} ${CS.btnBasicSize}`}>
           Get certificate
         </button>

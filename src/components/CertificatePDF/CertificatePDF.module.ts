@@ -17,6 +17,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     height: '100%',
     width: '100%',
+    position: 'relative',
     fontFamily: 'Open Sans',
   },
   leftSection: {
@@ -40,9 +41,10 @@ const styles = StyleSheet.create({
     marginBottom: '92px',
   },
   leftTitle: {
+    width: '100%',
     position: 'absolute',
-    transform: 'rotate(-90deg) translate(-50%, 50%)',
-    right: '-81px',
+    transform: 'rotate(-90deg) translate(50%, 100%)',
+    right: '-32px',
     bottom: 0,
     textAlign: 'center',
     fontSize: '236px',

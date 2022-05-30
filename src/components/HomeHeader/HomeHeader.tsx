@@ -16,7 +16,7 @@ const HomeHeader = () => {
       <MemoizedStarsPlate />
       <div className={S.threeWrapper}>
         <div className={S.three}>
-          <Canvas camera={{ position: [0, 0, 10], fov: 25 }}>
+          <Canvas camera={{ position: [0, 0, 10], fov: 25 }} className={S.canvas}>
             <PresentationControls
               global
               snap={false}
