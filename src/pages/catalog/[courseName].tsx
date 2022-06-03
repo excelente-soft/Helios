@@ -23,7 +23,10 @@ const CoursePreview = () => {
   useEffect(() => {
     if (router.isReady) {
       const fetchCourse = async () => {
-        const responseFromServer = await RequestUtility.requestToServer<IManageRaw>('GET', `/get-courses/${courseName}`)
+        const responseFromServer = await RequestUtility.requestToServer<IManageRaw>(
+          'GET',
+          `/get-courses/${encodeURIComponent(courseName?.toString() || '')}`
+        )
         if (responseFromServer.data) {
           const parsedDate = new Date(responseFromServer.data.course.creationDate)
           setCourse({ ...responseFromServer.data.course, creationDate: parsedDate })

@@ -27,7 +27,7 @@ const StudyCourse: React.VFC<IWithAuthorizationProps> = ({ user }) => {
       const fetchCourse = async () => {
         const responseFromServer = await RequestUtility.requestToServer<IManageWithGradesRaw>(
           'GET',
-          `/study/course/${courseName}`,
+          `/study/course/${encodeURIComponent(courseName?.toString() || '')}`,
           null,
           user.token
         )

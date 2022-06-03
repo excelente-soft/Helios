@@ -25,7 +25,10 @@ const Profile = () => {
       const fetchUserProfile = async () => {
         const isAdmin = user && user.role.accessLevel > 1
         const isSelf = user && user.nickname === nickname
-        const url = `/profile/${isAdmin ? `full/${nickname}` : isSelf ? `me/${nickname}` : nickname}`
+        const encodedNickname = encodeURIComponent(nickname?.toString() || '')
+        const url = `/profile/${
+          isAdmin ? `full/${encodedNickname}` : isSelf ? `me/${encodedNickname}` : encodedNickname
+        }`
         const responseFromServer = await RequestUtility.requestToServer<IAnotherUserProfile>(
           'GET',
           url,
