@@ -5,7 +5,6 @@ import { IQuest } from '@interfaces/IQuest'
 export interface ILearningManageContext {
   deleteTask: (taskId: string) => void
   changeTaskName: (taskId: string, name: string) => void
-  changeOrder: () => Promise<void>
   addQuest: (taskId: string, quest: IQuest) => void
   deleteQuest: (questId: string) => void
   changeQuest: (questId: string, question: string) => void

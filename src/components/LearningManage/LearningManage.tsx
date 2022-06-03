@@ -1,8 +1,8 @@
-import { Reorder } from 'framer-motion'
 import { Dispatch, SetStateAction } from 'react'
+import { DropResult } from 'react-beautiful-dnd'
 
 import Block from '@components/Block/Block'
-import ControlledTask from '@components/ControlledTask/ControlledTask'
+import TaskList from '@components/TaskList/TaskList'
 import { LearningManageContext } from '@contexts/LearningManage'
 import { IAnswer } from '@interfaces/IAnswer'
 import { IPractice } from '@interfaces/IPractice'
@@ -140,8 +140,8 @@ const LearningManage: React.VFC<ILearningManage> = ({ tasks, token, setTasks, co
     setTasks(newTasks)
   }
 
-  const changeOrder = async () => {
-    await RequestUtility.requestToServer('PUT', '/change-order', tasks, token)
+  const changeOrder = async (changedTasks: ITask[]) => {
+    await RequestUtility.requestToServer('PUT', '/change-order', changedTasks, token)
   }
 
   const changePractice = async (taskId: string, practice: IPractice) => {
@@ -208,12 +208,25 @@ const LearningManage: React.VFC<ILearningManage> = ({ tasks, token, setTasks, co
     setTasks(newTasks)
   }
 
+  const reorderTasks = (result: DropResult) => {
+    const { destination, source } = result
+
+    if (!destination || (destination.droppableId === source.droppableId && destination.index === source.index)) {
+      return
+    }
+
+    const items = Array.from(tasks)
+    const [reorderedItem] = items.splice(source.index, 1)
+    items.splice(destination.index, 0, reorderedItem)
+    changeOrder(items)
+    setTasks(items)
+  }
+
   return (
     <LearningManageContext.Provider
       value={{
         deleteTask,
         changeTaskName,
-        changeOrder,
         addQuest,
         deleteQuest,
         changeQuest,
@@ -227,11 +240,7 @@ const LearningManage: React.VFC<ILearningManage> = ({ tasks, token, setTasks, co
     >
       <Block noMargin>
         <h3 className={CS.subtitle}>Learning management</h3>
-        <Reorder.Group className={S.taskList} axis="y" values={tasks} onReorder={setTasks}>
-          {tasks.map((task) => (
-            <ControlledTask key={task.id} task={task} token={token} />
-          ))}
-        </Reorder.Group>
+        <TaskList reorderTasks={reorderTasks} tasks={tasks} token={token} />
         <div className={S.controls}>
           <button className={`${CS.btnPrimary} ${CS.btnBasicSize}`} onClick={createLectureHandler}>
             Create lecture
@@ -242,7 +251,6 @@ const LearningManage: React.VFC<ILearningManage> = ({ tasks, token, setTasks, co
           <button className={`${CS.btnSecondary} ${CS.btnBasicSize}`} onClick={createTestHandler}>
             Create test
           </button>
-          <button className={`${CS.btnSecondary} ${CS.btnBasicSize}`}></button>
         </div>
       </Block>
     </LearningManageContext.Provider>

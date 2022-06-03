@@ -3,9 +3,9 @@ import { AnimatePresence } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
 
 import CatalogFilter from '@components/CatalogFilter/CatalogFilter'
+import QueueFilter from '@components/QueueFilter/QueueFilter'
 import { useAppDispatch } from '@hooks/app'
 
-import QueueFilter from '../QueueFilter/QueueFilter'
 import S from './Search.module.scss'
 import CS from '@common.module.scss'
 
