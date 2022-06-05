@@ -15,12 +15,12 @@ interface IPracticeViewProps {
 }
 
 const PracticeView: React.FC<IPracticeViewProps> = ({ practice, children }) => {
+  const hasFigmaFrame = practice.link && practice.objectiveType === ObjectiveType.Figma
+  const hasCodesandboxFrame = practice.link && practice.objectiveType === ObjectiveType.Codesandbox
   return (
     <>
-      {practice.objectiveType === ObjectiveType.Figma && practice.link && <FigmaFrame embedUrl={practice.link} />}
-      {practice.objectiveType === ObjectiveType.Codesandbox && practice.link && (
-        <Codesandbox embedUrl={practice.link} />
-      )}
+      {hasFigmaFrame && <FigmaFrame embedUrl={practice.link} />}
+      {hasCodesandboxFrame && <Codesandbox embedUrl={practice.link} />}
       <div className={CS.pageContainer}>
         <h2 className={CS.pageTitle}>Task review</h2>
         <Block noMargin>

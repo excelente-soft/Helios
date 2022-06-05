@@ -11,6 +11,7 @@ interface INavigationProps {
 }
 
 const Navigation: React.VFC<INavigationProps> = ({ user }) => {
+  const isPrivilegedUser = user && user.role.accessLevel > 0
   return (
     <nav>
       <ul className={S.routesList}>
@@ -21,8 +22,7 @@ const Navigation: React.VFC<INavigationProps> = ({ user }) => {
             </Link>
           </li>
         ))}
-        {user &&
-          user.role.accessLevel > 0 &&
+        {isPrivilegedUser &&
           MENTOR_ROUTES.map(({ name, path }) => (
             <li key={name}>
               <Link href={path}>

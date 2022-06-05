@@ -43,10 +43,11 @@ const CoursesManagement: React.VFC<IWithAdminProps> = ({ user }) => {
     }
   }, [router.isReady])
 
+  const hasCourse = isFetched && course
   return (
     <div className={CS.pageContainer}>
       <h2 className={CS.pageTitle}>Course management</h2>
-      {isFetched && course && (
+      {hasCourse && (
         <>
           <LearningManage tasks={tasks} token={user.token} courseId={course.id} setTasks={setTasks} />
           <ChangeCourse course={course} user={user} />

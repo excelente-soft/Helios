@@ -45,9 +45,10 @@ const CoursePreview = () => {
   }, [router.isReady])
 
   const hasCourse = isFetched && course
+  const isCourseNotFound = isFetched && !course
   return (
     <Layout title={`${courseName || 'Loading course preview'}`}>
-      {isFetched && !course && <ErrorRoute description="This course could not be found." />}
+      {isCourseNotFound && <ErrorRoute description="This course could not be found." />}
       {hasCourse && (
         <>
           <CoursePreviewHeader name={course.name} shortDescription={course.shortDescription} price={course.price} />

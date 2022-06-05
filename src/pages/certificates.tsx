@@ -9,7 +9,7 @@ import { RequestUtility } from '@utils/request'
 import CS from '@common.module.scss'
 
 const Certificates: React.VFC<IWithAuthorizationProps> = ({ user }) => {
-  const [certificates, setCertificates] = useState<ICertificate[]>()
+  const [certificates, setCertificates] = useState<ICertificate[]>([])
 
   useEffect(() => {
     const fetchCertificates = async () => {
@@ -31,8 +31,9 @@ const Certificates: React.VFC<IWithAuthorizationProps> = ({ user }) => {
       <h1 className={CS.pageTitle}>My Certificates</h1>
       <div>
         <Table noPadding>
-          {certificates &&
-            certificates.map((certificate) => <CertificateCard key={certificate.id} certificate={certificate} />)}
+          {certificates.map((certificate) => (
+            <CertificateCard key={certificate.id} certificate={certificate} />
+          ))}
         </Table>
       </div>
     </div>

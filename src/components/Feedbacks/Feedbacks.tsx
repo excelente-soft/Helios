@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 
 import Block from '@components/Block/Block'
-import { IFeedbackRaw } from '@interfaces/IFeedback'
+import { IFeedback } from '@interfaces/IFeedback'
 import { RequestUtility } from '@utils/request'
 
 import S from './Feedbacks.module.scss'
@@ -14,10 +14,10 @@ interface IFeedbacksProps {
 }
 
 const Feedbacks: React.VFC<IFeedbacksProps> = ({ practiceId, token, courseId }) => {
-  const [feedbacks, setFeedbacks] = useState<IFeedbackRaw[]>([])
+  const [feedbacks, setFeedbacks] = useState<IFeedback[]>([])
   useEffect(() => {
     const fetchMyFeedbacks = async () => {
-      const myFeedbacksResponse = await RequestUtility.requestToServer<IFeedbackRaw[]>(
+      const myFeedbacksResponse = await RequestUtility.requestToServer<IFeedback[]>(
         'GET',
         `/feedbacks-practice/${courseId}/${practiceId}`,
         null,

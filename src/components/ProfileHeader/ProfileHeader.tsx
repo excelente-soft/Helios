@@ -13,7 +13,6 @@ interface IProfileHeaderProps {
   userProfile: IAnotherUserProfile
   targetAccessLevel?: number
   token?: string
-  userRole: IRole
   changeUserRole: (role: IRole) => void
 }
 
@@ -21,7 +20,6 @@ const ProfileHeader: React.VFC<IProfileHeaderProps> = ({
   userProfile,
   targetAccessLevel = 0,
   token,
-  userRole,
   changeUserRole,
 }) => {
   const [roles, setRoles] = useState<IRole[]>([])
@@ -82,7 +80,7 @@ const ProfileHeader: React.VFC<IProfileHeaderProps> = ({
               {userProfile.role.roleName}
             </h3>
           )}
-          {canModifyRole && <Dropdown value={userRole.roleName} options={roles} onChange={changeRoleHandler} />}
+          {canModifyRole && <Dropdown value={userProfile.role.roleName} options={roles} onChange={changeRoleHandler} />}
         </div>
         {userProfile.type === UserType.Private && (
           <span className={S.hiddenProfile} title="This means that regular users do not see this profile."></span>

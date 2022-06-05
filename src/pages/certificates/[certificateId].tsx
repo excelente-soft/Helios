@@ -32,6 +32,7 @@ const Certificate = () => {
     }
   }, [router.isReady])
 
+  const isCertificateNotFound = isFetched && !certificate
   return (
     <Layout title="Certificate">
       {certificate && (
@@ -41,7 +42,7 @@ const Certificate = () => {
           </PDFViewer>
         </div>
       )}
-      {!certificate && isFetched && <ErrorRoute description="This certificate was not found" />}
+      {isCertificateNotFound && <ErrorRoute description="This certificate was not found" />}
     </Layout>
   )
 }

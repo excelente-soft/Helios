@@ -31,10 +31,12 @@ const UserCourses: React.VFC<IUserCoursesProps> = ({ userId }) => {
     fetchUserCourses()
   }, [])
 
+  const hasCourses = userCourses.length > 0 && isFetched
+  const hasZeroCourses = userCourses.length === 0 && isFetched
   return (
     <Block>
       <h2 className={CS.subtitle}>User courses</h2>
-      {userCourses.length > 0 && isFetched && (
+      {hasCourses && (
         <div className={S.userCoursesContainer}>
           <Table noPadding>
             {userCourses.map((course) => (
@@ -43,7 +45,7 @@ const UserCourses: React.VFC<IUserCoursesProps> = ({ userId }) => {
           </Table>
         </div>
       )}
-      {userCourses.length === 0 && isFetched && <h3 className={S.noCourses}>This user has no courses.</h3>}
+      {hasZeroCourses && <h3 className={S.noCourses}>This user has no courses.</h3>}
     </Block>
   )
 }

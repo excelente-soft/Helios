@@ -96,7 +96,12 @@ const Test: React.VFC<IWithAuthorizationProps> = ({ user }) => {
       {isTestPrepared && (
         <Block noMargin>
           <TestInfo name={test.name} time={test.time} totalQuestions={test.quests.length} />
-          <button className={`${CS.btnPrimary} ${S.btnStartTest}`} onClick={startTest}>
+          <button
+            className={`${CS.btnPrimary} ${S.btnStartTest}`}
+            onClick={startTest}
+            disabled={test.quests.length === 0}
+            title={test.quests.length === 0 ? 'No questions' : undefined}
+          >
             Start test
           </button>
         </Block>

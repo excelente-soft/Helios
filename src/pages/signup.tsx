@@ -1,12 +1,11 @@
 import { Form, Formik } from 'formik'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useState } from 'react'
 
+import { IWithNotificationProps, withNotification } from '@HOC/withNotification'
 import { withPublic } from '@HOC/withPublic'
 import EntryControl from '@components/EntryControl/EntryControl'
 import EntryWelcome from '@components/EntryWelcome/EntryWelcome'
-import Notification from '@components/Notification/Notification'
 import RowField from '@components/RowField/RowField'
 import { useAuth } from '@hooks/useAuth'
 import { IUserSignup } from '@interfaces/IUser'
@@ -15,10 +14,9 @@ import { YupSchemas } from '@utils/schemas'
 import CS from '@common.module.scss'
 import S from '@styles/Signup.module.scss'
 
-const Signup = () => {
+const Signup: React.VFC<IWithNotificationProps> = ({ setAnswerFromServer, notification }) => {
   const { signup } = useAuth()
   const router = useRouter()
-  const [answerFromServer, setAnswerFromServer] = useState({ message: '', isError: false })
 
   const initialValues = {
     name: '',
@@ -95,7 +93,7 @@ const Signup = () => {
                 error={errors.passwordConfirm}
                 touched={touched.passwordConfirm}
               />
-              {answerFromServer.message && <Notification answerFromServer={answerFromServer} />}
+              {notification}
               <button type="submit" className={`${CS.btnPrimary} ${S.submit}`}>
                 Sign up
               </button>
@@ -113,4 +111,4 @@ const Signup = () => {
   )
 }
 
-export default withPublic(Signup, 'Sign up')
+export default withNotification(withPublic(Signup, 'Sign up'))

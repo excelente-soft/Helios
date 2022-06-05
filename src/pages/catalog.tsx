@@ -69,7 +69,9 @@ const Catalog = () => {
         onSave={setSearch}
       />
       <Table>
-        {foundedCourses && foundedCourses.map((course) => <CourseCard key={course.name} course={course} />)}
+        {foundedCourses.map((course) => (
+          <CourseCard key={course.name} course={course} />
+        ))}
       </Table>
     </Layout>
   )

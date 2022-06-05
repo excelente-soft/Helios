@@ -44,6 +44,7 @@ const CourseCard: React.VFC<ICourseCardProps> = ({ course, url, progress, hasCer
 
   const isNew = course.creationDate.getTime() > Date.now() - WEEK
   const isProgress = progress !== undefined
+  const isGotCertificate = progress === 100 && !gotCertificate
   return (
     <div className={S.card}>
       <Link href={`${url ? url : `/catalog/${encodeURIComponent(course.name)}`}`}>
@@ -65,7 +66,7 @@ const CourseCard: React.VFC<ICourseCardProps> = ({ course, url, progress, hasCer
           {isNew && <div className={S.new}>NEW</div>}
         </a>
       </Link>
-      {progress === 100 && !gotCertificate && (
+      {isGotCertificate && (
         <button onClick={getCertificateHandler} className={`${S.btnCertificate} ${CS.btnSecondary} ${CS.btnBasicSize}`}>
           Get certificate
         </button>

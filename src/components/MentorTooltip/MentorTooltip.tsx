@@ -6,7 +6,8 @@ import S from './MentorTooltip.module.scss'
 type IMentorTooltipProps = TooltipProps<ValueType, NameType>
 
 const MentorTooltip: React.VFC<IMentorTooltipProps> = ({ payload, label, active }) => {
-  if (active && payload && payload.length) {
+  const hasPayload = active && payload && payload.length > 0
+  if (hasPayload) {
     return (
       <div className={S.tooltip}>
         <p className={S.label}>{label}</p>

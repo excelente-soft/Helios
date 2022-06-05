@@ -4,7 +4,6 @@ import { VFC, useEffect } from 'react'
 
 import Layout from '@components/Layout/Layout'
 import PageLoader from '@components/PageLoader/PageLoader'
-import { useAppSelector } from '@hooks/app'
 import { useUser } from '@hooks/useUser'
 import { IUser } from '@interfaces/IUser'
 
@@ -14,9 +13,8 @@ export interface IWithAuthorizationProps {
 
 export function withAuthorization<T>(Component: VFC<T>, title: string) {
   return (props: T & IWithAuthorizationProps) => {
-    const user = useAppSelector((state) => state.user)
     const router = useRouter()
-    const { validate } = useUser()
+    const { validate, user } = useUser()
 
     useEffect(() => {
       const validateUser = async () => {

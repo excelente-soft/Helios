@@ -17,7 +17,6 @@ const Profile = () => {
   const { nickname } = router.query
   const [isFetched, setFetched] = useState(false)
   const [userProfile, setUserProfile] = useState<IAnotherUserProfile>()
-  const [userRole, setUserRole] = useState<IRole>()
   const { user } = useUser()
 
   useEffect(() => {
@@ -37,7 +36,6 @@ const Profile = () => {
         )
         if (responseFromServer.data) {
           setUserProfile(responseFromServer.data)
-          setUserRole(responseFromServer.data.role)
         }
         setFetched(true)
       }
@@ -46,17 +44,20 @@ const Profile = () => {
   }, [router.isReady])
 
   const changeUserRoleHandler = (newRole: IRole) => {
-    setUserRole(newRole)
+    if (userProfile) {
+      setUserProfile({ ...userProfile, role: newRole })
+    }
   }
 
+  const hasUserProfile = isFetched && userProfile
+  const isUserProfileNotFound = isFetched && !userProfile
   return (
     <Layout title={`${`${userProfile ? userProfile.nickname : 'Loading user profile'}`}`}>
-      {isFetched && !userProfile && <ErrorRoute description="This user could not be found." />}
-      {isFetched && userProfile && userRole && (
+      {isUserProfileNotFound && <ErrorRoute description="This user could not be found." />}
+      {hasUserProfile && (
         <div className={CS.pageContainer}>
           <h2 className={CS.pageTitle}>User profile</h2>
           <ProfileHeader
-            userRole={userRole}
             userProfile={userProfile}
             targetAccessLevel={user?.role.accessLevel}
             token={user?.token}

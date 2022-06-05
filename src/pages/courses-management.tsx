@@ -31,20 +31,18 @@ const СoursesManagement: React.VFC<IWithAdminProps> = ({ user }) => {
     fetchCoursesToManage()
   }, [])
 
-  const hasCoursesToManage = coursesToManage.length > 0
   return (
     <div className={CS.pageContainer}>
       <h2 className={CS.pageTitle}>Courses management</h2>
       <div className={S.tableWrapper}>
         <Table noPadding>
-          {hasCoursesToManage &&
-            coursesToManage.map((course) => (
-              <CourseCard
-                key={course.name}
-                course={course}
-                url={`/courses-management/${encodeURIComponent(course.id)}`}
-              />
-            ))}
+          {coursesToManage.map((course) => (
+            <CourseCard
+              key={course.name}
+              course={course}
+              url={`/courses-management/${encodeURIComponent(course.id)}`}
+            />
+          ))}
         </Table>
       </div>
     </div>

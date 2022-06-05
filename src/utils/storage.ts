@@ -15,7 +15,6 @@ const saveItemToStorage = <T>(key: string, value: T) => {
     window.localStorage.setItem(key, JSON.stringify(value))
     return true
   } catch (error) {
-    console.log(`Cannot set an item to local storage`)
     return false
   }
 }
@@ -25,7 +24,6 @@ const removeItemFromStorage = (key: string) => {
     window.localStorage.removeItem(key)
     return true
   } catch (error) {
-    console.log(`Cannot remove an item from local storage`)
     return false
   }
 }

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip } from 'recharts'
 
 import MentorTooltip from '@components/MentorTooltip/MentorTooltip'
-import { IFeedbackRaw } from '@interfaces/IFeedback'
+import { IFeedback } from '@interfaces/IFeedback'
 import { RequestUtility } from '@utils/request'
 
 import S from './MentorHeader.module.scss'
@@ -12,11 +12,11 @@ interface IMentorHeaderProps {
 }
 
 const MentorHeader: React.VFC<IMentorHeaderProps> = ({ token }) => {
-  const [feedbacks, setFeedbacks] = useState<IFeedbackRaw[]>([])
+  const [feedbacks, setFeedbacks] = useState<IFeedback[]>([])
 
   useEffect(() => {
     const fetchFeedbacks = async () => {
-      const feedbacksResponse = await RequestUtility.requestToServer<IFeedbackRaw[]>(
+      const feedbacksResponse = await RequestUtility.requestToServer<IFeedback[]>(
         'GET',
         '/feedbacks-chart',
         null,

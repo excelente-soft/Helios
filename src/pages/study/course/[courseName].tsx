@@ -18,7 +18,7 @@ const StudyCourse: React.VFC<IWithAuthorizationProps> = ({ user }) => {
   const router = useRouter()
   const [course, setCourse] = useState<ICourse>()
   const [allGrades, setAllGrades] = useState<IGrade[]>([])
-  const [tasks, setTasks] = useState<ITaskWithGrade[]>()
+  const [tasks, setTasks] = useState<ITaskWithGrade[]>([])
   const [isFetched, setFetched] = useState(false)
   const { courseName } = router.query
 
@@ -54,21 +54,27 @@ const StudyCourse: React.VFC<IWithAuthorizationProps> = ({ user }) => {
     }
   }, [router.isReady])
 
+  const isCourseNotFound = isFetched && !course
   return (
     <div className={CS.pageContainer}>
-      {isFetched && !course && <ErrorRoute description="This course could not be found." />}
+      {isCourseNotFound && <ErrorRoute description="This course could not be found." />}
       {course && (
         <>
           <h2 className={CS.pageTitle}>{course.name}</h2>
           <h4 className={S.courseDescription}>{course.description}</h4>
           <div className={S.blockWrapper}>
             <Block noMargin>
-              <div className={S.tasksContainer}>
-                {tasks &&
-                  tasks.map((task) => <Task key={task.id} task={task} completed={task.grade >= 4 ? true : false} />)}
-              </div>
+              {tasks.length > 0 && (
+                <div className={S.tasksContainer}>
+                  {tasks.map((task) => (
+                    <Task key={task.id} task={task} completed={task.grade >= 4 ? true : false} />
+                  ))}
+                </div>
+              )}
+              {tasks.length === 0 && <h3 className={S.noTasks}>There are no tasks in this course.</h3>}
             </Block>
           </div>
+
           <GradesChart grades={allGrades} />
         </>
       )}

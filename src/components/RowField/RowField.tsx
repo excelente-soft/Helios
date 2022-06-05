@@ -14,20 +14,14 @@ interface IRowFieldProps {
 }
 
 const RowField: React.VFC<IRowFieldProps> = ({ id, placeholder, name, label, error, touched, type }) => {
+  const hasError = error && touched
   return (
     <div className={S.fieldRow}>
       <label htmlFor={id} className={CS.label}>
         {label}
       </label>
-      <Field
-        id={id}
-        type={type}
-        className={CS.field}
-        placeholder={placeholder}
-        name={name}
-        aria-invalid={error && touched}
-      />
-      {error && touched && <span className={S.errorField}>{error}</span>}
+      <Field id={id} type={type} className={CS.field} placeholder={placeholder} name={name} aria-invalid={hasError} />
+      {hasError && <span className={S.errorField}>{error}</span>}
     </div>
   )
 }

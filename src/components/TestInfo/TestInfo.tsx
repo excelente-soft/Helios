@@ -8,15 +8,16 @@ interface ITestInfoProps {
 }
 
 const TestInfo: React.VFC<ITestInfoProps> = ({ name, time, totalQuestions }) => {
+  const timeForQuestion = totalQuestions === 0 ? time : (time / totalQuestions).toFixed(1)
   return (
     <>
       <h3 className={CS.subtitle}>{name}</h3>
       <div>
         <p className={S.infoRow}>
-          Test Time: <strong>{time / 60} minutes</strong>
+          Test Time: <strong>{(time / 60).toFixed(1)} minutes</strong>
         </p>
         <p className={S.infoRow}>
-          Time for question: <strong>{(time / totalQuestions).toFixed(1)} seconds</strong>
+          Time for question: <strong>{timeForQuestion} seconds</strong>
         </p>
         <p className={S.infoRow}>
           Number of Questions: <strong>{totalQuestions}</strong>

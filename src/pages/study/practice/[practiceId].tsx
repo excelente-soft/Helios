@@ -37,9 +37,7 @@ const Practice: React.VFC<IWithAuthorizationProps> = ({ user }) => {
       {practice && (
         <PracticeView pageTitle="Practice" practice={practice}>
           <PracticeSubmit token={user.token} practiceId={practice.id} />
-          {practice && (
-            <Feedbacks practiceId={practiceId?.toString()} courseId={practice.courseId} token={user.token} />
-          )}
+          <Feedbacks practiceId={practiceId?.toString()} courseId={practice.courseId} token={user.token} />
         </PracticeView>
       )}
     </>
