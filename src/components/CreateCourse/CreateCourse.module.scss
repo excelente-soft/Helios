@@ -69,6 +69,12 @@
   margin-top: 1.75rem;
 }
 
+@include tablet() {
+  .preview {
+    padding: 1.25rem;
+  }
+}
+
 @include mobile {
   .imageContainer {
     flex-direction: column;
@@ -77,5 +83,8 @@
   .imageControls {
     gap: 1rem;
     flex-direction: row;
+  }
+  .preview {
+    padding: 0.8rem;
   }
 }

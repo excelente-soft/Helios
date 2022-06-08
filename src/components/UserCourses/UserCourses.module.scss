@@ -1,4 +1,5 @@
 @import '@variables';
+@import '@mixins';
 
 .userCoursesContainer {
   padding: 1.75rem;
@@ -12,4 +13,16 @@
   font-weight: 500;
   margin: 0;
   text-align: center;
+}
+
+@include tablet() {
+  .userCoursesContainer {
+    padding: 1.25rem;
+  }
+}
+
+@include mobile() {
+  .userCoursesContainer {
+    padding: 0.8rem;
+  }
 }
