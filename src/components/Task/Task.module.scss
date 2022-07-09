@@ -44,19 +44,19 @@
 }
 
 .completedIcon {
-  background-image: url('../../../public/images/complete.svg');
+  background-image: url('/images/complete.svg');
 }
 
 .lectureIcon {
-  background-image: url('../../../public/images/lecture-not-completed.svg');
+  background-image: url('/images/lecture-not-completed.svg');
 }
 
 .practiceIcon {
-  background-image: url('../../../public/images/practice-not-completed.svg');
+  background-image: url('/images/practice-not-completed.svg');
 }
 
 .testIcon {
-  background-image: url('../../../public/images/test-not-completed.svg');
+  background-image: url('/images/test-not-completed.svg');
 }
 
 @include mobile {
